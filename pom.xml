@@ -23,6 +23,49 @@
 		<main.class>inf112.skeleton.app.Main</main.class>
 	</properties>
 
+	<repositories>
+		<!-- SNAPSHOT repo for Mac version -->
+		<repository>
+			<id>sonatype-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<profiles>
+		<!-- Fix for Mac startup issue -->
+		<profile>
+			<id>inf112-macosx</id>
+			<properties>
+				<exec.args>-XstartOnMainThread</exec.args>
+			</properties>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+		</profile>
+		<!-- We need the SNAPSHOT version of libgdx in order to support the M1 processor -->
+		<profile>
+			<id>inf112-macosx-aarch64</id>
+			<properties>
+				<libgdx.version>1.10.1-SNAPSHOT</libgdx.version>
+			</properties>
+			<activation>
+				<os>
+					<family>mac</family>
+					<arch>aarch64</arch>
+				</os>
+			</activation>
+		</profile>
+	</profiles>
+
+
 	<dependencies>
 		<!--libGDX graphics library – https://libgdx.com/ -->
 		<dependency>
@@ -60,7 +103,13 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>${main.class}</mainClass>
+					<!-- mainClass>${main.class}</mainClass -->
+					<executable>${java.home}/bin/java</executable>
+					<arguments>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>${main.class}</argument>
+					</arguments>
 				</configuration>
 			</plugin>
 			<!-- Build a fat uber-jar with all dependencies -->
