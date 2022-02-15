@@ -21,6 +21,7 @@
 		<libgdx.version>1.10.0</libgdx.version>
 		<!-- FIXME - set to app's main class' -->
 		<main.class>inf112.skeleton.app.Main</main.class>
+		<jvm.extra.args></jvm.extra.args>
 	</properties>
 
 	<repositories>
@@ -42,7 +43,7 @@
 		<profile>
 			<id>inf112-macosx</id>
 			<properties>
-				<exec.args>-XstartOnMainThread</exec.args>
+				<jvm.extra.args>-XstartOnFirstThread</jvm.extra.args>
 			</properties>
 			<activation>
 				<os>
@@ -106,6 +107,7 @@
 					<!-- mainClass>${main.class}</mainClass -->
 					<executable>${java.home}/bin/java</executable>
 					<arguments>
+						<argument>${jvm.extra.args}</argument>
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>${main.class}</argument>
