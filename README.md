@@ -5,7 +5,7 @@ Simple skeleton with [libGDX](https://libgdx.com/). See the tutorial in [Filer /
 
 On Mac OS X:
 
-* The application won't start without giving the JVM the `-XstartOnMainThread` option. In Eclipse, you can set this up with *Run → Run Configurations...*, then choosing the *Arguments* tab and adding `-XstartOnMainThread` to *VM argument*. [Check this screenshot.](https://git.app.uib.no/inf112/22v/lectures/-/raw/master/img/eclipse-vm-args.png)
+* The application won't start without giving the JVM the `-XstartOnFirstThread` option. In Eclipse, you can set this up with *Run → Run Configurations...*, then choosing the *Arguments* tab and adding `-XstartOnFirstThread` to *VM argument*. [Check this screenshot.](https://git.app.uib.no/inf112/22v/lectures/-/raw/master/img/eclipse-vm-args.png)
 
 * On Macs with the M1 processor, a newer version of libgdx is needed. The Maven [`pom.xml`](pom.xml) file has been set up to use version `1.10.1-SNAPSHOT` automatically.
 
