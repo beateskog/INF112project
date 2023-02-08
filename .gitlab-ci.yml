@@ -1,48 +1,109 @@
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Maven.gitlab-ci.yml
+stages:
+  - build
+  - test
+  - package
+  - deploy
 
-# Build JAVA applications using Apache Maven (http://maven.apache.org)
-# For docker image tags see https://hub.docker.com/_/maven/
-#
-# For general lifecycle information see https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-
-# This template will build and test your projects
-# * Caches downloaded dependencies and plugins between invocation.
-# * Verify but don't deploy merge requests.
-# * Deploy built artifacts from master branch only.
 
 variables:
   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
-  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_OPTS: ""
   # As of Maven 3.3.0 instead of this you may define these options in `.mvn/maven.config` so the same config is used
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true -Dmaven.compiler.staleMillis=3600000 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
 
-# This template uses jdk8 for verifying and deploying images
-image: maven:3.8.4-openjdk-17
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+
+code_quality:
+  artifacts:
+    paths: [gl-code-quality-report.json]
+    
+workflow:
+  rules:
+    # run a merge request pipeline if that makes sense
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # don't run a branch pipeline on commits if we'll run a merge request pipeline
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    # do run a branch pipeline for other commits
+    - if: '$CI_COMMIT_BRANCH'
+
+#  rules:
+#      - changes:  
+#          - src/**/*
+#          - pom.xml
+
+# Use Maven 3.8.4 on OpenJDK 17 with 'slim' Ubuntu 
+image: maven:3.8.4-openjdk-17-slim
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
 cache:
   paths:
     - .m2/repository
+  key: "$CI_JOB_NAME"
 
-# For merge requests do not `deploy` but only run `verify`.
-# See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-.verify: &verify
+# run mvn compile to build the project
+build:
+  stage: build
+  script:
+    - 'mvn $MAVEN_CLI_OPTS compile'
+  artifacts:
+    paths:
+      - target/
+
+# run mvn verify to compile and test the project
+verify:
   stage: test
   script:
+    - find src target -ls
     - 'mvn $MAVEN_CLI_OPTS verify'
+    - '[ -f target/site/jacoco/index.html ] && sed -E -e "s;^.*Total[^%]*>([0-9]+%)<.*$;Total Coverage: \\1\\n;g" target/site/jacoco/index.html'
+  artifacts:
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  dependencies:
+    - build
 
-# Verify merge requests using JDK8
-verify:jdk8:
-  <<: *verify
+# run mvn package to build jar files
+package:
+  stage: package
+  script:
+    - 'mvn $MAVEN_CLI_OPTS package'
+  artifacts:
+    paths:
+      - target/*.jar
+  dependencies:
+    - verify
 
 # To deploy packages from CI, create a ci_settings.xml file
 # For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for more details.
-# Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
 # For `master` branch run `mvn deploy` automatically.
+deploy:
+  stage: deploy
+  script:
+    - if [ ! -f ci_settings.xml ];
+        then echo "CI settings missing\! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/packages/maven_repository/index.html#create-maven-packages-with-gitlab-cicd for instructions.";
+      else
+         mvn $MAVEN_CLI_OPTS deploy -s ci_settings.xml
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - ci_settings.xml
+  dependencies:
+    - package
+
+check updates:
+  stage: test
+  script:
+    - mvn versions:display-plugin-updates versions:display-property-updates versions:display-dependency-updates -D allowMajorUpdates=false
+
+
