@@ -1,6 +1,3 @@
-[![pipeline status](badges/main/pipeline.svg)](-/commits/main) [![coverage report](badges/main/coverage.svg)](-/commits/main)
-
-
 # INF112 libGDX + Maven template 
 Simple skeleton with [libGDX](https://libgdx.com/). See the tutorial in [Filer / Tutorials](https://mitt.uib.no/courses/33532/files/folder/Tutorials) on Mitt UiB. 
 
@@ -16,12 +13,12 @@ Simple skeleton with [libGDX](https://libgdx.com/). See the tutorial in [Filer /
 This project comes with a working Maven `pom.xml` file. You should be able to import it into Eclipse using *File → Import → Maven → Existing Maven Projects* (or *Check out Maven Projects from SCM* to do Git cloning as well). You can also build the project from the command line with `mvn clean compile` and test it with `mvn clean test`.
 
 Pay attention to these folders:
-* `src/main/java` – Java source files go here (as usual for Maven)
-* `src/main/resources` – data files go here, for example in an `assets` sub-folder
+* `src/main/java` – Java source files go here (as usual for Maven) – **IMPORTANT!!** only `.java` files, no data files / assets
+* `src/main/resources` – data files go here, for example in an `assets` sub-folder – **IMPORTANT!** put data files here, or they won't get included in the jar file
 * `src/test/java` – JUnit tests
 * `target/classes` – compiled Java class files
 
-You should probably edit the `pom.xml` and fill in details such as the project `name` and `artifactId`:
+**TODO:** You should probably edit the `pom.xml` and fill in details such as the project `name` and `artifactId`:
 
 
 ```xml
@@ -47,9 +44,6 @@ You can run the project from Eclipse, or with Maven using `mvn exec:java`. Chang
 		<main.class>inf112.skeleton.app.Main</main.class>
 ```
 
-If you run `mvn package` you'll get a everything bundled up into a JAR file
-* `target/*.jar` – your compiled project, packaged in a JAR file
-
 ## Jar Files
 
 If you run `mvn package` you get everything bundled up into a `.jar` file + a ‘fat’ Jar file where all the necessary dependencies have been added:
@@ -57,7 +51,10 @@ If you run `mvn package` you get everything bundled up into a `.jar` file + a �
 * `target/NAME-VERSION.jar` – your compiled project, packaged in a JAR file
 * `target/NAME-VERSION-fat.jar` – your JAR file packaged with dependencies
 
-Run Jar files with, for example, `java -jar target/javafx-app-1.0-SNAPSHOT-fat.jar`.
+Run Jar files with, for example, `java -jar target/NAME-VERSION-fat.jar`.
+
+## Git Setup
+If you look at *Settings → Repository* in GitLab, you can protect branches – for example, forbid pushing to the `main` branch so everyone have to use merge requests.
 
 ## Eclipse Setup
 
