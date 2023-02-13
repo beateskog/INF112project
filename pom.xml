@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<!-- FIXME - set group id -->
-	<groupId>no.uib.ii.inf112</groupId>
+	<groupId>no.uib.ii.inf112.mavenless</groupId>
 	<!-- FIXME - set artifact name -->
-	<artifactId>gdx-app</artifactId>
+	<artifactId>rona-survivors</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<!-- FIXME - set app name -->
-	<name>gdx-app</name>
+	<name>rona-survivors</name>
 	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>https://git.app.uib.no/mavenless/rona-survivors</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
