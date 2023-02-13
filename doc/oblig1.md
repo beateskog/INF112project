@@ -100,7 +100,7 @@ Relevant erfaring:
 * Overlev så lenge du klarer 
 * Verden er et kvadratisk gird, der kameraet bare viser en liten del av området
 
-## Oppgave A3:
+## Oppgave A3 (Velg og tilpass en prosess for teamet):
 
 * Prosjektmetodikk: Scrum 
 * Møter og hyppighet: Mandager 08.15-10.00 og Torsdager 10.00-12.00 
@@ -109,7 +109,9 @@ Relevant erfaring:
 * Oppfølging av arbeid: 
 * Deling og oppbevaring av felles dokumenter, diagram og kodebase: GitLab  
 
-MVP: 
+## Oppgave A3 (Få oversikt over forventet produkt):
+
+### MVP (minimum viable product): 
 * 1. Vise et spillebrett
 * 2. Vise spiller på spillbrettet 
 * 3. Flytte spiller i alle retninger 
