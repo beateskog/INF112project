@@ -5,13 +5,13 @@ kort beskrivelse av spillet og hvordan det brukes (f.eks. hvilke tastetrykk som 
 hvordan koden kjøres.
 hvor evt. grafikk/lyd-ressurser er hentet fra.
 
-# INF112 Project – *[Insert project name here]*
+# INF112 Project – *Rona Survivors*
 
 * Team: *Mavenless* (Gruppe 4.1): *Askild Heiret, Beate Skogvik, Kristian Fredrik Rognsvaag, Kristian Skeie, Tobias Husebø*
 * Lenke til GitLab/Trello/etc.
 
 ## Om spillet
-*«Her putter vi info om spillet, duuuh»*
+Du er en lege som må kjempe seg gjennom alt en pandemi kan kaste mot deg. 
 
 ## Kjøring
 * Kompileres med `mvn package`.
@@ -19,10 +19,11 @@ hvor evt. grafikk/lyd-ressurser er hentet fra.
 * Krever Java 15 eller senere
 
 ## Kjente feil
-
+Ingenting hittil 😅
 
 ## Credits
-Tileset fra https://opengameart.org/content/2d-cave-platformer-tileset-16x16
+Ingenting hittil 😎
+<!-- Tileset fra https://opengameart.org/content/2d-cave-platformer-tileset-16x16 -->
 
 
 ## Development-style og Rollefordeling:
