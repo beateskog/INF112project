@@ -112,17 +112,17 @@ Relevant erfaring:
 ## Oppgave A3 (Få oversikt over forventet produkt):
 
 ### MVP (minimum viable product): 
-* 1. Vise et spillebrett
-* 2. Vise spiller på spillbrettet 
-* 3. Flytte spiller i alle retninger 
-* 4. Fiender som går i mot spiller 
-* 5. Spiller kan skyte automatisk 
-* 6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
-* 7. Fiender blir sterkere over tid
-* 8. Spillfigur kan få oppgraderinger underveis 
-* 9. Mål for spillbrett: få nok poeng
-* 10. Låser opp nytt spillbrett/nytt nivå 
-* 11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
+1. Vise et spillebrett
+2. Vise spiller på spillbrettet 
+3. Flytte spiller i alle retninger 
+4. Fiender som går i mot spiller 
+5. Spiller kan skyte automatisk 
+6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
+7. Fiender blir sterkere over tid
+8. Spillfigur kan få oppgraderinger underveis 
+9. Mål for spillbrett: få nok poeng
+10. Låser opp nytt spillbrett/nytt nivå 
+11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
 
 ## Oppgave A4:
 
