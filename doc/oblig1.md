@@ -91,12 +91,21 @@ Relevant erfaring:
 
 ## Oppgave A2:
 
+* Baserer spillet vårt på Vampire Survivors 
+* Spillfigur som kan styres - gå i alle retninger
+* Fugleperspektiv
+* Skyter automatisk mot nærmeste fiende 
+* Når du skyter fiender får du XP som leder til power-ups 
+* Fiender som beveger seg mot spillfigur 
+* Overlev så lenge du klarer 
+* Verden er et kvadratisk gird, der kameraet bare viser en liten del av området
+
 ## Oppgave A3:
 
 * Prosjektmetodikk: Scrum 
 * Møter og hyppighet: Mandager 08.15-10.00 og Torsdager 10.00-12.00 
 * Kommunikasjon mellom møter: Discord 
-*  Arbeidsfordeling: 
+* Arbeidsfordeling: 
 * Oppfølging av arbeid: 
 * Deling og oppbevaring av felles dokumenter, diagram og kodebase: GitLab  
 
