@@ -109,6 +109,15 @@ Relevant erfaring:
 * Oppfølging av arbeid: 
 * Deling og oppbevaring av felles dokumenter, diagram og kodebase: GitLab  
 
+MVP: 
+* 1. Vise et spillebrett
+* 2. Vise spiller på spillbrettet 
+* 3. Flytte spiller i alle retninger 
+* 4. Fiender som går i mot spiller 
+* 5. Spiller kan skyte automatisk 
+* 6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
+* 7. Mål for spillbrett: få nok poeng
+
 ## Oppgave A4:
 
 ## Oppgave A5:
