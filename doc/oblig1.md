@@ -116,7 +116,11 @@ MVP:
 * 4. Fiender som går i mot spiller 
 * 5. Spiller kan skyte automatisk 
 * 6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
-* 7. Mål for spillbrett: få nok poeng
+* 7. Fiender blir sterkere over tid
+* 8. Spillfigur kan få oppgraderinger underveis 
+* 9. Mål for spillbrett: få nok poeng
+* 10. Låser opp nytt spillbrett/nytt nivå 
+* 11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
 
 ## Oppgave A4:
 
