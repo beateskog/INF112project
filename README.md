@@ -11,11 +11,11 @@ hvor evt. grafikk/lyd-ressurser er hentet fra.
 * Lenke til GitLab/Trello/etc.
 
 ## Om spillet
-Du er en lege som må kjempe seg gjennom alt en pandemi kan kaste mot deg. 
+Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg. 
 
 ## Kjøring
-* Kompileres med `mvn package`.
-* Kjøres med `java -jar target/kurt-mario-1.0-SNAPSHOT-fat.jar`
+* Kompileres med TBD
+* Kjøres med TBD
 * Krever Java 15 eller senere
 
 ## Kjente feil
@@ -29,6 +29,7 @@ Ingenting hittil 😎
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
 1. *Scrum-master* @Kristian.Rognsvaag
+&nbsp;&nbsp; &nbsp; &nbsp;  Kristian Fredrik har mest erfaring av oss alle, og er derfor en naturlig leder. 
 2. *Dev. Team-member* @Askild.Heiret
 3. *Dev. Team-member* @Kristian.Skeie
 4. *Dev. Team-member* @Tobias.Husebo
