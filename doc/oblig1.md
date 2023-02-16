@@ -126,6 +126,10 @@ Relevant erfaring:
 10. Låser opp nytt spillbrett/nytt nivå 
 11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
 
+### Brukerhistorier 
+
+
+
 ## Oppgave A4:
 
 ## Oppgave A5:
