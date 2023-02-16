@@ -111,6 +111,8 @@ Relevant erfaring:
 
 ## Oppgave A3 (Få oversikt over forventet produkt):
 
+* Det overordnede målet er at vi skal lage et "roguelike shoot'em up" spill. Vi skal ha et velfungerende spill som har høy replayability!  Brukervennlig med lett forståelige kontroller og pixel art. 
+
 ### MVP (minimum viable product): 
 1. Vise et spillebrett
 2. Vise spiller på spillbrettet 
