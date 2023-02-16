@@ -158,8 +158,9 @@ Relevant erfaring:
 * Nye spillbrett nivå byr på økt utfordring og krever at spilleren bruker nye strategier, eller ferdigheter for å fullføre dem.
 * Hvert nye nivå oppleves som spennende og utfordrende for å gi spilleren motivasjon til å fortsette å spille.
 
-
-
 ## Oppgave A4:
+
+* Vi har fått opp ramme, lagt inn en sprite, og oppdatert  tittel og bakgrunnsfarge. 
+* Alle har også studert dokumentasjonen til LibGDX, og har bestemt oss for å bruke Gradle. 
 
 ## Oppgave A5:
