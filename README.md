@@ -31,9 +31,13 @@ Ingenting hittil 😎
 1. *Scrum-master* @Kristian.Rognsvaag
 &nbsp;&nbsp; &nbsp; &nbsp;  Kristian Fredrik har mest erfaring av oss alle, og er derfor en naturlig leder. 
 2. *Dev. Team-member* @Askild.Heiret
+&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
 3. *Dev. Team-member* @Kristian.Skeie
+&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
 4. *Dev. Team-member* @Tobias.Husebo
+&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
 5. *Dev. Team-member* @Beate.Skogvik
+&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
     
 
 * Link to Issueboard: 
