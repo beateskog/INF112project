@@ -96,6 +96,13 @@
 			<artifactId>gdx</artifactId>
 			<version>${libgdx.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-freetype</artifactId>
+			<version>${libgdx.version}</version>
+		</dependency>
+
 		<!-- Platform-specific libraries -->
 		<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
