@@ -28,11 +28,11 @@ Ingenting hittil 😎
 
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
-1. *Scrum-master* TBD
-2. *Dev. Team-member* TBD
-3. *Dev. Team-member* TBD
-4. *Dev. Team-member* TBD
-5. *Dev. Team-member* TBD
+1. *Scrum-master* @Kristian.Rognsvaag
+2. *Dev. Team-member* @Askild.Heiret
+3. *Dev. Team-member* @Kristian.Skeie
+4. *Dev. Team-member* @Tobias.Husebo
+5. *Dev. Team-member* @Beate.Skogvik
     
 
 * Link to Issueboard: 
