@@ -164,3 +164,9 @@ Relevant erfaring:
 * Alle har også studert dokumentasjonen til LibGDX, og har bestemt oss for å bruke Gradle. 
 
 ## Oppgave A5:
+
+- Vi har bestemt oss for å bytte til Gradle, da dette var anbefalt ifølge LibGDX dokumentasjonen.
+- Vi syntes avgjørelser ang. rollefordeling og planlegging har vært noe vanskelig, da vi er i en tidlig fase av prosjektet. Dette gjør at vi ikke har en klar oversikt over de ulike rollene vi ønsker/trenger for prosjektet. 
+- Vi ser frem til å jobbe videre med prosjektet, og kunne jobbe med mer spesifikke oppgaver.
+- Vi var raskt igang med å opprette discord-kanal første uken, samt avtale faste møtetidspunkt. Vi føler vi har god kommunikasjon innad.
+- Den største utfordringen har vært å ta beslutninger da vi er 5 personer med ulike synspunkt og nettopp har møttes.
