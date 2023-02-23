@@ -16,3 +16,16 @@ Oppsumering/forbedringspunkter:
     2. Bedre kommunikasjon
     3. Avklare arbeidsoppgaver
 
+
+Planlegging for videre arbeid (ressurser):
+- Spine for figurer / movable monsters & objects /  (http://en.esotericsoftware.com/)
+- Tiled for bakgrunn / verden / level (https://www.mapeditor.org/)
+    - HyperLap2D dersom Tiled dersom tiled ikke strekker til
+- 2D Particle Editor 
+
+
+Prio innen neste fredag
+- lage tile for verden
+- vise verden 
+- vise sprite på skjerm 
+- UI design (Shop, Main menu)
