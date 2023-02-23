@@ -1,0 +1,90 @@
+image: openjdk:8-jdk
+
+
+.protected_refs: &protected_refs
+  - master
+  - /^v(\d+\.){2}\d+$/
+
+.except_protected:
+  except:
+    refs:
+      *protected_refs
+
+stages:
+  - build
+  - test
+
+variables:
+  VERSION: $CI_BUILD_REF_NAME
+  CLASSPATH: desktop/build/libs/<your archiveBaseName here>-$CI_BUILD_REF_NAME.jar # <---CHANGE THIS TO MATCH archiveBaseName IN desktop/build.gradle
+  ANDROID_COMPILE_SDK: "28"
+  ANDROID_BUILD_TOOLS: "28.0.2"
+  ANDROID_SDK_TOOLS: "4333796"
+
+before_script:
+#  - echo `pwd` # debug
+#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
+#  - echo "$VERSION" # debug
+#  - echo "$CLASSPATH" # debug
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+  # install system dependencies
+  - apt-get --quiet update --yes
+  - apt-get --quiet install --yes curl wget zip
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+build:
+  stage: build
+  script:
+    # download packr, then build production dist jar of your game
+    - wget --quiet --output-document=packr.jar https://github.com/libgdx/packr/releases/download/4.0.0/packr-all-4.0.0.jar
+    - ./gradlew desktop:prodDist
+
+    # package dist with windows jdk
+    - curl https://cdn.azul.com/zulu/bin/zulu8.52.0.23-ca-jdk8.0.282-win_x64.zip --output zulu8.52.0.23-ca-jdk8.0.282-win_x64.zip
+    - java -jar packr.jar --classpath $CLASSPATH -- packr-windows_x64.config.json
+    - cd build && zip -r RonaSurvivors-windows64.zip windows64 && cd -
+    - rm zulu8.52.0.23-ca-jdk8.0.282-win_x64.zip
+
+    # package dist with linux jdk
+    - curl https://cdn.azul.com/zulu/bin/zulu8.52.0.23-ca-jdk8.0.282-linux_x64.zip --output zulu8.52.0.23-ca-jdk8.0.282-linux_x64.zip
+    - java -jar packr.jar --classpath $CLASSPATH -- packr-linux_x64.config.json
+    - cd build && zip -r RonaSurvivors-linux64.zip linux64 && cd -
+    - rm zulu8.52.0.23-ca-jdk8.0.282-linux_x64.zip
+
+    # package dist with mac x64 jdk
+    - curl https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.zip --output zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.zip
+    - java -jar packr.jar --classpath $CLASSPATH -- packr-mac_x64.config.json
+    - cd build/mac && zip -r ../RonaSurvivors.app.zip RonaSurvivors.app && cd -
+    - rm zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.zip
+
+    # package dist with mac aarch64 jdk
+    - curl https://cdn.azul.com/zulu/bin/zulu8.68.0.21-ca-jdk8.0.362-macosx_aarch64.zip --output zulu8.68.0.21-ca-jdk8.0.362-macosx_aarch64.zip
+    - java -jar packr.jar --classpath $CLASSPATH -- packr-mac_aarch64.config.json
+    - cd build/mac && zip -r ../RonaSurvivors.app.zip RonaSurvivors.app && cd -
+    - rm zulu8.68.0.21-ca-jdk8.0.362-macosx_aarch64.zip
+
+    # cleanup
+    - rm packr.jar
+  artifacts:
+    paths:
+      - build/*.zip
+  only:
+    refs:
+      - /^v(\d+\.){2}\d+$/
+
+test:
+  extends: .except_protected
+  stage: test
+  script:
+    - ./gradlew check
+  only:
+    refs:
+      - master
+
+after_script:
+  - echo "End CI"

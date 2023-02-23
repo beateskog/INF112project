@@ -1,0 +1,12 @@
+{
+  "platform": "mac",
+  "jdk": "zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.zip",
+  "executable": "RonaSurvivors",
+  "mainclass": "dev.krirogn.ronasurvivors.DesktopLauncher",
+  "vmargs": [
+    "-XstartOnFirstThread"
+  ],
+  "icon": "./assets/icons/icon.icns",
+  "minimizejre": "soft",
+  "output": "build/mac/RonaSurvivors.app"
+}
