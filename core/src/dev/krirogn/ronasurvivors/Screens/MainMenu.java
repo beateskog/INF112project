@@ -2,9 +2,7 @@ package dev.krirogn.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -21,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
@@ -29,20 +28,20 @@ public class MainMenu implements Screen {
 
     final RonaSurvivors game;
 
-    private OrthographicCamera camera;
+    private ExtendViewport extendViewport;
+
     private Stage stage;
     private Table table;
     private Texture backgroundTexture;
 
     public MainMenu(final RonaSurvivors game) {
         this.game = game;
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        extendViewport = new ExtendViewport(400f, 400f);
+        extendViewport.getCamera().position.set(200f, 200f, 1f);
 
         backgroundTexture = new Texture(Gdx.files.internal("sprites/menu background.png"));
 
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new ScreenViewport(), this.game.batch);
         // InputMultiplexer inputMultiplexer = new InputMultiplexer();
         // inputMultiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(stage);
@@ -100,7 +99,7 @@ public class MainMenu implements Screen {
         g.dispose();
         textButtonStyle.up = skin.getDrawable("default-round");
         textButtonStyle.down = skin.getDrawable("default-round-down");
-        
+
         final TextButton button2 = new TextButton("Shop", textButtonStyle);
         menuTable.add(button2).minWidth(200).spaceBottom(20);
         button2.addListener(new ChangeListener() {
@@ -133,25 +132,26 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.valueOf("452e52"));
-
-        camera.update();
-
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE))
-            Gdx.app.debug("Render", "SPACE");
+        ScreenUtils.clear(Color.RED);
 
         // Background
+        extendViewport.apply();
+        game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
         game.batch.begin();
-        game.batch.draw(backgroundTexture, 0, 0);
+        game.batch.draw(backgroundTexture, extendViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2f,
+                extendViewport.getCamera().position.y - Gdx.graphics.getHeight() / 2f, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
         game.batch.end();
 
         // Stage
+        stage.getViewport().apply();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
+        extendViewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
     }
 
