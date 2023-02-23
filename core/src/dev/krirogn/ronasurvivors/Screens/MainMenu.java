@@ -83,7 +83,7 @@ public class MainMenu implements Screen {
         generator.dispose();
 
         labelStyle.font = labelStyleFont;
-        Label label = new Label("Rona Survivors", labelStyle);
+        Label label = new Label("Rona Survivors v0.0.2", labelStyle);
         // label.scaleBy(20);
         titleTable.add(label).spaceTop(20);
 
