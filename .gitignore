@@ -115,3 +115,7 @@ Thumbs.db
 
 ## VSCode
 .vscode/
+
+## Build
+packr.jar
+zulu*

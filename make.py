@@ -1,7 +1,18 @@
 import argparse
-from os import remove, system, path
+from os import remove, system, path, walk
 import urllib.request
 from shutil import rmtree as rmdir
+import zipfile
+
+## Util functions
+## From https://stackoverflow.com/a/10480441 24/02/2023 14:04
+def zipfolder(target_dir, foldername):            
+    zipobj = zipfile.ZipFile(foldername + '.zip', 'w', zipfile.ZIP_DEFLATED)
+    rootlen = len(target_dir) + 1
+    for base, dirs, files in walk(target_dir):
+        for file in files:
+            fn = path.join(base, file)
+            zipobj.write(fn, fn[rootlen:])
 
 ## Compile functions
 def mac_x64():
@@ -23,7 +34,8 @@ def mac_x64():
     if system("java -jar packr.jar --classpath desktop/build/libs/desktop-1.0.jar -- packr-mac_x64.config.json") != 0:
         print("Something went wrong when compiling packaginf the jar")
         print("Removing packr.jar")
-        remove("packr.jar")
+        if path.exists("packr.jar"):
+            remove("packr.jar")
     print("\nSuccessfully packaged jar\n")
 
     # Remove JDK
@@ -49,7 +61,8 @@ def linux_x64():
     if system("java -jar packr.jar --classpath desktop/build/libs/desktop-1.0.jar -- packr-linux_x64.config.json") != 0:
         print("Something went wrong when compiling packaginf the jar")
         print("Removing packr.jar")
-        remove("packr.jar")
+        if path.exists("packr.jar"):
+            remove("packr.jar")
     print("\nSuccessfully packaged jar\n")
 
     # Remove JDK
@@ -75,7 +88,8 @@ def windows_x64():
     if system("java -jar packr.jar --classpath desktop/build/libs/desktop-1.0.jar -- packr-windows_x64.config.json") != 0:
         print("Something went wrong when compiling packaginf the jar")
         print("Removing packr.jar")
-        remove("packr.jar")
+        if path.exists("packr.jar"):
+            remove("packr.jar")
     print("\nSuccessfully packaged jar\n")
 
     # Remove JDK
@@ -90,35 +104,42 @@ ap = argparse.ArgumentParser()
 ## Add the arguments to the parser
 ap.add_argument(
     "-a", "--arch",
-    required=True,
+    required=False,
     help="build an executable for the binary ['all', 'mac', 'linux', 'windows']",
     type=str
 )
+ap.add_argument(
+    "-d", "--dist",
+    required=False,
+    help="zippes up the build directories for distribution",
+    action='store_true'
+)
 args = vars(ap.parse_args())
 
-
 ## Sanity checks
-supportedArchs = ['all', 'mac', 'linux', 'windows']
-if args['arch'] not in supportedArchs:
+supportedArchs = ['mac', 'linux', 'windows']
+if args['arch'] not in supportedArchs and not 'all':
     print('"' + args['arch'] + '" is not a supported compile architecture')
     print("The supported architecture options are: ", end="")
     print(supportedArchs)
     exit(1)
 
-## Download packr
-print("Download the libGDX packr")
-urllib.request.urlretrieve(
-    "https://github.com/libgdx/packr/releases/download/4.0.0/packr-all-4.0.0.jar",
-    "packr.jar"
-)
+if args['arch'] != None:
+    ## Download packr
+    print("Download the libGDX packr")
+    urllib.request.urlretrieve(
+        "https://github.com/libgdx/packr/releases/download/4.0.0/packr-all-4.0.0.jar",
+        "packr.jar"
+    )
 
-## Compile libGDX desktop
-print("Compile libGDX for desktop")
-if system("./gradlew desktop:dist") != 0:
-    print("Something went wrong when compiling libGDX for desktop")
-    print("Removing packr.jar")
-    remove("packr.jar")
-print("\nSuccessfully compiled libGDX\n")
+    ## Compile libGDX desktop
+    print("Compile libGDX for desktop")
+    if system("./gradlew desktop:dist") != 0:
+        print("Something went wrong when compiling libGDX for desktop")
+        print("Removing packr.jar")
+        if path.exists("packr.jar"):
+            remove("packr.jar")
+    print("\nSuccessfully compiled libGDX\n")
 
 if args['arch'] == "mac":
     print("Compiling for MacOS x86_64:")
@@ -135,6 +156,33 @@ elif args['arch'] == "all":
     linux_x64()
     windows_x64()
 
-## Cleanup
-print("Remove packr.jar")
-remove("packr.jar")
+if args['arch'] != None:
+    ## Cleanup
+    print("Remove packr.jar")
+    if path.exists("packr.jar"):
+        remove("packr.jar")
+
+
+## Dist
+if args['dist'] == True:
+    print("Packaging builds for distribution")
+    buildDirs = ['mac', 'linux64', 'windows64']
+    for build in buildDirs:
+        buildPath = "build/" + build
+        if path.exists(buildPath) and path.isdir(buildPath):
+            print(build)
+            if build == "mac":
+                # Cleanup
+                macZip = "build/Rona Survivors.app"
+                if path.exists(macZip + ".zip"):
+                    print("Remove old " + macZip + ".zip")
+                    remove(macZip + ".zip")
+                    
+                system('cd build/mac && zip -r "../Rona Survivors.app.zip" "Rona Survivors.app" && cd -')
+            else:
+                # Cleanup
+                if path.exists(buildPath + ".zip"):
+                    print("Remove old " + buildPath + ".zip")
+                    remove(buildPath + ".zip")
+                    
+                zipfolder(buildPath, buildPath)
