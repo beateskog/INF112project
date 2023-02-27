@@ -1,16 +1,18 @@
 package dev.krirogn.ronasurvivors.Screens;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -23,17 +25,14 @@ public class GameScreen implements Screen {
     final RonaSurvivors game;
 
     private InputUtil inputUtil;
+    private LevelUtil levelUtil;
 
     private ExtendViewport extendViewport;
+    private Box2DDebugRenderer box2dDebugRenderer;
 
     private float speed = 200f;
     private Rectangle player;
     private Sprite playerSprite;
-
-    private LevelUtil levelUtil;
-    private World world;
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private Box2DDebugRenderer box2dDebugRenderer;
 
     public GameScreen(final RonaSurvivors game) {
         this.game = game;
@@ -46,16 +45,34 @@ public class GameScreen implements Screen {
         // Input
         inputUtil = new InputUtil();
 
-        player = new Rectangle(400, 400, 16, 16);
-        playerSprite = new Sprite(new Texture("sprites/player.png"));
-
-        // Tiles
-        world = new World(new Vector2(0,0), true);
+        // World
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
-        levelUtil.LoadTileMap("maps/debugLevel2/debugLevel2.tmx");
-        orthogonalTiledMapRenderer = levelUtil.GetTileRenderer();
-        levelUtil.GetLayers();
+        levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
+
+        MapObjects mapObjs = levelUtil.tiledMap.getLayers().get("Collisions").getObjects();
+        for (int i = 0; mapObjs.getCount() > i; i++) {
+            List<String> keys = new ArrayList<>();
+            mapObjs.get(i).getProperties().getKeys().forEachRemaining((key) -> keys.add(key));
+
+            int k = 0;
+            Iterator<Object> vals = mapObjs.get(i).getProperties().getValues();
+            while (vals.hasNext()) {
+                Gdx.app.debug(keys.get(k).toString(), vals.next().toString());
+                k = k + 1;
+            }
+
+            System.out.println();
+        }
+
+        // Player
+        player = new Rectangle(
+            (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
+            (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
+            16,
+            16
+        );
+        playerSprite = new Sprite(new Texture("sprites/player.png"));
     }
 
     @Override
@@ -63,7 +80,7 @@ public class GameScreen implements Screen {
 
     private void update() {
         // Update physics
-        world.step(1/60f, 6, 8);
+        levelUtil.world.step(1/60f, 6, 2);
 
         // Move player
         float movementX = inputUtil.moveX();
@@ -71,9 +88,10 @@ public class GameScreen implements Screen {
             player.x + movementX * speed * Gdx.graphics.getDeltaTime(),
             player.y + inputUtil.moveY() * speed * Gdx.graphics.getDeltaTime()
         );
+        // Flip the sprite
         if (movementX < 0) {
             playerSprite.setFlip(true, false);
-        } else {
+        } else if (movementX > 0) {
             playerSprite.setFlip(false, false);
         }
 
@@ -81,8 +99,20 @@ public class GameScreen implements Screen {
         float halfWorldWidth = extendViewport.getWorldWidth() / 2;
         float halfWorldHeight = extendViewport.getWorldHeight() / 2;
         extendViewport.getCamera().position.set(
-            Math.min(Math.max(player.x, halfWorldWidth), 960 - halfWorldWidth),
-            Math.min(Math.max(player.y, halfWorldHeight), 960 - halfWorldHeight),
+            Math.min(
+                Math.max(
+                    player.x,
+                    halfWorldWidth
+                ),
+                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) - halfWorldWidth
+            ),
+            Math.min(
+                Math.max(
+                    player.y,
+                    halfWorldHeight
+                ),
+                (levelUtil.getMapHeight() * levelUtil.getTileHeight()) - halfWorldHeight
+            ),
             1
         );
         extendViewport.getCamera().update();
@@ -98,23 +128,23 @@ public class GameScreen implements Screen {
         // Clear screen
         ScreenUtils.clear(Color.BLACK);
         
-        // Updates
+        // Polls input system
         inputUtil.update();
 
-        // Setup Render
+        // Applies the camera
         extendViewport.apply();
 
         // Run game loop
         this.update();
 
         // Render
-        extendViewport.apply();
         game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
-        orthogonalTiledMapRenderer.setView((OrthographicCamera) extendViewport.getCamera());
-        orthogonalTiledMapRenderer.render();
+        levelUtil.render((OrthographicCamera) extendViewport.getCamera());
 
-        box2dDebugRenderer.render(world, extendViewport.getCamera().invProjectionView);
+        // Debug renderer for development!
+        box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
 
+        // Draw sprites
         game.batch.begin();
         game.batch.draw(playerSprite, player.x, player.y, player.width, player.height);
         game.batch.end();
