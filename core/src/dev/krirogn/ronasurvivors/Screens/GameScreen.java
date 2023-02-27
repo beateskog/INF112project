@@ -12,13 +12,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
 import dev.krirogn.ronasurvivors.Utils.InputUtil;
 import dev.krirogn.ronasurvivors.Utils.LevelUtil;
+import dev.krirogn.ronasurvivors.Utils.Player;
 
 public class GameScreen implements Screen {
 
@@ -30,9 +36,7 @@ public class GameScreen implements Screen {
     private ExtendViewport extendViewport;
     private Box2DDebugRenderer box2dDebugRenderer;
 
-    private float speed = 200f;
-    private Rectangle player;
-    private Sprite playerSprite;
+    private Player player;
 
     public GameScreen(final RonaSurvivors game) {
         this.game = game;
@@ -50,29 +54,33 @@ public class GameScreen implements Screen {
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
 
-        MapObjects mapObjs = levelUtil.tiledMap.getLayers().get("Collisions").getObjects();
-        for (int i = 0; mapObjs.getCount() > i; i++) {
-            List<String> keys = new ArrayList<>();
-            mapObjs.get(i).getProperties().getKeys().forEachRemaining((key) -> keys.add(key));
+        // MapObjects mapObjs = levelUtil.tiledMap.getLayers().get("Collisions").getObjects();
+        // for (int i = 0; mapObjs.getCount() > i; i++) {
+        //     List<String> keys = new ArrayList<>();
+        //     mapObjs.get(i).getProperties().getKeys().forEachRemaining((key) -> keys.add(key));
 
-            int k = 0;
-            Iterator<Object> vals = mapObjs.get(i).getProperties().getValues();
-            while (vals.hasNext()) {
-                Gdx.app.debug(keys.get(k).toString(), vals.next().toString());
-                k = k + 1;
-            }
+        //     int k = 0;
+        //     Iterator<Object> vals = mapObjs.get(i).getProperties().getValues();
+        //     while (vals.hasNext()) {
+        //         Gdx.app.debug(keys.get(k).toString(), vals.next().toString());
+        //         k = k + 1;
+        //     }
 
-            System.out.println();
-        }
+        //     System.out.println();
+        // }
 
         // Player
-        player = new Rectangle(
-            (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
-            (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
-            16,
-            16
+        player = new Player(
+            new Rectangle(
+                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
+                (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
+                16,
+                16
+            ),
+            new Sprite(new Texture("sprites/player.png")),
+            200f,
+            levelUtil
         );
-        playerSprite = new Sprite(new Texture("sprites/player.png"));
     }
 
     @Override
@@ -82,40 +90,13 @@ public class GameScreen implements Screen {
         // Update physics
         levelUtil.world.step(1/60f, 6, 2);
 
-        // Move player
-        float movementX = inputUtil.moveX();
-        player.setPosition(
-            player.x + movementX * speed * Gdx.graphics.getDeltaTime(),
-            player.y + inputUtil.moveY() * speed * Gdx.graphics.getDeltaTime()
-        );
-        // Flip the sprite
-        if (movementX < 0) {
-            playerSprite.setFlip(true, false);
-        } else if (movementX > 0) {
-            playerSprite.setFlip(false, false);
-        }
-
-        // Update camera
-        float halfWorldWidth = extendViewport.getWorldWidth() / 2;
-        float halfWorldHeight = extendViewport.getWorldHeight() / 2;
-        extendViewport.getCamera().position.set(
-            Math.min(
-                Math.max(
-                    player.x,
-                    halfWorldWidth
-                ),
-                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) - halfWorldWidth
-            ),
-            Math.min(
-                Math.max(
-                    player.y,
-                    halfWorldHeight
-                ),
-                (levelUtil.getMapHeight() * levelUtil.getTileHeight()) - halfWorldHeight
-            ),
-            1
-        );
-        extendViewport.getCamera().update();
+        // Move player and follow camera
+        player.move(
+            inputUtil,
+            extendViewport.getCamera(),
+            extendViewport.getWorldWidth(),
+            extendViewport.getWorldHeight()
+        );        
 
         // Inputs
         if (inputUtil.pause()) {
@@ -142,11 +123,11 @@ public class GameScreen implements Screen {
         levelUtil.render((OrthographicCamera) extendViewport.getCamera());
 
         // Debug renderer for development!
-        box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
+        // box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
 
         // Draw sprites
         game.batch.begin();
-        game.batch.draw(playerSprite, player.x, player.y, player.width, player.height);
+        player.render(game.batch);
         game.batch.end();
     }
 
@@ -156,15 +137,24 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+        Gdx.app.debug("App", "Pause");
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+        Gdx.app.debug("App", "Resume");
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+        Gdx.app.debug("App", "Hidden");
+    }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        box2dDebugRenderer.dispose();
+        player.dispose();
+    }
     
 }

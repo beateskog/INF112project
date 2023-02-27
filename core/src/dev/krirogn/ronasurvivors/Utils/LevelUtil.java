@@ -1,15 +1,25 @@
 package dev.krirogn.ronasurvivors.Utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 public class LevelUtil {
     
@@ -53,7 +63,51 @@ public class LevelUtil {
         mapHeight = (int) props.get("height");
 
         world = new World(new Vector2(0,0), true);
+        World.setVelocityThreshold(0f);
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+        // Get colliders
+        MapObjects mapObjs = tiledMap.getLayers().get("Collisions").getObjects();
+        for (int i = 0; mapObjs.getCount() > i; i++) {
+            HashMap<String, Float> prop = new HashMap<>();
+
+            List<String> keys = new ArrayList<>();
+            mapObjs.get(i).getProperties().getKeys().forEachRemaining((key) -> keys.add(key));
+
+            int k = 0;
+            Iterator<Object> vals = mapObjs.get(i).getProperties().getValues();
+            while (vals.hasNext()) {
+                prop.put(keys.get(k).toString(), Float.parseFloat(vals.next().toString()));
+                k = k + 1;
+            }
+
+            System.out.println(prop);
+
+            // Create colliders
+            BodyDef groundBodyDef = new BodyDef();  
+            groundBodyDef.type = BodyType.StaticBody;
+            groundBodyDef.position.set(
+                new Vector2(
+                    prop.get("x"),
+                    prop.get("y")
+                )
+            );  
+
+            Body groundBody = world.createBody(groundBodyDef);  
+
+            PolygonShape groundBox = new PolygonShape();
+            groundBox.setAsBox(
+                prop.get("width") / 2,
+                prop.get("height") / 2,
+                new Vector2(
+                    prop.get("width") / 2,
+                    prop.get("height") / 2
+                ),
+                0
+            );
+            groundBody.createFixture(groundBox, 0.0f);
+            groundBox.dispose();
+        }
     }
 
     /**
