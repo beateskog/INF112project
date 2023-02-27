@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import dev.krirogn.ronasurvivors.Screens.MainMenu;
-// import dev.krirogn.ronasurvivors.Screens.MenuScreen;
+import dev.krirogn.ronasurvivors.Screens.MenuScreen;
 
 public class RonaSurvivors extends Game {
 

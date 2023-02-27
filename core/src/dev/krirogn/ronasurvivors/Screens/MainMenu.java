@@ -29,7 +29,7 @@ public class MainMenu implements Screen {
     final RonaSurvivors game;
 
     private ExtendViewport extendViewport;
-    //private InputUtil inputUtil;
+    private InputUtil inputUtil;
 
     private Stage stage;
     private Table table;
@@ -40,7 +40,7 @@ public class MainMenu implements Screen {
         extendViewport = new ExtendViewport(400f, 400f);
         extendViewport.getCamera().position.set(200f, 200f, 1f);
 
-        //inputUtil = new InputUtil();
+        inputUtil = new InputUtil();
 
         backgroundTexture = new Texture(Gdx.files.internal("sprites/menu background.png"));
 
@@ -83,6 +83,23 @@ public class MainMenu implements Screen {
         // Buttons
         TextButtonStyle textButtonStyle = UiHandler.textButtonStyle(UiStyle.Debug,
                 UiFont.Pixelated.getFont(20, Color.WHITE));
+
+                
+        final TextButton button3 = new TextButton("Start Game", textButtonStyle);
+        menuTable.add(button3).minWidth(200).spaceBottom(20);
+        button3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "Button 2: " + button3.isChecked());
+                game.setScreen(new GameScreen(game));
+                dispose();
+            }
+        });
+        
+        menuTable.row();
+        
+        
+
         final TextButton button2 = new TextButton("Shop", textButtonStyle);
         menuTable.add(button2).minWidth(200).spaceBottom(20);
         button2.addListener(new ChangeListener() {
@@ -118,12 +135,9 @@ public class MainMenu implements Screen {
         ScreenUtils.clear(Color.RED);
 
         // Input
-        //inputUtil.update();
-        //if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
-        //if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
-
-        // Gdx.app.debug("Axis X", Float.toString(inputUtil.moveX()));
-        //Gdx.app.debug("Axis Y", Float.toString(inputUtil.moveY()));
+        inputUtil.update();
+        if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
+        if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
 
         // Background
         extendViewport.apply();
