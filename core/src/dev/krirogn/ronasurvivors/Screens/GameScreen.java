@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
 import dev.krirogn.ronasurvivors.Utils.LevelUtil;
@@ -29,18 +30,21 @@ public class GameScreen extends ScreenAdapter {
     private Box2DDebugRenderer box2dDebugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private LevelUtil levelUtil;
+    private ExtendViewport extendViewport;
 
-    GameScreen(final RonaSurvivors game) {
+    public GameScreen(final RonaSurvivors game) {
         this.game = game;
 
-        this.camera = new OrthographicCamera();
+        this.extendViewport = new ExtendViewport(400f, 400f);
+        this.extendViewport.getCamera().position.set(200f, 200f,1f); 
 
-        this.world = new World(new Vector2(), false);
+
+        this.world = new World(new Vector2(0,0), false);
 
         this.box2dDebugRenderer = new Box2DDebugRenderer();
 
         this.levelUtil = new LevelUtil();
-        this.orthogonalTiledMapRenderer = levelUtil.setupMap("tiles/map0.tmx");
+        this.orthogonalTiledMapRenderer = levelUtil.setupMap("maps/map0.tmx");
 
         /* Setting the stage as main input processor */
         /* this.stage = new Stage();
@@ -51,19 +55,16 @@ public class GameScreen extends ScreenAdapter {
 
     private void update() {
         world.step(1/60f, 6, 2);
-        cameraUpdate();  /* Not implemented yet (camera follows player) */
+        extendViewport.apply();  /* Not implemented yet (camera follows player) */
 
-        game.batch.setProjectionMatrix(camera.combined);
-
+       
+        game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
+        orthogonalTiledMapRenderer.setView((OrthographicCamera) extendViewport.getCamera());
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
         }
     }
 
-    private void cameraUpdate(){
-        camera.position.set(new Vector3(0,0,0));
-        camera.update();
-    }
 
     @Override
     public void render(float delta) {
@@ -73,7 +74,11 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        box2dDebugRenderer.render(world, camera.combined.scl(32.0f));
+        orthogonalTiledMapRenderer.render();
+
+      
+
+        box2dDebugRenderer.render(world, extendViewport.getCamera().invProjectionView);
     }
 
 }

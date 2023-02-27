@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import dev.krirogn.ronasurvivors.Screens.GameScreen;
 import dev.krirogn.ronasurvivors.Screens.MainMenu;
 import dev.krirogn.ronasurvivors.Screens.MenuScreen;
 
