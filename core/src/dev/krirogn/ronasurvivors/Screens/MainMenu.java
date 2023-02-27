@@ -29,7 +29,7 @@ public class MainMenu implements Screen {
     final RonaSurvivors game;
 
     private ExtendViewport extendViewport;
-    private InputUtil inputUtil;
+    //private InputUtil inputUtil;
 
     private Stage stage;
     private Table table;
@@ -40,7 +40,7 @@ public class MainMenu implements Screen {
         extendViewport = new ExtendViewport(400f, 400f);
         extendViewport.getCamera().position.set(200f, 200f, 1f);
 
-        inputUtil = new InputUtil();
+        //inputUtil = new InputUtil();
 
         backgroundTexture = new Texture(Gdx.files.internal("sprites/menu background.png"));
 
@@ -118,12 +118,12 @@ public class MainMenu implements Screen {
         ScreenUtils.clear(Color.RED);
 
         // Input
-        inputUtil.update();
-        if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
-        if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
+        //inputUtil.update();
+        //if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
+        //if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
 
         // Gdx.app.debug("Axis X", Float.toString(inputUtil.moveX()));
-        Gdx.app.debug("Axis Y", Float.toString(inputUtil.moveY()));
+        //Gdx.app.debug("Axis Y", Float.toString(inputUtil.moveY()));
 
         // Background
         extendViewport.apply();
