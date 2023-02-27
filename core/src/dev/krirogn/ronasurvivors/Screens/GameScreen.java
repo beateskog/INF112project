@@ -35,8 +35,9 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Render setup
-        extendViewport = new ExtendViewport(400f, 400f);
-        extendViewport.getCamera().position.set(200f, 200f, 1f);
+        float viewSize = 200f;
+        extendViewport = new ExtendViewport(viewSize, viewSize);
+        extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f);
 
         // Input
         inputUtil = new InputUtil();
@@ -45,7 +46,7 @@ public class GameScreen implements Screen {
         world = new World(new Vector2(0,0), true);
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
-        levelUtil.LoadTileMap("maps/debugLevel1/map0.tmx");
+        levelUtil.LoadTileMap("maps/debugLevel2/debugLevel2.tmx");
         orthogonalTiledMapRenderer = levelUtil.GetTileRenderer();
         levelUtil.GetLayers();
     }
@@ -66,6 +67,11 @@ public class GameScreen implements Screen {
         );
         // Update camera
         extendViewport.getCamera().update();
+
+        // Inputs
+        if (inputUtil.confirm()) {
+            Gdx.app.exit();
+        }
     }
 
     @Override

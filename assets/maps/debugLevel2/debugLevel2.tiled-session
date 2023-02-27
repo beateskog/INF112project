@@ -1,0 +1,45 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "debugLevel2.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Kenney Tiny Dungeon.tsx": {
+            "scaleInDock": 2.2623,
+            "scaleInEditor": 1.86
+        },
+        "debugLevel2.tmx": {
+            "scale": 3.5176,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 525.2160564020924,
+                "y": 368.575164885149
+            }
+        }
+    },
+    "last.imagePath": "/Users/kf/Downloads/kenney_tinydungeon/Tilemap",
+    "map.height": 60,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 60,
+    "openFiles": [
+        "Kenney Tiny Dungeon.tsx",
+        "debugLevel2.tmx"
+    ],
+    "project": "debugLevel2.tiled-project",
+    "recentFiles": [
+        "Kenney Tiny Dungeon.tsx",
+        "debugLevel2.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.spacing": 1,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

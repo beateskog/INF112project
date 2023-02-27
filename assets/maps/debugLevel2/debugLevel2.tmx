@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="10">
+ <tileset firstgid="1" source="Kenney Tiny Dungeon.tsx"/>
+ <layer id="1" name="BG" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJztzzEKg0AQQNENwXQJahc8gaWkE+9/LqewkIWUi4O84vX/L6WUBQAAAAAOXZgqrwRdrfThcfINnwRdLX/f1fOdf4fwrIwJulpZw1zZEnS18vvj6i4AAAAAAAAAgCx2rRCtpQ==
+  </data>
+ </layer>
+ <layer id="2" name="Props" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJzt1bsKwkAQheEVUbDxVgkWFlYWvoBYWKmgVbTWvP9TZIJZWNY1Edw4uP4fHDAJwhwmF2MAAAAAAADwiZ5k3pC+2nTxjSWdhgzVpotvIuk2ZKo2XXwbyarK6MXvrdp08ZV93W6hpNa37LSUzMzzjgfmd/ruJQcvR8mp5j8L73jdzmityCQX53gnueqM8hU3yd08dlo6V+f8faembqcp7tt2Cj3PudJMbbJ9M+ec7Z7y/ez2zbxrKbGd3HdV7l1Lyb+9r+x3KZRcbywAAAAAAAAAAIC3FJTMFyU=
+  </data>
+ </layer>
+ <layer id="3" name="Props 2" width="60" height="60">
+  <data encoding="base64" compression="zlib">
+   eJztz0EJADAMA8D+JmACJmz+fWwG2m+h3EEgzyQCAAAAAKispE+1kz6Vv3Pdn9M9AgAAAAAAAACg0QO3cwD7
+  </data>
+ </layer>
+ <objectgroup id="4" name="Collisions">
+  <object id="3" x="512" y="288">
+   <polygon points="0,0 0,96 160,96 160,0"/>
+  </object>
+  <object id="4" x="480" y="304">
+   <polygon points="0,0 0,80 -96,80 -96,0"/>
+  </object>
+  <object id="5" x="480" y="400">
+   <polygon points="0,0 0,-16 -16,-16 -16,0"/>
+  </object>
+  <object id="6" x="528" y="384">
+   <polygon points="0,0 -16,0 -16,16 0,16"/>
+  </object>
+  <object id="7" x="640" y="384">
+   <polygon points="0,0 0,16 16,16 16,0"/>
+  </object>
+  <object id="8" x="384" y="400">
+   <polygon points="0,0 16,0 16,16 0,16"/>
+  </object>
+  <object id="9" x="432" y="400">
+   <polygon points="0,0 0,32 16,32 16,0"/>
+  </object>
+ </objectgroup>
+</map>
