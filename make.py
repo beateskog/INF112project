@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import argparse
 from os import remove, system, path, walk
 import urllib.request
@@ -114,7 +116,16 @@ ap.add_argument(
     help="zippes up the build directories for distribution",
     action='store_true'
 )
+ap.add_argument(
+    "-r", "--run",
+    required=False,
+    help="runs the desktop in development",
+    action='store_true'
+)
 args = vars(ap.parse_args())
+
+if args['run'] == True:
+    system("./gradlew desktop:run")
 
 ## Sanity checks
 supportedArchs = ['mac', 'linux', 'windows']
