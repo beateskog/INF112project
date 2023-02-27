@@ -91,6 +91,16 @@ public class InputUtil {
         return buttonUp(controller.getMapping().buttonA);
     }
 
+    public boolean pause() {
+        // Handle keyboard
+        boolean input = Gdx.input.isKeyJustPressed(Keys.ESCAPE);
+        if (input) return true;
+
+        // Handle controller
+        if (controller == null) return false;
+        return buttonUp(controller.getMapping().buttonStart);
+    }
+
     public float moveX() {
         float axis = 0.0f;
 

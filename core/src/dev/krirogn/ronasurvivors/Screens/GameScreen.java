@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -24,7 +26,9 @@ public class GameScreen implements Screen {
 
     private ExtendViewport extendViewport;
 
-    private float speed = 300f;
+    private float speed = 200f;
+    private Rectangle player;
+    private Sprite playerSprite;
 
     private LevelUtil levelUtil;
     private World world;
@@ -42,6 +46,9 @@ public class GameScreen implements Screen {
         // Input
         inputUtil = new InputUtil();
 
+        player = new Rectangle(400, 400, 16, 16);
+        playerSprite = new Sprite(new Texture("sprites/player.png"));
+
         // Tiles
         world = new World(new Vector2(0,0), true);
         box2dDebugRenderer = new Box2DDebugRenderer();
@@ -56,20 +63,32 @@ public class GameScreen implements Screen {
 
     private void update() {
         // Update physics
-        world.step(1/60f, 6, 2);
+        world.step(1/60f, 6, 8);
 
-        // Move camera
-        Vector3 camPos = extendViewport.getCamera().position;
-        extendViewport.getCamera().position.set(
-            camPos.x + inputUtil.moveX() * speed * Gdx.graphics.getDeltaTime(),
-            camPos.y + inputUtil.moveY() * speed * Gdx.graphics.getDeltaTime(),
-            camPos.z
+        // Move player
+        float movementX = inputUtil.moveX();
+        player.setPosition(
+            player.x + movementX * speed * Gdx.graphics.getDeltaTime(),
+            player.y + inputUtil.moveY() * speed * Gdx.graphics.getDeltaTime()
         );
+        if (movementX < 0) {
+            playerSprite.setFlip(true, false);
+        } else {
+            playerSprite.setFlip(false, false);
+        }
+
         // Update camera
+        float halfWorldWidth = extendViewport.getWorldWidth() / 2;
+        float halfWorldHeight = extendViewport.getWorldHeight() / 2;
+        extendViewport.getCamera().position.set(
+            Math.min(Math.max(player.x, halfWorldWidth), 960 - halfWorldWidth),
+            Math.min(Math.max(player.y, halfWorldHeight), 960 - halfWorldHeight),
+            1
+        );
         extendViewport.getCamera().update();
 
         // Inputs
-        if (inputUtil.confirm()) {
+        if (inputUtil.pause()) {
             Gdx.app.exit();
         }
     }
@@ -85,15 +104,20 @@ public class GameScreen implements Screen {
         // Setup Render
         extendViewport.apply();
 
-        // Run physics loop
+        // Run game loop
         this.update();
 
         // Render
+        extendViewport.apply();
         game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
         orthogonalTiledMapRenderer.setView((OrthographicCamera) extendViewport.getCamera());
         orthogonalTiledMapRenderer.render();
 
         box2dDebugRenderer.render(world, extendViewport.getCamera().invProjectionView);
+
+        game.batch.begin();
+        game.batch.draw(playerSprite, player.x, player.y, player.width, player.height);
+        game.batch.end();
     }
 
     @Override
