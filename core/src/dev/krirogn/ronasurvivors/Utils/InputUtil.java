@@ -94,9 +94,11 @@ public class InputUtil {
     public float moveX() {
         float axis = 0.0f;
 
-        float stick = controller.getAxis(controller.getMapping().axisLeftX);
-        if (!(stick < deadzone && stick > -deadzone))
-            axis = Math.max(stick, -1.0f);
+        if (controller != null) {
+            float stick = controller.getAxis(controller.getMapping().axisLeftX);
+            if (!(stick < deadzone && stick > -deadzone))
+                axis = Math.max(stick, -1.0f);
+        }
         
         if (Gdx.input.isKeyPressed(Keys.D)) axis += 1.0f;
         if (Gdx.input.isKeyPressed(Keys.A)) axis -= 1.0f;
@@ -107,9 +109,11 @@ public class InputUtil {
     public float moveY() {
         float axis = 0.0f;
 
-        float stick = controller.getAxis(controller.getMapping().axisLeftY) * -1.0f;
-        if (!(stick < deadzone && stick > -deadzone))
-            axis = Math.min(stick, 1.0f);
+        if (controller != null) {
+            float stick = controller.getAxis(controller.getMapping().axisLeftY) * -1.0f;
+            if (!(stick < deadzone && stick > -deadzone))
+                axis = Math.min(stick, 1.0f);
+        }
         
         if (Gdx.input.isKeyPressed(Keys.W)) axis += 1.0f;
         if (Gdx.input.isKeyPressed(Keys.S)) axis -= 1.0f;
