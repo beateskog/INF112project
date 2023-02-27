@@ -2,55 +2,52 @@ package dev.krirogn.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
+import dev.krirogn.ronasurvivors.Utils.InputUtil;
 import dev.krirogn.ronasurvivors.Utils.LevelUtil;
 
-/* NOT FULLY IMPLEMENTED YET!! */
-public class GameScreen extends ScreenAdapter {
+public class GameScreen implements Screen {
 
-    private final RonaSurvivors game;
-    private OrthographicCamera camera;
+    final RonaSurvivors game;
 
-    private Stage stage;
-    private Table table;
+    private InputUtil inputUtil;
+
+    private ExtendViewport extendViewport;
+
     private World world;
-
     private Box2DDebugRenderer box2dDebugRenderer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private LevelUtil levelUtil;
-    private ExtendViewport extendViewport;
 
     public GameScreen(final RonaSurvivors game) {
         this.game = game;
 
-        this.extendViewport = new ExtendViewport(400f, 400f);
-        this.extendViewport.getCamera().position.set(200f, 200f,1f); 
+        // Render setup
+        extendViewport = new ExtendViewport(400f, 400f);
+        extendViewport.getCamera().position.set(200f, 200f, 1f);
 
+        // Input
+        inputUtil = new InputUtil();
 
-        this.world = new World(new Vector2(0,0), false);
-
-        this.box2dDebugRenderer = new Box2DDebugRenderer();
-
-        this.levelUtil = new LevelUtil();
-        this.orthogonalTiledMapRenderer = levelUtil.setupMap("maps/map0.tmx");
-
-        /* Setting the stage as main input processor */
-        /* this.stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-    
-        this.table = new Table(); */
+        // Tiles
+        world = new World(new Vector2(0,0), false);
+        box2dDebugRenderer = new Box2DDebugRenderer();
+        levelUtil = new LevelUtil();
+        orthogonalTiledMapRenderer = levelUtil.setupMap("maps/map0.tmx");
     }
+
+    @Override
+    public void show() {}
 
     private void update() {
         world.step(1/60f, 6, 2);
@@ -64,20 +61,37 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-
     @Override
     public void render(float delta) {
         this.update();
+        
+        ScreenUtils.clear(Color.CYAN);
 
-        /* Setting a black screen */
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // Input
+        inputUtil.update();
 
         orthogonalTiledMapRenderer.render();
-
-      
-
         box2dDebugRenderer.render(world, extendViewport.getCamera().invProjectionView);
     }
 
+    @Override
+    public void resize(int width, int height) {
+        extendViewport.update(width, height, true);
+    }
+
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
+
+    @Override
+    public void hide() {}
+
+    @Override
+    public void dispose() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'dispose'");
+    }
+    
 }

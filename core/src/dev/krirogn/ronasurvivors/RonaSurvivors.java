@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import dev.krirogn.ronasurvivors.Screens.GameScreen;
 import dev.krirogn.ronasurvivors.Screens.MainMenu;
 import dev.krirogn.ronasurvivors.Screens.MenuScreen;
-import dev.krirogn.ronasurvivors.Screens.TileTest;
+import dev.krirogn.ronasurvivors.Screens.GameScreen;
 
 public class RonaSurvivors extends Game {
 
@@ -23,7 +23,7 @@ public class RonaSurvivors extends Game {
 
 		batch = new SpriteBatch();
         font = new BitmapFont();
-        this.setScreen(new TileTest(this));
+    	this.setScreen(new MainMenu(this));
 	}
 
 	@Override
