@@ -17,6 +17,8 @@ public class InputUtil {
     private HashMap<Integer, Boolean> buttonJustOn;
     private HashMap<Integer, Boolean> buttonJustOff;
 
+    private float deadzone = 0.125f;
+
     public InputUtil() {
         controller = Controllers.getCurrent();
 
@@ -87,6 +89,32 @@ public class InputUtil {
         // Handle controller
         if (controller == null) return false;
         return buttonUp(controller.getMapping().buttonA);
+    }
+
+    public float moveX() {
+        float axis = 0.0f;
+
+        float stick = controller.getAxis(controller.getMapping().axisLeftX);
+        if (!(stick < deadzone && stick > -deadzone))
+            axis = Math.max(stick, -1.0f);
+        
+        if (Gdx.input.isKeyPressed(Keys.D)) axis += 1.0f;
+        if (Gdx.input.isKeyPressed(Keys.A)) axis -= 1.0f;
+
+        return Math.max(Math.min(axis, 1.0f), -1.0f);
+    }
+
+    public float moveY() {
+        float axis = 0.0f;
+
+        float stick = controller.getAxis(controller.getMapping().axisLeftY) * -1.0f;
+        if (!(stick < deadzone && stick > -deadzone))
+            axis = Math.min(stick, 1.0f);
+        
+        if (Gdx.input.isKeyPressed(Keys.W)) axis += 1.0f;
+        if (Gdx.input.isKeyPressed(Keys.S)) axis -= 1.0f;
+
+        return Math.max(Math.min(axis, 1.0f), -1.0f);
     }
 
 }

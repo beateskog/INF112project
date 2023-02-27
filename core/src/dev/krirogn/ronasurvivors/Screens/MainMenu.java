@@ -122,6 +122,9 @@ public class MainMenu implements Screen {
         if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
         if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
 
+        // Gdx.app.debug("Axis X", Float.toString(inputUtil.moveX()));
+        Gdx.app.debug("Axis Y", Float.toString(inputUtil.moveY()));
+
         // Background
         extendViewport.apply();
         game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
