@@ -136,8 +136,8 @@ public class MainMenu implements Screen {
 
         // Input
         inputUtil.update();
-        if (inputUtil.confirm()) Gdx.app.debug("Controller", "Down");
-        if (inputUtil.cancel()) Gdx.app.debug("Controller", "Up");
+        if (inputUtil.down("select")) Gdx.app.debug("Controller", "Down");
+        if (inputUtil.up("select")) Gdx.app.debug("Controller", "Up");
 
         // Background
         extendViewport.apply();

@@ -1,0 +1,8 @@
+{
+    "deadzone": 0.125,
+    "profiles": [
+        "select",
+        "cancel",
+        "pause"
+    ]
+}

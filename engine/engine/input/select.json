@@ -1,0 +1,10 @@
+{
+    "name": "select",
+    "keyboard": [
+        "Enter",
+        "Space"
+    ],
+    "controller": [
+        "A"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "name": "cancel",
+    "keyboard": [
+        "Backspace"
+    ],
+    "controller": [
+        "B"
+    ]
+}

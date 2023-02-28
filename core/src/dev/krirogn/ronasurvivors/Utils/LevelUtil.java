@@ -81,8 +81,6 @@ public class LevelUtil {
                 k = k + 1;
             }
 
-            System.out.println(prop);
-
             // Create colliders
             BodyDef groundBodyDef = new BodyDef();  
             groundBodyDef.type = BodyType.StaticBody;

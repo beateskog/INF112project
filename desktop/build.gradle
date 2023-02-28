@@ -1,6 +1,6 @@
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
-sourceSets.main.resources.srcDirs = ["../assets"]
+sourceSets.main.resources.srcDirs = ["../assets", "../engine"]
 
 project.ext.mainClassName = "dev.krirogn.ronasurvivors.DesktopLauncher"
 project.ext.assetsDir = new File("../assets")

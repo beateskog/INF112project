@@ -1,28 +1,17 @@
 package dev.krirogn.ronasurvivors.Screens;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
-import dev.krirogn.ronasurvivors.Utils.InputUtil;
 import dev.krirogn.ronasurvivors.Utils.LevelUtil;
 import dev.krirogn.ronasurvivors.Utils.Player;
 
@@ -30,7 +19,6 @@ public class GameScreen implements Screen {
 
     final RonaSurvivors game;
 
-    private InputUtil inputUtil;
     private LevelUtil levelUtil;
 
     private ExtendViewport extendViewport;
@@ -46,28 +34,10 @@ public class GameScreen implements Screen {
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f);
 
-        // Input
-        inputUtil = new InputUtil();
-
         // World
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
-
-        // MapObjects mapObjs = levelUtil.tiledMap.getLayers().get("Collisions").getObjects();
-        // for (int i = 0; mapObjs.getCount() > i; i++) {
-        //     List<String> keys = new ArrayList<>();
-        //     mapObjs.get(i).getProperties().getKeys().forEachRemaining((key) -> keys.add(key));
-
-        //     int k = 0;
-        //     Iterator<Object> vals = mapObjs.get(i).getProperties().getValues();
-        //     while (vals.hasNext()) {
-        //         Gdx.app.debug(keys.get(k).toString(), vals.next().toString());
-        //         k = k + 1;
-        //     }
-
-        //     System.out.println();
-        // }
 
         // Player
         player = new Player(
@@ -92,15 +62,19 @@ public class GameScreen implements Screen {
 
         // Move player and follow camera
         player.move(
-            inputUtil,
+            game.input,
             extendViewport.getCamera(),
             extendViewport.getWorldWidth(),
             extendViewport.getWorldHeight()
         );        
 
         // Inputs
-        if (inputUtil.pause()) {
+        if (game.input.down("pause")) {
             Gdx.app.exit();
+        }
+
+        if (game.input.down("select")) {
+            game.input.vibrate(1000, 1f);
         }
     }
 
@@ -108,9 +82,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         // Clear screen
         ScreenUtils.clear(Color.BLACK);
-        
-        // Polls input system
-        inputUtil.update();
 
         // Applies the camera
         extendViewport.apply();
