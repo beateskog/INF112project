@@ -200,7 +200,7 @@ public class InputUtil {
     }
 
     public void vibrate(int milliseconds, float strength) {
-        if (controller != null) return;
+        if (controller == null) return;
 
         if (!controller.canVibrate()) {
             Gdx.app.debug("Controller", controller.getName() + " - can't vibrate");
