@@ -33,22 +33,23 @@ public class InputUtil {
         buttons = new ArrayList<Integer>();
 
         // Setting up buttons to be polled
-        if (controller == null) return;
-        buttons.add(controller.getMapping().buttonA);
-        buttons.add(controller.getMapping().buttonB);
-        buttons.add(controller.getMapping().buttonX);
-        buttons.add(controller.getMapping().buttonY);
-        buttons.add(controller.getMapping().buttonDpadUp);
-        buttons.add(controller.getMapping().buttonDpadDown);
-        buttons.add(controller.getMapping().buttonDpadLeft);
-        buttons.add(controller.getMapping().buttonDpadRight);
-        buttons.add(controller.getMapping().buttonL1);
-        buttons.add(controller.getMapping().buttonR1);
-        buttons.add(controller.getMapping().buttonLeftStick);
-        buttons.add(controller.getMapping().buttonRightStick);
-        buttons.add(controller.getMapping().buttonStart);
+        if (controller != null) {
+            buttons.add(controller.getMapping().buttonA);
+            buttons.add(controller.getMapping().buttonB);
+            buttons.add(controller.getMapping().buttonX);
+            buttons.add(controller.getMapping().buttonY);
+            buttons.add(controller.getMapping().buttonDpadUp);
+            buttons.add(controller.getMapping().buttonDpadDown);
+            buttons.add(controller.getMapping().buttonDpadLeft);
+            buttons.add(controller.getMapping().buttonDpadRight);
+            buttons.add(controller.getMapping().buttonL1);
+            buttons.add(controller.getMapping().buttonR1);
+            buttons.add(controller.getMapping().buttonLeftStick);
+            buttons.add(controller.getMapping().buttonRightStick);
+            buttons.add(controller.getMapping().buttonStart);
+        }
 
-        // Import and parse profiles        
+        // Import and parse profiles
         Gson gson = new Gson();
         inputIndex = gson.fromJson(Gdx.files.internal("engine/input/index.json").readString(), InputIndex.class);
 
@@ -137,6 +138,8 @@ public class InputUtil {
         if (keyboardInputs.contains(true)) return true;
 
         // Handle controller
+        if (controller == null) return false;
+
         ArrayList<Boolean> controllerInputs = new ArrayList<>();
         for (String controller : ip.getController()) {
             controllerInputs.add(buttonDown(controllerButtonMapping(controller)));
@@ -155,6 +158,8 @@ public class InputUtil {
         if (keyboardInputs.contains(true)) return true;
 
         // Handle controller
+        if (controller == null) return false;
+
         ArrayList<Boolean> controllerInputs = new ArrayList<>();
         for (String controller : ip.getController()) {
             controllerInputs.add(buttonUp(controllerButtonMapping(controller)));
