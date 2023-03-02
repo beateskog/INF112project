@@ -1,4 +1,6 @@
-##Gruppemøte 23.02.22:
+##Gruppemøte 23.02.23:
+
+Alle gruppemedlemmer til stede 
 
 Vi har diskutert issue board og bestemt oss for å lage en trello.
 Vi har diskutert kommunikasjonen vår, og kommet frem til at vi må lage en SMS-gruppe.
@@ -31,13 +33,18 @@ Prio innen neste fredag
 - UI design (Shop, Main menu)
 
 
-##Gruppemøte 27.02.22:
+##Gruppemøte 27.02.23:
+
+Alle gruppemedlemmer til stede 
 
 - Tobias og Krisitan S. jobbet med tiles
 - Beate og Askild jobbet med UI design
 - Kristian F. R. jobbet generelt med motoren (input system)
 
 
+##Gruppemøte 02.03.23
+
+Tilstede: Kristian S, Kristian R, Askil og Beate. 
 
 
 
