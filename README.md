@@ -40,7 +40,5 @@ Ingenting hittil 😎
 &nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
     
 
-* Link to Issueboard: 
-[ISSUE BOARD](https://git.app.uib.no/groups/mavenless/-/boards) 
 * Link to Trello: 
 [TRELLO](https://trello.com/b/QHYMXsMK/issues)
