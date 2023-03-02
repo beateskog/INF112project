@@ -14,7 +14,7 @@ hvor evt. grafikk/lyd-ressurser er hentet fra.
 Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg. 
 
 ## Kjøring
-* Kompileres med TBD
+* Kompileres med `./make.py -d`
 * Kjøres med `./make.py -r`
 * Krever Java 8
 
