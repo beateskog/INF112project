@@ -14,9 +14,9 @@ Hittil har noen på gruppen stått for flesteparten av committene. Grunnen til d
 
 
 Oppsumering/forbedringspunkter:
-    1. Bedre oppmøte
-    2. Bedre kommunikasjon
-    3. Avklare arbeidsoppgaver
+1. Bedre oppmøte
+2. Bedre kommunikasjon
+3. Avklare arbeidsoppgaver
 
 
 Planlegging for videre arbeid (ressurser):
