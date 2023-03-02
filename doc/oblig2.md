@@ -48,6 +48,12 @@ Tilstede: Kristian S, Kristian R, Askild og Beate.
 
 Link til Figma: https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-Survivors?node-id=0%3A1&t=mJ4qQR2cGrKjyURL-1
 
+Neste gjøremål
+-  Implementere UI design
+-  Planlegge UX 
+- Jobbe med Player.java (Laste inn ulike characters)
+
+
 
 
 
