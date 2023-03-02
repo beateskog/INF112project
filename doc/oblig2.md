@@ -33,9 +33,9 @@ Prio innen neste fredag
 
 Gruppemøte 27.02.22:
 
-Tobias og Krisitan S. jobbet med tiles
-Beate og Askild jobbet med UI design
-Kristian F. R. jobbet generelt med motoren (input system)
+- Tobias og Krisitan S. jobbet med tiles
+- Beate og Askild jobbet med UI design
+- Kristian F. R. jobbet generelt med motoren (input system)
 
 
 
