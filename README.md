@@ -42,3 +42,5 @@ Ingenting hittil 😎
 
 * Link to Issueboard: 
 [ISSUE BOARD](https://git.app.uib.no/groups/mavenless/-/boards) 
+* Link to Trello: 
+[TRELLO](https://trello.com/b/QHYMXsMK/issues)
