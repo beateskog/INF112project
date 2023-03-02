@@ -1,4 +1,4 @@
-#Gruppemøte 23.02.23:
+## Gruppemøte 23.02.23:
 
 Alle gruppemedlemmer til stede 
 
@@ -33,7 +33,7 @@ Prio innen neste fredag
 - UI design (Shop, Main menu)
 
 
-#Gruppemøte 27.02.23:
+## Gruppemøte 27.02.23:
 
 Alle gruppemedlemmer til stede 
 
@@ -42,7 +42,7 @@ Alle gruppemedlemmer til stede
 - Kristian F. R. jobbet generelt med motoren (input system)
 
 
-#Gruppemøte 02.03.23
+## Gruppemøte 02.03.23
 
 Tilstede: Kristian S, Kristian R, Askild og Beate. 
 
