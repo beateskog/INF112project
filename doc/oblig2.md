@@ -44,7 +44,7 @@ Alle gruppemedlemmer til stede
 
 ## Gruppemøte 02.03.23
 
-Tilstede: Kristian S, Kristian R, Askild og Beate.  (Tobias gyldig fravær)
+Tilstede: Kristian S, Kristian R, Askild og Beate (Tobias gyldig fravær)
 
 Link til Figma: https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-Survivors?node-id=0%3A1&t=mJ4qQR2cGrKjyURL-1
 
