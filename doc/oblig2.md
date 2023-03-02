@@ -46,7 +46,7 @@ Alle gruppemedlemmer til stede
 
 Tilstede: Kristian S, Kristian R, Askild og Beate (Tobias gyldig fravær)
 
-Link til Figma: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-Survivors?node-id=0%3A1&t=mJ4qQR2cGrKjyURL-1)
+Link til design: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-Survivors?node-id=0%3A1&t=mJ4qQR2cGrKjyURL-1)
 
 **Gjort idag**
 - ordnet templates for trello-issues; Visual, Audio, Mechanics og Engine.
