@@ -15,8 +15,8 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 
 ## Kjøring
 * Kompileres med TBD
-* Kjøres med TBD
-* Krever Java 15 eller senere
+* Kjøres med ./make.py -r
+* Krever Java 8
 
 ## Kjente feil
 Ingenting hittil 😅
