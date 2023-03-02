@@ -44,7 +44,9 @@ Alle gruppemedlemmer til stede
 
 ##Gruppemøte 02.03.23
 
-Tilstede: Kristian S, Kristian R, Askil og Beate. 
+Tilstede: Kristian S, Kristian R, Askild og Beate. 
+
+
 
 
 
