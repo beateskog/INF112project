@@ -54,9 +54,47 @@ Neste gjøremål
 - Jobbe med Player.java (Laste inn ulike characters)
 
 
+### Re-cap fra forrige uke og kodeforklaring
 
+**Desktop / desktopLauncher**
+- kjører programmet
+- setter frames,vsync, resolution, windowMode, icon
+- start programmet med fil fra /src/ronaSurvivors
 
+**/src/ronaSurvivors**
+- InputUtil
+    - klasse for lettere kontrollere inputs 
+- create
+    - første gang man kjører spillet
+    - Gdx.app.setLogLevel -> logger alt som skjer i spillet (brukes for debugging)
+    - batch
+        - samler alt som skal på skjermen til en gruppe som skal rendres samtidig, framfor hver for seg.
+        - hver gang noe skal tegnes bruker vi `batch.draw()`
+    - `this.setScreen(new GameScreen(this))` - forteller hva som skal tegnes initially når spillet starter.
+    - input
+        - `input.update`for å oppdatere input
+- dispose
+    - clear memory   
 
+**/src/GameScreen**
+- Spill-scene
+- `float viewSize` Forteller hvor stor del av verden som skal vises (zoom)
+- `extendedViewport` - istendenfor å putte ting direkte på skjermen - ser på skjermen og pixlene, sjekker hvordan skjermen faktisk er (når den blir dratt/resize), regner ut forskjellene og viser objekter med "riktig" oppløsning ratio. (forandrer viewsize)
+- `box2dDebugRendrer` lar oss se hitboxer mens vi utvikler
+- Player
+    - 
 
-
-
+**/src/player**
+- størrelse
+- sprite (bilde.png)
+- speed  (hastighet)
+- levelUtil (for å kunne plassere seg selv i spillet(verdenen))
+- BodyDef - nytt item i verden
+    - bodydef.type - dynamisk / vegger er statiske
+    - bodydef.position.set - size på skjermen
+    - body = level.util.world - opprett en ny ting(meg) og putt meg inn i verden!
+- Polygonshape 
+    - fysikk form, hvordan er jeg, hvordan interagerer jeg med det rundt meg?
+    - er en hitbox
+- FixtureDef 
+    - *continue here at later point* 
