@@ -29,3 +29,17 @@ Prio innen neste fredag
 - vise verden 
 - vise sprite på skjerm 
 - UI design (Shop, Main menu)
+
+
+Gruppemøte 27.02.22:
+
+Tobias og Krisitan S. jobbet med tiles
+Beate og Askild jobbet med UI design
+Kristian F. R. jobbet generelt med motoren (input system)
+
+
+
+
+
+
+
