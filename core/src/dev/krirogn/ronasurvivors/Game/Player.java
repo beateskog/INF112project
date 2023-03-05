@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Utils;
+package dev.krirogn.ronasurvivors.Game;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,6 +10,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+import dev.krirogn.ronasurvivors.Utils.InputUtil;
+import dev.krirogn.ronasurvivors.Utils.LevelUtil;
 
 public class Player {
 
@@ -48,7 +51,7 @@ public class Player {
         fixtureDef.shape = box;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+        fixtureDef.restitution = 0.0f; // Make it bounce a little bit
 
         body.createFixture(fixtureDef);
 
@@ -65,6 +68,7 @@ public class Player {
             movementX * speed,
             input.moveY() * speed
         );
+        
         Vector2 bodyPos = body.getPosition();
         size.x = bodyPos.x;
         size.y = bodyPos.y;

@@ -12,8 +12,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.krirogn.ronasurvivors.RonaSurvivors;
+import dev.krirogn.ronasurvivors.Game.Player;
+import dev.krirogn.ronasurvivors.Game.Save;
 import dev.krirogn.ronasurvivors.Utils.LevelUtil;
-import dev.krirogn.ronasurvivors.Utils.Player;
 
 public class GameScreen implements Screen {
 
@@ -51,6 +52,12 @@ public class GameScreen implements Screen {
             200f,
             levelUtil
         );
+
+        // Save data
+        Save save = new Save();
+        Gdx.app.debug("Save", save.saveLocation);
+        // save.write();
+        save.read();
     }
 
     @Override
@@ -66,7 +73,7 @@ public class GameScreen implements Screen {
             extendViewport.getCamera(),
             extendViewport.getWorldWidth(),
             extendViewport.getWorldHeight()
-        );        
+        );
 
         // Inputs
         if (game.input.down("pause")) {
