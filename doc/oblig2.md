@@ -65,7 +65,7 @@ Link til design: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-
 -  Jobbe med Player.java (Laste inn ulike characters)
 -  Jobbe med Wiki
 
-#Krav og spesifikasjon 
+# Krav og spesifikasjon 
 
 
 # Produkt og Kode
