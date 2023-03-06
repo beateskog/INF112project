@@ -1,3 +1,5 @@
+# Prosjektrapport
+
 ## Gruppemøte 23.02.23:
 
 Alle gruppemedlemmer til stede 
@@ -63,6 +65,10 @@ Link til design: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-
 -  Jobbe med Player.java (Laste inn ulike characters)
 -  Jobbe med Wiki
 
+#Krav og spesifikasjon 
+
+
+# Produkt og Kode
 
 ### Kodeforklaring
 
