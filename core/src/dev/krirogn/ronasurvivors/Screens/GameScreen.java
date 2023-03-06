@@ -55,9 +55,14 @@ public class GameScreen implements Screen {
 
         // Save data
         Save save = new Save();
-        Gdx.app.debug("Save", save.saveLocation);
-        // save.write();
-        save.read();
+        try {
+            save.write();
+            save.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+            dispose();
+            Gdx.app.exit();
+        }
     }
 
     @Override
