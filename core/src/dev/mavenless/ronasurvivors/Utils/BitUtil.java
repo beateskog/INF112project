@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Utils;
+package dev.mavenless.ronasurvivors.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Screens;
+package dev.mavenless.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import dev.krirogn.ronasurvivors.RonaSurvivors;
+import dev.mavenless.ronasurvivors.RonaSurvivors;
 
 public class Shop implements Screen {
 

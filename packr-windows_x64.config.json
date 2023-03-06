@@ -2,7 +2,7 @@
   "platform": "windows64",
   "jdk": "zulu8.52.0.23-ca-jdk8.0.282-win_x64.zip",
   "executable": "Rona Survivors",
-  "mainclass": "dev.krirogn.ronasurvivors.DesktopLauncher",
+  "mainclass": "dev.mavenless.ronasurvivors.DesktopLauncher",
   "vmargs": [
     "Xmx1G"
   ],

@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Utils;
+package dev.mavenless.ronasurvivors.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

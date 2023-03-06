@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Screens;
+package dev.mavenless.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -18,11 +18,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import dev.krirogn.ronasurvivors.RonaSurvivors;
-import dev.krirogn.ronasurvivors.Utils.InputUtil;
-import dev.krirogn.ronasurvivors.Utils.UiHandler;
-import dev.krirogn.ronasurvivors.Utils.UiHandler.UiFont;
-import dev.krirogn.ronasurvivors.Utils.UiHandler.UiStyle;
+import dev.mavenless.ronasurvivors.RonaSurvivors;
+import dev.mavenless.ronasurvivors.Utils.InputUtil;
+import dev.mavenless.ronasurvivors.Utils.UiHandler;
+import dev.mavenless.ronasurvivors.Utils.UiHandler.UiFont;
+import dev.mavenless.ronasurvivors.Utils.UiHandler.UiStyle;
 
 public class MainMenu implements Screen {
 

@@ -1,11 +1,11 @@
-package dev.krirogn.ronasurvivors.Game;
+package dev.mavenless.ronasurvivors.Game;
 
 import java.io.Serializable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
-import dev.krirogn.ronasurvivors.Utils.SaveUtil;
+import dev.mavenless.ronasurvivors.Utils.SaveUtil;
 
 public class Save {
 

@@ -1,4 +1,4 @@
-package dev.krirogn.ronasurvivors.Game;
+package dev.mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,8 +11,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-import dev.krirogn.ronasurvivors.Utils.InputUtil;
-import dev.krirogn.ronasurvivors.Utils.LevelUtil;
+import dev.mavenless.ronasurvivors.Utils.InputUtil;
+import dev.mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Player {
 
