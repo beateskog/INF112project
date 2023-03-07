@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
     private Player player;
 
     public GameScreen(final RonaSurvivors game) {
+
         this.game = game;
 
         // Render setup
@@ -48,7 +49,7 @@ public class GameScreen implements Screen {
                 16,
                 16
             ),
-            new Sprite(new Texture("sprites/player.png")),
+            new Sprite(new Texture("sprites/doctor-white.png")),
             200f,
             levelUtil
         );
@@ -106,7 +107,7 @@ public class GameScreen implements Screen {
         levelUtil.render((OrthographicCamera) extendViewport.getCamera());
 
         // Debug renderer for development!
-        // box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
+        box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
 
         // Draw sprites
         game.batch.begin();

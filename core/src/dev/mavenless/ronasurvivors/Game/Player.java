@@ -38,11 +38,11 @@ public class Player {
 
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2) - 1,
-            (size.height / 2) - 1,
+            (size.width / 2)-3,
+            (size.height / 2)-3, 
             new Vector2(
-                (size.width / 2) - 1,
-                (size.height / 2) - 1
+                (size.width / 2),
+                (size.height / 2)-7
             ),
             0f
         );
@@ -103,7 +103,7 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, size.x, size.y, size.width, size.height);
+        batch.draw(sprite, size.x-5, size.y-5, size.width+10, size.height+10);
     }
 
     // Getters
