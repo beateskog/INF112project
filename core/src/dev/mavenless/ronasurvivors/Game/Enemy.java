@@ -14,21 +14,15 @@ import dev.mavenless.ronasurvivors.Utils.LevelUtil;
 
 /* Class for displaying enemies */
 public class Enemy {
-    private LevelUtil levelUtil;
     private Rectangle size;
     private Sprite sprite;
     private float speed;
     private Body body;
 
-    //Players current position on the map:
-    private Vector2 player_pos;
-
-    public Enemy(Rectangle size, Sprite sprite, float speed, Body body, LevelUtil levelUtil, Vector2 playerpos) {
-        this.levelUtil = levelUtil;
+    public Enemy(Rectangle size, Sprite sprite, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.sprite = sprite;
         this.speed = speed;
-        this.player_pos = player_pos;
 
         // Defining the body of the enemy:
         BodyDef bodyDef = new BodyDef();
@@ -61,22 +55,17 @@ public class Enemy {
         body.setFixedRotation(true);
     }
 
-    public void move() {
-        body.setLinearVelocity(
-            player_pos.x * speed,
-            player_pos.y * speed
-        );
-        
-        Vector2 bodyPos = body.getPosition();
-        size.x = bodyPos.x;
-        size.y = bodyPos.y;
+    public void move(Vector2 player_pos) {
+        /* Get enemy position, and get dir-vector */
+        Vector2 enemyPos = body.getPosition();
+        Vector2 direction = player_pos.sub(enemyPos).nor();
 
-        /* Flip the sprite (endre)
-        if (movementX < 0) {
-            sprite.setFlip(true, false);
-        } else if (movementX > 0) {
-            sprite.setFlip(false, false);
-        } */
+        /* Set movement to equal direction (scale by speed) */
+        body.setLinearVelocity(direction.scl(speed));
+
+        /* Sprite image move */
+        size.x = enemyPos.x;
+        size.y = enemyPos.y;
     }
 
     public void render(SpriteBatch batch) {

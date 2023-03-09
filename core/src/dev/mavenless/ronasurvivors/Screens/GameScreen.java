@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import dev.mavenless.ronasurvivors.RonaSurvivors;
+import dev.mavenless.ronasurvivors.Game.Enemy;
 import dev.mavenless.ronasurvivors.Game.Player;
 import dev.mavenless.ronasurvivors.Game.Save;
 import dev.mavenless.ronasurvivors.Utils.LevelUtil;
@@ -26,6 +28,7 @@ public class GameScreen implements Screen {
     private Box2DDebugRenderer box2dDebugRenderer;
 
     private Player player;
+    private Enemy enemy;
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -54,6 +57,20 @@ public class GameScreen implements Screen {
             levelUtil
         );
 
+        // Enemy
+        enemy = new Enemy(
+        new Rectangle(
+            ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2)-100,
+            ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2)-10,
+            16,
+            16
+        ),
+        new Sprite(new Texture("sprites/player.png")),
+        100f,
+        levelUtil);
+
+
+
         // Save data
         Save save = new Save();
         try {
@@ -80,6 +97,9 @@ public class GameScreen implements Screen {
             extendViewport.getWorldWidth(),
             extendViewport.getWorldHeight()
         );
+
+        // Move enemy
+        enemy.move(player.getPosition());
 
         // Inputs
         if (game.input.down("pause")) {
@@ -112,6 +132,7 @@ public class GameScreen implements Screen {
         // Draw sprites
         game.batch.begin();
         player.render(game.batch);
+        enemy.render(game.batch);
         game.batch.end();
     }
 
@@ -139,6 +160,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         box2dDebugRenderer.dispose();
         player.dispose();
+        enemy.dispose();
     }
     
 }
