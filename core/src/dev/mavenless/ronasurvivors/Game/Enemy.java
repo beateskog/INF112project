@@ -49,23 +49,29 @@ public class Enemy {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
 
-        body.createFixture(fixtureDef);
+        getBody().createFixture(fixtureDef);
         box.dispose();
 
-        body.setFixedRotation(true);
+        getBody().setFixedRotation(true);
     }
 
     public void move(Vector2 player_pos) {
         /* Get enemy position, and get dir-vector */
-        Vector2 enemyPos = body.getPosition();
+        Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
 
         /* Set movement to equal direction (scale by speed) */
-        body.setLinearVelocity(direction.scl(speed));
+        getBody().setLinearVelocity(direction.scl(speed));
 
         /* Sprite image move */
-        size.x = enemyPos.x;
-        size.y = enemyPos.y;
+        getSize().x = enemyPos.x;
+        getSize().y = enemyPos.y;
+
+        if (direction.x < 0) {
+            getSprite().setFlip(true, false);
+        } else if (direction.x > 0) {
+            getSprite().setFlip(false, false);
+        }
     }
 
     public void render(SpriteBatch batch) {
@@ -75,6 +81,9 @@ public class Enemy {
     /* Getter methods */ 
     public Rectangle getSize() {
         return this.size;
+    }
+    public Body getBody() {
+        return this.body;
     }
     public Sprite getSprite() {
         return this.sprite;
