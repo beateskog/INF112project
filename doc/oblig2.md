@@ -75,10 +75,52 @@ Alle gruppemedlemer tilstede
 - Kristian R: planlegger game resource loading 
 - Askild: Testmappe + resarch skincomposer (planlegger hvordan man skal implementere meny)
 
-
-
 # Krav og spesifikasjon 
 
+### MVP (minimum viable product):  
+1. Vise et spillebrett (fullført)
+2. Vise spiller på spillbrettet  (fullført)
+3. Flytte spiller i alle retninger  (fullført)
+4. Fiender som går i mot spiller (fullført)
+5. Spiller kan skyte automatisk 
+6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
+7. Fiender blir sterkere over tid
+8. Spillfigur kan få oppgraderinger underveis 
+9. Mål for spillbrett: få nok poeng
+10. Låser opp nytt spillbrett/nytt nivå 
+11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
+
+### Brukerhistorier:
+1. Som en spiller, vil jeg kunne ha et spillbrett, hvor jeg kan bevege meg i alle forskjellige retninger, slik at jeg kan unngå fiender på best mulig måte.
+2. Som en spiller, vil jeg ha en HP-bar, slik at fiender blir en hindiring og at spillet har et klart mål.
+3. Som en spiller, vil jeg ha muligheten til å skyte mot forskjellige typer fiender, som blir sterkere, i tillegg til at jeg skal kunne bruke forskjellige våpen og ferdigheter, slik at jeg kan utfordre meg selv og gjøre fremgang i spillet.
+4. Som en spiller, vil jeg ha muligheten til å velge og oppgradere egenskaper for å bli sterkere, slik at jeg kan komme videre i spillet.
+5. Som en spiller, vil jeg ha muligheten til å låse opp nye spillbrett nivå, slik at jeg opplever variasjon og progresjon i spillet.
+
+### Akseptansekriterier:
+<em>Akseptanse kriterie for brukerhistorie 1:</em>
+* Spillbrettet gir muligheten til å bevege seg i alle retninger, ved hjelp av kontroller.
+* Spilleren kan navigere brettet med jevne bevegelser, uten feilaktig respons fra kontrollene.
+
+<em>Akseptanse kriterie for brukerhistorie 2:</em>
+* Spilleren kan unngå fiender med å forflytte seg rundt på spillbrettet.
+* Fiender er til stede på brettet og kan følge spilleren.
+* Fiender skal kunne skade spilleren, og spillerens helse skal vise.
+
+<em>Akseptanse kriterie for brukerhistorie 3:</em>
+* Spillet skal tilby spilleren en mulighet for å skyte fiender.
+* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren.
+* Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
+
+<em>Akseptanse kriterie for brukerhistorie 4:</em>
+* Spillet gir spilleren valget mellom flere forskjellige egneskaper å oppgradere, som f.eks.: rekkevidde på våpen, hastighet på spiller, etc. 
+* Oppgraderingene gir en merkbar og meningsfull økning i spillerens presentasjoner, slik at spilleren føler på progresjon.
+* Det skal være to forskjellige typer oppgraderinger, enten på spiller, eller våpen.
+
+<em>Akseptanse kriterie for brukerhistorie 5:</em>
+* Spillet har flere ulike spillbrett nivåer spilleren kan låse opp ved å fullføre tidligere nivåer, eller andre oppgaver i spillet.
+* Nye spillbrett nivå byr på økt utfordring og krever at spilleren bruker nye strategier, eller ferdigheter for å fullføre dem.
+* Hvert nye nivå oppleves som spennende og utfordrende for å gi spilleren motivasjon til å fortsette å spille.
 
 # Produkt og Kode
 
