@@ -75,10 +75,23 @@ Alle gruppemedlemer tilstede
 - Kristian R: planlegger game resource loading 
 - Askild: Testmappe + resarch skincomposer (planlegger hvordan man skal implementere meny)
 
+
+
 # Krav og spesifikasjon 
 
 
 # Produkt og Kode
+
+### Dette har vi fikset siden sist
+
+- Ordnet Meny
+- Ordnet bakgrunn 
+- UI handler
+- Fått inn Player 
+- Fått inn Enemy
+- Save system 
+- Ordnet spilldemo der man kan bevege en player med keyboard input eller controller 
+- Laget Wiki 
 
 ### Kodeforklaring
 
