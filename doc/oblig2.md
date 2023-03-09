@@ -65,6 +65,10 @@ Link til design: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-
 -  Jobbe med Player.java (Laste inn ulike characters)
 -  Jobbe med Wiki
 
+## Gruppemøte 09.03.23
+
+Alle gruppemedlemer tilstede 
+
 # Krav og spesifikasjon 
 
 
