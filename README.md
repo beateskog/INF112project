@@ -1,3 +1,5 @@
+ [![coverage report](https://git.app.uib.no/mavenless/rona-survivors/badges/main/coverage.svg)](https://git.app.uib.no/inf112/23v/textutils/-/commits/main)
+
 README.md-filen skal (gjennom hele semesteret) holdes oppdatert med:
 
 navn på team-medlemmene, teamet og prosjektet, samt gruppenummer
