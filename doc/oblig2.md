@@ -69,6 +69,12 @@ Link til design: [FIGMA](https://www.figma.com/file/qoGq03eyB2PVbSGEsXbSgC/Rona-
 
 Alle gruppemedlemer tilstede 
 
+**Gjort i dag** 
+- Beate og Tobias: Jobbet med Enemy class
+- Kristian S: player animation 
+- Kristian R: planlegger game resource loading 
+- Askild: Testmappe + resarch skincomposer (planlegger hvordan man skal implementere meny)
+
 # Krav og spesifikasjon 
 
 
