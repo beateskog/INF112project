@@ -119,6 +119,10 @@ public class Player {
         return this.speed;
     }
 
+    public Vector2 getPosition(){
+        return body.getPosition();
+    }
+
     // Setters
     public void setSpeed(float speed) {
         this.speed = speed;
