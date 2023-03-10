@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Pool;
@@ -19,42 +21,43 @@ import dev.mavenless.ronasurvivors.Game.Save;
 import dev.mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class GameScreen implements Screen {
-
     final RonaSurvivors game;
-
     private LevelUtil levelUtil;
-
     private ExtendViewport extendViewport;
     private Box2DDebugRenderer box2dDebugRenderer;
 
     private Player player;
     private Enemy enemy;
+    private TextureAtlas atlas;
+    private float elapsedTime;
 
     public GameScreen(final RonaSurvivors game) {
 
         this.game = game;
 
         // Render setup
-        float viewSize = 200f;
+        float viewSize = 200f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
-        extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f);
+        extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
 
         // World
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
 
+        this.atlas = new TextureAtlas("sprites/doctor_white.atlas");
+
         // Player
-        player = new Player(
+        player = new Player(this,
             new Rectangle(
                 (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
                 (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
                 16,
                 16
             ),
-            new Sprite(new Texture("sprites/doctor-white.png")),
             200f,
-            levelUtil
+            levelUtil, 
+            game.input
         );
 
         // Enemy
@@ -88,11 +91,10 @@ public class GameScreen implements Screen {
 
     private void update() {
         // Update physics
-        levelUtil.world.step(1/60f, 6, 2);
+        levelUtil.world.step(1/16f, 6, 2);
 
         // Move player and follow camera
         player.move(
-            game.input,
             extendViewport.getCamera(),
             extendViewport.getWorldWidth(),
             extendViewport.getWorldHeight()
@@ -102,7 +104,7 @@ public class GameScreen implements Screen {
         enemy.move(player.getPosition());
 
         // Inputs
-        if (game.input.down("pause")) {
+        if (game.input.up("pause")) {
             Gdx.app.exit();
         }
 
@@ -122,18 +124,23 @@ public class GameScreen implements Screen {
         // Run game loop
         this.update();
 
-        // Render
+        // Render setup
         game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
         levelUtil.render((OrthographicCamera) extendViewport.getCamera());
 
         // Debug renderer for development!
         box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
 
-        // Draw sprites
+        // Draw & render sprites, enemies, projectiles, etc..
         game.batch.begin();
         player.render(game.batch);
         enemy.render(game.batch);
         game.batch.end();
+    }
+
+
+    public TextureAtlas getAtlas(){
+        return this.atlas;
     }
 
     @Override
