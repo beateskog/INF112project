@@ -75,6 +75,14 @@ Alle gruppemedlemer tilstede
 - Kristian R: planlegger game resource loading 
 - Askild: Testmappe + resarch skincomposer (planlegger hvordan man skal implementere meny)
 
+**Oppsummering:**
+- Komunikasjonen fungerer bedre etter at vi opprettet SMS-gruppe. 
+
+**Forbedringspunkter til neste sprint**
+1. Vi har hittil blitt veldig ivrige på å få til ting, og har egentlig glemt å implementere så mange tester. Dette er et stort forbedringspunkt! 
+2. Vi kan bli enda flinkere å oppdatere og bruke trello
+3. Vi kan bli enda flinkere på gode commit-meldinger til git
+
 # Krav og spesifikasjon 
 
 ### MVP (minimum viable product):  
@@ -101,9 +109,8 @@ Alle gruppemedlemer tilstede
 
 <em>Akseptanse kriterie for brukerhistorie 2:</em>
 * Spilleren kan unngå fiender med å forflytte seg rundt på spillbrettet. (fullført)
-* Fiender er til stede på brettet og kan følge spilleren. (fullført med 1 fiende)
+* Fiender er til stede på brettet og kan følge spilleren. (Delvis fullført med 1 fiende)
 * Fiender skal kunne skade spilleren, og spillerens helse skal vise. (Ikke fullført)
-
 
 # Produkt og Kode
 
