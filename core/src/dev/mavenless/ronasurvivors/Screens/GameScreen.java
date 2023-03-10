@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -29,7 +27,6 @@ public class GameScreen implements Screen {
     private Player player;
     private Enemy enemy;
     private TextureAtlas atlas;
-    private float elapsedTime;
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -45,6 +42,7 @@ public class GameScreen implements Screen {
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
 
+        // Texture for player-sprite
         this.atlas = new TextureAtlas("sprites/doctor_white.atlas");
 
         // Player
@@ -62,15 +60,15 @@ public class GameScreen implements Screen {
 
         // Enemy
         enemy = new Enemy(
-        new Rectangle(
-            ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2)-100,
-            ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2)-10,
-            16,
-            16
-        ),
-        new Sprite(new Texture("sprites/player.png")),
-        30f,
-        levelUtil);
+            new Rectangle(
+                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2)-100,
+                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2)-10,
+                16,
+                16
+            ),
+            new Sprite(new Texture("sprites/player.png")),
+            30f,
+            levelUtil);
 
 
 

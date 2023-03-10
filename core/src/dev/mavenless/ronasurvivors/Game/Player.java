@@ -1,10 +1,9 @@
 package dev.mavenless.ronasurvivors.Game;
 
-import java.nio.charset.Charset;
+
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,17 +20,14 @@ import dev.mavenless.ronasurvivors.Utils.InputUtil;
 import dev.mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Player {
-
     private LevelUtil levelUtil;
     private TextureAtlas atlas;
     public enum State {STANDING, RUNNING, STANDINGLEFT, STANDINGRIGHT};
     private State currentState;
     private State previousState;
     private Rectangle size;
-    private Sprite sprite;
     private float speed;
     private Body body;
-    private Charset charset;
     private Animation<TextureRegion> run;
     private TextureRegion standing;
     private TextureRegion standingLeft;
@@ -41,36 +37,40 @@ public class Player {
     
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.size = size;
-        this.atlas = screen.getAtlas();
-        this.run = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
-        this.standing = new TextureRegion(atlas.findRegion("doctor_white_idle-down"));
-        this.standingLeft = new TextureRegion(atlas.findRegion("doctor_white_idle-left"));
+        this.input = input;
         this.speed = speed;
         this.levelUtil = levelUtil;
-        //this.sprite = new Sprite(standing);
+        atlas = screen.getAtlas();
+        run = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
+        standingLeft = new TextureRegion(atlas.findRegion("doctor_white_idle-left"));
+        standing = new TextureRegion(atlas.findRegion("doctor_white_idle-down"));
         currentState = State.STANDING;
         previousState = State.STANDING;
-        this.isRunningLeft = true;
+        isRunningLeft = true;
         stateTimer = 0;
-        this.input = input;
-        
+    
+        definePlayer();
+       
+    }
 
-        // Set up Box2D
+    // Define the players body, box and fixture
+    private void definePlayer(){
+         // Set up Box2D
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.position.set(size.x, size.y);
-
         body = levelUtil.world.createBody(bodyDef);
 
+        // Sets the hitbox around our player
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2)-3,
-            (size.height / 2)-3, 
+            (size.width / 2)-3, // width of the box
+            (size.height / 2)-3, // height of the box
             new Vector2(
-                (size.width / 2),
-                (size.height / 2)-7
+                (size.width / 2), // center of the box in local coordinates (width)
+                (size.height / 2)-7 // center of the box in local coordinates (Height)
             ),
-            0f
+            0f // Rotation (Example if we want to add dodge ability)
         );
 
         FixtureDef fixtureDef = new FixtureDef();
@@ -80,7 +80,7 @@ public class Player {
         fixtureDef.restitution = 0.0f; // Make it bounce a little bit
 
         body.createFixture(fixtureDef);
-
+       
         box.dispose();
 
         // Body settings
@@ -123,6 +123,16 @@ public class Player {
         camera.update();
     }
 
+    
+    
+    /** 
+     * Returns a TextureRegion that contains the next frame of the player to be shown on the screen.
+     * If the player is currently standing we want to display our player as standing, as goes for the other states our player could be in.
+     * This method also checks which way the player is running - thus it will flip the animation depending on the movement of the player.
+     * {@code stateTimer} is incremented by 1 for every frame as long as the {@code previousState} is the {@code currentState}. 
+     * If the player State changes - the timer resets - which will starts the next animation (the new state) on frame index 0.
+     * @return TextureRegion
+     */
     private TextureRegion getFrame(){
         TextureRegion region;
         currentState = getState();
@@ -153,29 +163,27 @@ public class Player {
     }
     
 
-    // Is player moving or standing still?
+    /**
+     * Based on how the player is moving in X and/or Y- direction we define a State
+     * of the player which relates to the animation we want to be displayed.
+     * @return State 
+     */
     private State getState(){
         if(input.moveX() != 0) return State.RUNNING;
         else return State.STANDING;
     }
 
+    
     public void render(SpriteBatch batch) {
         batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
         System.out.println(this.stateTimer);
     }
 
-    //private TextureRegion getCurrentFrame(float delta){
-    //    
-    //}
 
 
-    // Getters
+    // Getters and Setters
     public Rectangle getSize() {
         return this.size;
-    }
-
-    public Sprite getSprite() {
-        return this.sprite;
     }
 
     public float getSpeed() {
