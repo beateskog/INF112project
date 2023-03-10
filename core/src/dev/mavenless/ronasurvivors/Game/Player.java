@@ -176,7 +176,7 @@ public class Player {
     
     public void render(SpriteBatch batch) {
         batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
-        System.out.println(this.stateTimer);
+        //System.out.println(this.stateTimer);
     }
 
 
