@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Utils;
+package mavenless.ronasurvivors.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

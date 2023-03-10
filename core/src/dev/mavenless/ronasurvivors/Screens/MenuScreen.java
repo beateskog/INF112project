@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Screens;
+package mavenless.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -18,10 +18,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import dev.mavenless.ronasurvivors.RonaSurvivors;
-import dev.mavenless.ronasurvivors.Utils.InputUtil;
-import dev.mavenless.ronasurvivors.Utils.UiHandler;
-import dev.mavenless.ronasurvivors.Utils.UiHandler.UiFont;
+import mavenless.ronasurvivors.RonaSurvivors;
+import mavenless.ronasurvivors.Utils.InputUtil;
+import mavenless.ronasurvivors.Utils.UiHandler;
+import mavenless.ronasurvivors.Utils.UiHandler.UiFont;
 
 public class MenuScreen implements Screen {
 

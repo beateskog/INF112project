@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Screens;
+package mavenless.ronasurvivors.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,11 +12,11 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import dev.mavenless.ronasurvivors.RonaSurvivors;
-import dev.mavenless.ronasurvivors.Game.Enemy;
-import dev.mavenless.ronasurvivors.Game.Player;
-import dev.mavenless.ronasurvivors.Game.Save;
-import dev.mavenless.ronasurvivors.Utils.LevelUtil;
+import mavenless.ronasurvivors.RonaSurvivors;
+import mavenless.ronasurvivors.Game.Enemy;
+import mavenless.ronasurvivors.Game.Player;
+import mavenless.ronasurvivors.Game.Save;
+import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class GameScreen implements Screen {
     final RonaSurvivors game;

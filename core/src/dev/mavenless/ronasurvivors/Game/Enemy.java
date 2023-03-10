@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Game;
+package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-import dev.mavenless.ronasurvivors.Utils.LevelUtil;
+import mavenless.ronasurvivors.Utils.LevelUtil;
 
 /* Class for displaying enemies */
 public class Enemy {

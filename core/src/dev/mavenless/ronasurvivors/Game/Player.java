@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Game;
+package mavenless.ronasurvivors.Game;
 
 
 
@@ -15,9 +15,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
-import dev.mavenless.ronasurvivors.Screens.GameScreen;
-import dev.mavenless.ronasurvivors.Utils.InputUtil;
-import dev.mavenless.ronasurvivors.Utils.LevelUtil;
+import mavenless.ronasurvivors.Screens.GameScreen;
+import mavenless.ronasurvivors.Utils.InputUtil;
+import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Player {
     private LevelUtil levelUtil;

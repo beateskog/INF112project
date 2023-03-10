@@ -1,12 +1,12 @@
-package dev.mavenless.ronasurvivors;
+package mavenless.ronasurvivors;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import dev.mavenless.ronasurvivors.Screens.GameScreen;
-import dev.mavenless.ronasurvivors.Utils.InputUtil;
+import mavenless.ronasurvivors.Screens.GameScreen;
+import mavenless.ronasurvivors.Utils.InputUtil;
 
 public class RonaSurvivors extends Game {
 

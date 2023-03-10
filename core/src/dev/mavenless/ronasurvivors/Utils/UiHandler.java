@@ -1,4 +1,4 @@
-package dev.mavenless.ronasurvivors.Utils;
+package mavenless.ronasurvivors.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

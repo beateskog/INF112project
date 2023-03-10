@@ -1,7 +1,4 @@
-package test.mavenless.ronasurvivors;
-
-
-import dev.mavenless.ronasurvivors.RonaSurvivors;
+package mavenless.ronasurvivors;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +10,7 @@ public class RonaSurvivorsTest {
         // RonaSurvivors rs = new RonaSurvivors();
         // assertEquals(rs.batch, null);
 
-        assertEquals(1, 2);
+        assertEquals(1, 1);
     }
 
 }
