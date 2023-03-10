@@ -67,7 +67,7 @@ public class GameScreen implements Screen {
                 16
             ),
             new Sprite(new Texture("sprites/player.png")),
-            30f,
+            10f,
             levelUtil);
 
 
