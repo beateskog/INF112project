@@ -65,5 +65,12 @@ project(":core") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
     }
+
+    test {
+        useJUnitPlatform()
+    }
+
 }
