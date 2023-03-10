@@ -119,7 +119,9 @@ Alle gruppemedlemer tilstede
 - Ordnet Meny
 - Ordnet bakgrunn 
 - UI handler
-- Fått inn Player 
+- Fått inn Player
+    - Animasjon for løpe venstre & høyre
+    - Ny og bedre hitbox
 - Fått inn Enemy
 - Save system 
 - Ordnet spilldemo der man kan bevege en player med keyboard input eller controller 
