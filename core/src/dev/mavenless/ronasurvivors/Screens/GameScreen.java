@@ -4,22 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Save;
+import mavenless.ronasurvivors.Utils.CollisionUtil;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class GameScreen implements Screen {
@@ -32,8 +29,6 @@ public class GameScreen implements Screen {
     private Enemy enemy;
     private TextureAtlas playerAtlas;
     private TextureAtlas tmpEnemyAtlas;
-
-    private Boolean playerHit = false;
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -48,6 +43,7 @@ public class GameScreen implements Screen {
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
+        levelUtil.world.setContactListener(new CollisionUtil());
 
         // Texture for player-sprite
         this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas");
@@ -110,9 +106,6 @@ public class GameScreen implements Screen {
         // Move enemy
         enemy.move(player.getPosition());
 
-        // Is enemy touching player?
-        this.collisonDetect();
-
         // Inputs
         if (game.input.up("pause")) {
             Gdx.app.exit();
@@ -143,27 +136,10 @@ public class GameScreen implements Screen {
 
         // Draw & render sprites, enemies, projectiles, etc..
         game.batch.begin();
-        player.render(game.batch, playerHit);
+        player.render(game.batch);
         enemy.render(game.batch);
         game.batch.end();
     }
-
-    /**
-     * Helper function for checing if the enemy
-     * is touching the player rectangle.
-     */
-    private void collisonDetect() {
-        // Retrieve rectangles
-        Rectangle enemy_current_hitbox = new Rectangle(enemy.getPosition().x, enemy.getPosition().y, enemy.getSize().width, enemy.getSize().height);
-        Rectangle player_current_hitbox = new Rectangle(player.getPosition().x, player.getPosition().y, player.getSize().width, player.getSize().height);
-        playerHit = false;
-
-        // If enemy is touching player, set playerHit == true, else false
-        if (Intersector.overlaps(enemy_current_hitbox, player_current_hitbox)){
-            playerHit = true;
-        }
-    }
-
 
     public TextureAtlas getAtlas(){
         return this.playerAtlas;
@@ -194,6 +170,5 @@ public class GameScreen implements Screen {
         box2dDebugRenderer.dispose();
         player.dispose();
         enemy.dispose();
-    }
-    
+    }    
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -28,6 +29,7 @@ public class Player {
     private Rectangle size;
     private float speed;
     private Body body;
+    private Fixture playerFix;
     private Animation<TextureRegion> runHorizontal;
     private Animation<TextureRegion> runUp;
     private Animation<TextureRegion> runDown;
@@ -83,8 +85,8 @@ public class Player {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f; // Make it bounce a little bit
 
-        body.createFixture(fixtureDef);
-       
+        playerFix = body.createFixture(fixtureDef);
+        playerFix.setUserData("Player");
         box.dispose();
 
         // Body settings
@@ -186,12 +188,8 @@ public class Player {
     }
 
     
-    public void render(SpriteBatch batch, Boolean playerHit) {
-        if (playerHit){
-            batch.draw(getFrame(), size.x, size.y, size.width, size.height);
-        } else {
-            batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
-        }
+    public void render(SpriteBatch batch) {
+        batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
         //System.out.println(this.stateTimer);
     }
 

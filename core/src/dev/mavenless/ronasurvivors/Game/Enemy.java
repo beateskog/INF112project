@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -18,6 +19,7 @@ public class Enemy {
     private Sprite sprite;
     private float speed;
     private Body body;
+    private Fixture enemyFix;
 
     public Enemy(Rectangle size, Sprite sprite, float speed, LevelUtil levelUtil) {
         this.size = size;
@@ -49,7 +51,8 @@ public class Enemy {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
 
-        getBody().createFixture(fixtureDef);
+        enemyFix = getBody().createFixture(fixtureDef);
+        enemyFix.setUserData("Enemy");
         box.dispose();
 
         getBody().setFixedRotation(true);
