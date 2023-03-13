@@ -31,16 +31,25 @@ Ingenting hittil 😎
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
 1. *Scrum-master* @Kristian.Rognsvaag
-&nbsp;&nbsp; &nbsp; &nbsp;  Kristian Fredrik har mest erfaring av oss alle, og er derfor en naturlig leder. 
+- En Scrum-master har i et større prosjekt mange funksjoner, men de vi velger å fokusere på i vårt mindre prosjekt er:
+
+    - Sikrer Scrum-metodikken blir brukt for å guide teamet
+    - Vi vil fokusere på å bruke "Daily Scrum", som vil være ca. 2 ganger ukentlig med vår arbeidsmengde.
+    - Vi ser på de obligatoriske innleveringene som våre "sprinter" 
+
 2. *Dev. Team-member* @Askild.Heiret
-&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
+    - UX/UI ansvarlig: ansvar for brukervenlighet, layout og visual design. 
+
 3. *Dev. Team-member* @Kristian.Skeie
-&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
+    - Test ansvarlig: ansvar for produktkvalitet
+
 4. *Dev. Team-member* @Tobias.Husebo
-&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
+    -   Software arkitekt: beslutningstaker når det gjelder ordning av programvaren
+    
 5. *Dev. Team-member* @Beate.Skogvik
-&nbsp;&nbsp; &nbsp; &nbsp; Bestemmer nærmere rollefordeling senere i prosjektet 
+    - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering 
     
 
-* Link to Trello: 
+
+Link to Trello: 
 [TRELLO](https://trello.com/b/QHYMXsMK/issues)
