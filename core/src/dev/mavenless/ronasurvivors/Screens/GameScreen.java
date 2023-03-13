@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -16,6 +16,7 @@ import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Save;
+import mavenless.ronasurvivors.Utils.CollisionUtil;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class GameScreen implements Screen {
@@ -26,7 +27,8 @@ public class GameScreen implements Screen {
 
     private Player player;
     private Enemy enemy;
-    private TextureAtlas atlas;
+    private TextureAtlas playerAtlas;
+    private TextureAtlas tmpEnemyAtlas;
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -41,9 +43,10 @@ public class GameScreen implements Screen {
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
+        levelUtil.world.setContactListener(new CollisionUtil());
 
         // Texture for player-sprite
-        this.atlas = new TextureAtlas("sprites/doctor_white.atlas");
+        this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas");
 
         // Player
         player = new Player(this,
@@ -59,14 +62,16 @@ public class GameScreen implements Screen {
         );
 
         // Enemy
+        this.tmpEnemyAtlas = new TextureAtlas("sprites/Skeleton/Skeleton.atlas");
+        TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
         enemy = new Enemy(
             new Rectangle(
-                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2)-100,
-                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2)-10,
-                16,
-                16
+                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2),
+                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2),
+                20,
+                20
             ),
-            new Sprite(new Texture("sprites/player.png")),
+            new Sprite(skeleton),
             10f,
             levelUtil);
 
@@ -136,9 +141,8 @@ public class GameScreen implements Screen {
         game.batch.end();
     }
 
-
     public TextureAtlas getAtlas(){
-        return this.atlas;
+        return this.playerAtlas;
     }
 
     @Override
@@ -166,6 +170,5 @@ public class GameScreen implements Screen {
         box2dDebugRenderer.dispose();
         player.dispose();
         enemy.dispose();
-    }
-    
+    }    
 }

@@ -7,8 +7,8 @@ public class RonaSurvivorsTest {
     
     @Test
     public void firstTest() {
-        // RonaSurvivors rs = new RonaSurvivors();
-        // assertEquals(rs.batch, null);
+        RonaSurvivors rs = new RonaSurvivors();
+        assertEquals(rs.batch, null);
 
         assertEquals(1, 1);
     }

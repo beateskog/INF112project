@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -22,13 +23,16 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 public class Player {
     private LevelUtil levelUtil;
     private TextureAtlas atlas;
-    public enum State {STANDING, RUNNING, STANDINGLEFT, STANDINGRIGHT};
+    public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private State currentState;
     private State previousState;
     private Rectangle size;
     private float speed;
     private Body body;
-    private Animation<TextureRegion> run;
+    private Fixture playerFix;
+    private Animation<TextureRegion> runHorizontal;
+    private Animation<TextureRegion> runUp;
+    private Animation<TextureRegion> runDown;
     private TextureRegion standing;
     private TextureRegion standingLeft;
     private Boolean isRunningLeft;
@@ -41,7 +45,9 @@ public class Player {
         this.speed = speed;
         this.levelUtil = levelUtil;
         atlas = screen.getAtlas();
-        run = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
+        runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
+        runUp = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-up"));
+        runDown = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-down"));
         standingLeft = new TextureRegion(atlas.findRegion("doctor_white_idle-left"));
         standing = new TextureRegion(atlas.findRegion("doctor_white_idle-down"));
         currentState = State.STANDING;
@@ -79,8 +85,8 @@ public class Player {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f; // Make it bounce a little bit
 
-        body.createFixture(fixtureDef);
-       
+        playerFix = body.createFixture(fixtureDef);
+        playerFix.setUserData("Player");
         box.dispose();
 
         // Body settings
@@ -128,7 +134,7 @@ public class Player {
     /** 
      * Returns a TextureRegion that contains the next frame of the player to be shown on the screen.
      * If the player is currently standing we want to display our player as standing, as goes for the other states our player could be in.
-     * This method also checks which way the player is running - thus it will flip the animation depending on the movement of the player.
+     * This method also checks which way the player is RUNNINGHORIZONTAL - thus it will flip the animation depending on the movement of the player.
      * {@code stateTimer} is incremented by 1 for every frame as long as the {@code previousState} is the {@code currentState}. 
      * If the player State changes - the timer resets - which will starts the next animation (the new state) on frame index 0.
      * @return TextureRegion
@@ -140,8 +146,14 @@ public class Player {
             case STANDING:
                 region = standing;
                 break;
-            case RUNNING:
-                region = run.getKeyFrame(stateTimer, true);
+            case RUNNINGHORIZONTAL:
+                region = runHorizontal.getKeyFrame(stateTimer, true);
+                break;
+            case RUNNINGUP:
+                region = runUp.getKeyFrame(stateTimer, true);
+                break;
+            case RUNNINGDOWN:
+                region = runDown.getKeyFrame(stateTimer, true);
                 break;
             default:
                 region = standing;
@@ -169,7 +181,9 @@ public class Player {
      * @return State 
      */
     private State getState(){
-        if(input.moveX() != 0) return State.RUNNING;
+        if(input.moveX() != 0) return State.RUNNINGHORIZONTAL;
+        if (input.moveY() > 0) return State.RUNNINGUP;
+        if(input.moveY() < 0) return State.RUNNINGDOWN;
         else return State.STANDING;
     }
 
