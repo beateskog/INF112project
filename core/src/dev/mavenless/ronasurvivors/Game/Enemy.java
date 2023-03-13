@@ -75,7 +75,7 @@ public class Enemy {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, size.x-5, size.y-5, size.width+10, size.height+10);
+        batch.draw(sprite, size.x-5, size.y-5, size.width, size.height);
     }
 
     /* Getter methods */ 
