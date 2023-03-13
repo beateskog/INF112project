@@ -5,11 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
@@ -27,6 +30,8 @@ public class GameScreen implements Screen {
     private Player player;
     private Enemy enemy;
     private TextureAtlas atlas;
+
+    private Boolean playerHit = false;
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -101,6 +106,9 @@ public class GameScreen implements Screen {
         // Move enemy
         enemy.move(player.getPosition());
 
+        // Is enemy touching player?
+        this.collisonDetect();
+
         // Inputs
         if (game.input.up("pause")) {
             Gdx.app.exit();
@@ -131,9 +139,25 @@ public class GameScreen implements Screen {
 
         // Draw & render sprites, enemies, projectiles, etc..
         game.batch.begin();
-        player.render(game.batch);
+        player.render(game.batch, playerHit);
         enemy.render(game.batch);
         game.batch.end();
+    }
+
+    /**
+     * Helper function for checing if the enemy
+     * is touching the player rectangle.
+     */
+    private void collisonDetect() {
+        // Retrieve rectangles
+        Rectangle enemy_current_hitbox = new Rectangle(enemy.getPosition().x, enemy.getPosition().y, enemy.getSize().width, enemy.getSize().height);
+        Rectangle player_current_hitbox = new Rectangle(player.getPosition().x, player.getPosition().y, player.getSize().width, player.getSize().height);
+        playerHit = false;
+
+        // If enemy is touching player, set playerHit == true, else false
+        if (Intersector.overlaps(enemy_current_hitbox, player_current_hitbox)){
+            playerHit = true;
+        }
     }
 
 

@@ -91,6 +91,9 @@ public class Enemy {
     public float getSpeed() {
         return this.speed;
     }
+    public Vector2 getPosition() {
+        return body.getPosition();
+    }
     
     /* Dispose */
     public void dispose() {

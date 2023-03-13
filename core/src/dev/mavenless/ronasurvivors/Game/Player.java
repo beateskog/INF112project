@@ -186,8 +186,12 @@ public class Player {
     }
 
     
-    public void render(SpriteBatch batch) {
-        batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
+    public void render(SpriteBatch batch, Boolean playerHit) {
+        if (playerHit){
+            batch.draw(getFrame(), size.x-5, size.y-5, size.width, size.height);
+        } else {
+            batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
+        }
         //System.out.println(this.stateTimer);
     }
 
