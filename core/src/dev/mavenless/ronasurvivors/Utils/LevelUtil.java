@@ -132,16 +132,6 @@ public class LevelUtil {
             Gdx.app.debug("Tiles", layer.getName());
     }
 
-    /**
-     * Gives the tile map as an
-     * OrthogonalTiledMapRenderer
-     * 
-     * @return and OrthogonalTiledMapRenderer
-     */
-    public OrthogonalTiledMapRenderer getTileRenderer() {
-        return mapRenderer;
-    }
-
     // Getters
     /**
      * @return the width of a tile
