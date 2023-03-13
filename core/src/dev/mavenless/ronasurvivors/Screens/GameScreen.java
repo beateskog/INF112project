@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -29,7 +30,8 @@ public class GameScreen implements Screen {
 
     private Player player;
     private Enemy enemy;
-    private TextureAtlas atlas;
+    private TextureAtlas playerAtlas;
+    private TextureAtlas tmpEnemyAtlas;
 
     private Boolean playerHit = false;
 
@@ -48,7 +50,7 @@ public class GameScreen implements Screen {
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
 
         // Texture for player-sprite
-        this.atlas = new TextureAtlas("sprites/doctor_white.atlas");
+        this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas");
 
         // Player
         player = new Player(this,
@@ -64,14 +66,16 @@ public class GameScreen implements Screen {
         );
 
         // Enemy
+        this.tmpEnemyAtlas = new TextureAtlas("sprites/Skeleton/Skeleton.atlas");
+        TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
         enemy = new Enemy(
             new Rectangle(
-                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2)-100,
-                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2)-10,
-                16,
-                16
+                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2),
+                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2),
+                20,
+                20
             ),
-            new Sprite(new Texture("sprites/player.png")),
+            new Sprite(skeleton),
             10f,
             levelUtil);
 
@@ -162,7 +166,7 @@ public class GameScreen implements Screen {
 
 
     public TextureAtlas getAtlas(){
-        return this.atlas;
+        return this.playerAtlas;
     }
 
     @Override

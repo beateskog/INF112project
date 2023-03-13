@@ -33,11 +33,11 @@ public class Enemy {
         // Defining the box of the enemy body:  
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2)-3,
-            (size.height / 2)-3, 
+            (size.width / 2),
+            (size.height / 2), 
             new Vector2(
                 (size.width / 2),
-                (size.height / 2)-7
+                (size.height / 2)
             ),
             0f
         );
@@ -75,7 +75,7 @@ public class Enemy {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, size.x-5, size.y-5, size.width, size.height);
+        batch.draw(sprite, size.x, size.y, size.width, size.height);
     }
 
     /* Getter methods */ 
