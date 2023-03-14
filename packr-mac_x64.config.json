@@ -6,7 +6,7 @@
   "vmargs": [
     "-XstartOnFirstThread"
   ],
-  "icon": "./assets/icons/macOS-icon.icns",
+  "icon": "./assets/icons/mac/icon.icns",
   "minimizejre": "soft",
   "output": "build/mac/Rona Survivors.app"
 }
