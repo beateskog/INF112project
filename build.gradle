@@ -54,6 +54,7 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: "jacoco"
 
 
     dependencies {
@@ -73,6 +74,16 @@ project(":core") {
 
     test {
         useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test
+
+        reports {
+            csv.required = true
+            csv.destination = file("${buildDir}/jacocoCsv.csv")
+        }
     }
 
 }
