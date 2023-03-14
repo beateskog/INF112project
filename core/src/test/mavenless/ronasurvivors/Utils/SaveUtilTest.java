@@ -15,12 +15,11 @@ import org.junit.jupiter.api.AfterAll;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
 import mavenless.ronasurvivors.HeadlessApp;
 
-public class SaveUtilTest extends ApplicationAdapter {
+public class SaveUtilTest {
 
     private static HeadlessApplication headlessApplication = null;
     private static String tmpDir = null;
@@ -129,6 +128,13 @@ public class SaveUtilTest extends ApplicationAdapter {
         } catch (Exception e) {
             Assertions.fail("Read Error: " + e.getMessage());
         }
+    }
+
+    @Test
+    public void testDefaultSavePath() {
+        // Check that getDefaultSavePath() returns a value
+        Assertions.assertNotNull(SaveUtil.getDefaultSavePath());
+        Assertions.assertNotEquals(SaveUtil.getDefaultSavePath(), "");
     }
 
 }
