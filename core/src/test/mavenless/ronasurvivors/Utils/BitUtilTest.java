@@ -53,9 +53,33 @@ public class BitUtilTest {
         byte[] bytes = { 'T', 'O', 'A', 'S', 'T' };
         String hex = "54 4f 41 53 54";
 
-        BitUtil bitUtil = new BitUtil(bytes);
+        Assertions.assertEquals(hex, new BitUtil(bytes).toHex());
+    }
 
-        Assertions.assertEquals(hex, bitUtil.toHex());
+    @Test
+    public void testLengthBytes() {
+        // Test data
+        String string = "Appreciate";
+        int integer = 33;
+        short number = 8;
+        byte[] bytes = { 0x55, 0x76, 0x55, 0x34, 0x7f };
+
+        Assertions.assertEquals(
+            new BitUtil(new BitUtil(string).toLengthBytes()).toHex(),
+            "00 00 00 0a"
+        );
+        Assertions.assertEquals(
+            new BitUtil(new BitUtil(integer).toLengthBytes()).toHex(),
+            "00 00 00 04"
+        );
+        Assertions.assertEquals(
+            new BitUtil(new BitUtil(number).toLengthBytes()).toHex(),
+            "00 00 00 02"
+        );
+        Assertions.assertEquals(
+            new BitUtil(new BitUtil(bytes).toLengthBytes()).toHex(),
+            "00 00 00 05"
+        );
     }
 
 }
