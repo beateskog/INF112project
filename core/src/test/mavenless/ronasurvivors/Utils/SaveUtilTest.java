@@ -32,7 +32,8 @@ public class SaveUtilTest extends HeadlessTest {
             Assertions.fail("Couldn't make a temp dir");
             return;
         }
-        System.out.println("Temp dir is: " + tmpDir);
+        Assertions.assertNotNull(tmpDir);
+        Assertions.assertNotEquals(tmpDir, "");
     }
 
     // libGDX and temp dir cleanup
