@@ -1,40 +1,28 @@
 package mavenless.ronasurvivors.Utils;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Objects;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
-
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.Gdx;
 
-import mavenless.ronasurvivors.HeadlessApp;
+import mavenless.ronasurvivors.HeadlessTest;
 
-public class SaveUtilTest {
+public class SaveUtilTest extends HeadlessTest {
 
-    private static HeadlessApplication headlessApplication = null;
     private static String tmpDir = null;
 
     // libGDX and temp dir setup
     @BeforeAll
     public static void start() {
         System.out.println("Starting SaveUtilTest");
-
-        // Set up headless application
-        if (headlessApplication == null) {
-            HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-            headlessApplication = new HeadlessApplication(new HeadlessApp(), config);
-            Assertions.assertNotNull(Gdx.files);
-        }
 
         // Get temp directory
         try {
@@ -57,9 +45,6 @@ public class SaveUtilTest {
             Gdx.files.absolute(tmpDir).deleteDirectory(),
             "Couldn't delete the temp dir"
         );
-
-        // Quit libGDX
-        Gdx.app.exit();
     }
 
     @Test
