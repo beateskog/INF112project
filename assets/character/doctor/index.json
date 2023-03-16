@@ -1,0 +1,11 @@
+{ "information": [
+    {
+        "atlasFilename": "doctor_white.atlas",
+        "maxHealth": 100,
+        "starterWeapon": 37,
+        "speed": 10,
+        "name": "Doctor"
+    }
+
+    ]
+}

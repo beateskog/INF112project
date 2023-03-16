@@ -46,9 +46,7 @@ public class GameScreen implements Screen {
         levelUtil.world.setContactListener(new CollisionHandler());
 
         // Texture for player-sprite
-        
-        String playerName = ""; // game.getSelectedPLayer()
-        // Player
+        String playerName = "doctor"; // game.getSelectedPLayer()
         definePlayer(playerName);
 
         // Enemy
@@ -70,7 +68,7 @@ public class GameScreen implements Screen {
     public void show() {}
 
     private void definePlayer(String playerName){
-        this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas"); // newTextureAtlas("sprites/"++playerName)
+        this.playerAtlas = new TextureAtlas("character/doctor/doctor_white.atlas"); // newTextureAtlas("sprites/"++playerName)
         player = new Player(this,
             new Rectangle(
                 (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,

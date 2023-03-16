@@ -33,12 +33,14 @@ public class Player {
     private TextureRegion standing;
     private Boolean isRunningLeft;
     private InputUtil input;
+    private String playerName;
     
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.size = size;
         this.input = input;
         this.speed = speed;
         this.levelUtil = levelUtil;
+        this.playerName = playerName;
         atlas = screen.getAtlas();
         runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
         runUp = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-up"));
@@ -52,6 +54,7 @@ public class Player {
         definePlayer();
        
     }
+
 
     // Define the players body, box and fixture
     private void definePlayer(){
