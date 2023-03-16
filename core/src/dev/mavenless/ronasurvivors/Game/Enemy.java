@@ -20,12 +20,18 @@ public class Enemy {
     private float speed;
     private Body body;
     private Fixture enemyFix;
+    private LevelUtil levelUtil;
 
     public Enemy(Rectangle size, Sprite sprite, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.sprite = sprite;
         this.speed = speed;
+        this.levelUtil = levelUtil;
 
+        defineEnemy();
+    }
+
+    private void defineEnemy() {
         // Defining the body of the enemy:
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
