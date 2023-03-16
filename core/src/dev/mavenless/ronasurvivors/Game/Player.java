@@ -24,19 +24,14 @@ public class Player {
     private LevelUtil levelUtil;
     private TextureAtlas atlas;
     public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
-    private State currentState;
-    private State previousState;
+    private State currentState, previousState;
     private Rectangle size;
-    private float speed;
+    private float speed, stateTimer;
     private Body body;
     private Fixture playerFix;
-    private Animation<TextureRegion> runHorizontal;
-    private Animation<TextureRegion> runUp;
-    private Animation<TextureRegion> runDown;
+    private Animation<TextureRegion> runHorizontal, runUp, runDown;
     private TextureRegion standing;
-    private TextureRegion standingLeft;
     private Boolean isRunningLeft;
-    private float stateTimer;
     private InputUtil input;
     
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
@@ -48,7 +43,6 @@ public class Player {
         runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
         runUp = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-up"));
         runDown = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-down"));
-        standingLeft = new TextureRegion(atlas.findRegion("doctor_white_idle-left"));
         standing = new TextureRegion(atlas.findRegion("doctor_white_idle-down"));
         currentState = State.STANDING;
         previousState = State.STANDING;
