@@ -46,36 +46,13 @@ public class GameScreen implements Screen {
         levelUtil.world.setContactListener(new CollisionHandler());
 
         // Texture for player-sprite
-        this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas");
-
+        
+        String playerName = ""; // game.getSelectedPLayer()
         // Player
-        player = new Player(this,
-            new Rectangle(
-                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
-                (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
-                16,
-                16
-            ),
-            200f,
-            levelUtil, 
-            game.input
-        );
+        definePlayer(playerName);
 
         // Enemy
-        this.tmpEnemyAtlas = new TextureAtlas("sprites/Skeleton/Skeleton.atlas");
-        TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
-        enemy = new Enemy(
-            new Rectangle(
-                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2),
-                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2),
-                20,
-                20
-            ),
-            new Sprite(skeleton),
-            10f,
-            levelUtil);
-
-
+        defineEnemy();
 
         // Save data
         Save save = new Save();
@@ -91,6 +68,36 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {}
+
+    private void definePlayer(String playerName){
+        this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas"); // newTextureAtlas("sprites/"++playerName)
+        player = new Player(this,
+            new Rectangle(
+                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
+                (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
+                16,
+                16
+            ),
+            200f,
+            levelUtil, 
+            game.input
+        );
+    }
+
+    private void defineEnemy(){
+        this.tmpEnemyAtlas = new TextureAtlas("sprites/Skeleton/Skeleton.atlas");
+        TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
+        enemy = new Enemy(
+            new Rectangle(
+                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2),
+                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2),
+                20,
+                20
+            ),
+            new Sprite(skeleton),
+            10f,
+            levelUtil);
+    }
 
     private void update() {
         // Update physics
