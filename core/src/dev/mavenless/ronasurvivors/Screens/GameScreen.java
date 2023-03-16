@@ -13,10 +13,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
+import mavenless.ronasurvivors.Game.CollisionHandler;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Save;
-import mavenless.ronasurvivors.Utils.CollisionUtil;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class GameScreen implements Screen {
@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
-        levelUtil.world.setContactListener(new CollisionUtil());
+        levelUtil.world.setContactListener(new CollisionHandler());
 
         // Texture for player-sprite
         this.playerAtlas = new TextureAtlas("sprites/doctor_white.atlas");
