@@ -41,7 +41,9 @@ Tobias: HP-bar
 - Gå i gruppetime for å finne ut av hva/hvordan vi skal teste.
 - Ellers fungerer gruppedynamikken godt, vi har god dialog og alle gir en innsats. 
 
+# Krav og spesifikasjon
 
+# Produkt kode 
 
 
 
