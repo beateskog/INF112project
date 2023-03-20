@@ -22,25 +22,31 @@ public class MenuPrototype extends ApplicationAdapter {
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
+        table.setName("Høie");
         table.setFillParent(true);
 
         ImageButton imageButton = new ImageButton(skin, "doctorImageButton");
+        imageButton.setName("Doctor");
         table.add(imageButton);
 
         imageButton = new ImageButton(skin, "doctorImageButton");
+        imageButton.setName("Doctor");
         table.add(imageButton);
 
         ImageTextButton imageTextButton = new ImageTextButton(null, skin, "Anti-Vaxxer");
+        imageButton.setName("Anti-Vaxxer");
         table.add(imageTextButton);
 
         table.row();
         imageButton = new ImageButton(skin, "doctorImageButton");
+        imageButton.setName("Doctor");
         table.add(imageButton);
 
         imageTextButton = new ImageTextButton(null, skin);
         table.add(imageTextButton);
 
         imageTextButton = new ImageTextButton(null, skin, "PlagueDoctor");
+        imageButton.setName("PlagueDoctor");
         table.add(imageTextButton);
 
         table.row();
