@@ -1,5 +1,8 @@
 package mavenless.ronasurvivors.Screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +22,7 @@ import mavenless.ronasurvivors.Game.CollisionHandler;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.HP_bar;
 import mavenless.ronasurvivors.Game.Player;
+import mavenless.ronasurvivors.Game.Projectile;
 import mavenless.ronasurvivors.Game.Save;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
@@ -32,8 +36,14 @@ public class GameScreen implements Screen {
     private Player player;
     private HP_bar hp_bar;
     private Enemy enemy;
+    private Projectile projectile;
     private TextureAtlas playerAtlas;
     private TextureAtlas tmpEnemyAtlas;
+    
+    private float timeSinceLastShot = 0;
+    private boolean fired = false;
+    private boolean isProjectileDestoyed = false;
+    private List<Projectile> projectiles = new ArrayList<Projectile>();
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -57,6 +67,9 @@ public class GameScreen implements Screen {
 
         // Enemy
         defineEnemy();
+
+        //Projectile
+        projectiles.add(defineProjectile());
 
         // Save data
         Save save = new Save();
@@ -119,6 +132,20 @@ public class GameScreen implements Screen {
         }
     }
 
+    private Projectile defineProjectile(){
+        projectile = new Projectile(
+            new Rectangle(
+                (player.getPosition().x),
+                (player.getPosition().y),
+                10,
+                10
+            ),
+            10f,
+            levelUtil,
+            player.getPosition());
+        return projectile;
+    }
+
     private void update() {
         // Update physics
         levelUtil.world.step(1/16f, 6, 2);
@@ -132,6 +159,24 @@ public class GameScreen implements Screen {
 
         // Move enemy
         enemy.move(player.getPosition());
+        
+        //Shoot 
+        projectile.shoot(player.getPosition());
+        timeSinceLastShot += Gdx.graphics.getDeltaTime();
+        if (!fired && (timeSinceLastShot >= 2f)) {
+            timeSinceLastShot = 0;
+            fired = true;
+        }
+        else if (fired) {
+            if (timeSinceLastShot >= 2f) {
+                timeSinceLastShot = 0;
+                fired = false;
+                levelUtil.world.destroyBody(projectile.getBody());
+                projectile.dispose();
+                projectiles.remove(0);
+                projectiles.add(defineProjectile());
+            }
+        } 
 
         // Inputs
         if (game.input.up("pause")) {
@@ -165,6 +210,9 @@ public class GameScreen implements Screen {
         game.batch.begin();
         player.render(game.batch);
         enemy.render(game.batch);
+        for (Projectile projectile : projectiles){
+            projectile.render(game.batch);
+        }
         game.batch.end();
 
         // Stage render
@@ -203,5 +251,6 @@ public class GameScreen implements Screen {
         box2dDebugRenderer.dispose();
         player.dispose();
         enemy.dispose();
+        projectile.dispose();
     }    
 }
