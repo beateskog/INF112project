@@ -2,6 +2,8 @@ package mavenless.ronasurvivors.Game;
 
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,8 +34,12 @@ public class Player {
     private Animation<TextureRegion> runHorizontal, runUp, runDown;
     private TextureRegion standing;
     private Boolean isRunningLeft;
+    private Boolean isStanding;
+    private Boolean isAudioPlaying;
     private InputUtil input;
     private String playerName;
+    private Sound sound;
+    private long soundId;
     
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.size = size;
@@ -41,6 +47,9 @@ public class Player {
         this.speed = speed;
         this.levelUtil = levelUtil;
         this.playerName = playerName;
+        this.sound = Gdx.audio.newSound(Gdx.files.internal("soundEffects/running-in-grass-6237.ogg"));
+        this.soundId = this.sound.play();
+        sound.stop();
         atlas = screen.getAtlas();
         runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
         runUp = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-up"));
@@ -139,6 +148,7 @@ public class Player {
     private TextureRegion getFrame(){
         TextureRegion region;
         currentState = getState();
+        getAudio(currentState);
         switch(currentState){
             case STANDING:
                 region = standing;
@@ -169,6 +179,20 @@ public class Player {
         
         previousState = currentState;
         return region;
+    }
+
+    private void getAudio(State state){
+        if (state == State.STANDING){
+            sound.stop();
+            isAudioPlaying = false;
+        } 
+        else { 
+            if (!isAudioPlaying){
+                sound.play();
+                isAudioPlaying = true;
+            }
+            
+        }
     }
     
 
