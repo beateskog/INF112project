@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class Core extends ApplicationAdapter {
+public class MenuPrototype extends ApplicationAdapter {
     private Skin skin;
 
     private Stage stage;
