@@ -9,12 +9,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Game.CollisionHandler;
 import mavenless.ronasurvivors.Game.Enemy;
+import mavenless.ronasurvivors.Game.HP_bar;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Save;
 import mavenless.ronasurvivors.Utils.LevelUtil;
@@ -24,8 +27,10 @@ public class GameScreen implements Screen {
     private LevelUtil levelUtil;
     private ExtendViewport extendViewport;
     private Box2DDebugRenderer box2dDebugRenderer;
+    private Stage stage;
 
     private Player player;
+    private HP_bar hp_bar;
     private Enemy enemy;
     private TextureAtlas playerAtlas;
     private TextureAtlas tmpEnemyAtlas;
@@ -38,6 +43,7 @@ public class GameScreen implements Screen {
         float viewSize = 200f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
+        stage = new Stage(new ScreenViewport());
 
         // World
         box2dDebugRenderer = new Box2DDebugRenderer();
@@ -95,6 +101,22 @@ public class GameScreen implements Screen {
             new Sprite(skeleton),
             10f,
             levelUtil);
+
+        //Healthbar
+        this.hp_bar = new HP_bar(100, stage);
+        hp_bar.setHealth(50);
+
+
+        // Save data
+        Save save = new Save();
+        try {
+            save.write();
+            save.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+            dispose();
+            Gdx.app.exit();
+        }
     }
 
     private void update() {
@@ -144,6 +166,11 @@ public class GameScreen implements Screen {
         player.render(game.batch);
         enemy.render(game.batch);
         game.batch.end();
+
+        // Stage render
+        stage.getViewport().apply();
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     public TextureAtlas getAtlas(){
@@ -153,6 +180,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         extendViewport.update(width, height, true);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
