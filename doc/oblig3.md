@@ -25,9 +25,9 @@ Alle gruppemedlemer tilstede
 
 **Jobbet med i gruppetimen, og fokus til neste time**
 
-Kristian x2: Jobbe med editor for player, enemies og items 
-Askild og Beate: Fortsette med skincomposer (UI design)
-Tobias: HP-bar
+- Kristian x2: Jobbe med editor for player, enemies og items 
+- Askild og Beate: Fortsette med skincomposer (UI design)
+- Tobias: HP-bar
 
 **Roller diskusjon**
 
@@ -50,16 +50,15 @@ Alle gruppemedlemmer til stede
 Spurte gruppeleder om hvordan vi skal gjøre tester, siden det ikke er mulig å teste 
 det grafiske. Fikk da beskjed om at vi kan gjøre manuelle tester for det grafiske.
 
-Kristian R: Jobbe med editor for player, enemies og items 
-Kristian S: Research Audio
-Beate: Projectile
-Tobias: HP-bar
-Askild: Skincomposer 
+- Kristian R: Jobbe med editor for player, enemies og items 
+- Kristian S: Research Audio
+- Beate: Projectile
+- Tobias: HP-bar
+- Askild: Skincomposer 
 
 **Ting vi må finne ut av**
 
-- For øyeblikket ingenting
-
+- Bli flinkere å bruke trello
 
 # Krav og spesifikasjon
 
