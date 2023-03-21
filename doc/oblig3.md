@@ -41,6 +41,26 @@ Tobias: HP-bar
 - Gå i gruppetime for å finne ut av hva/hvordan vi skal teste.
 - Ellers fungerer gruppedynamikken godt, vi har god dialog og alle gir en innsats. 
 
+## Gruppemøte 20.03.2023
+
+Alle gruppemedlemmer til stede
+
+**Jobbet med i gruppetimen, og fokus til neste time**
+
+Spurte gruppeleder om hvordan vi skal gjøre tester, siden det ikke er mulig å teste 
+det grafiske. Fikk da beskjed om at vi kan gjøre manuelle tester for det grafiske.
+
+Kristian R: Jobbe med editor for player, enemies og items 
+Kristian S: Research Audio
+Beate: Projectile
+Tobias: HP-bar
+Askild: Skincomposer 
+
+**Ting vi må finne ut av**
+
+- For øyeblikket ingenting
+
+
 # Krav og spesifikasjon
 
 # Produkt kode 
