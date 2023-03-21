@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
     private TextureAtlas playerAtlas;
     private TextureAtlas tmpEnemyAtlas;
     
-    private float timeSinceLastShot = 3;
+    private float timeSinceLastShot = 0;
     private boolean fired = false;
     private List<Projectile> projectiles = new ArrayList<Projectile>();
 
@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
         defineEnemy();
 
         //Projectile
-        projectiles.add(defineProjectile(player.getPosition().x, player.getPosition().y+1));
+        projectiles.add(defineProjectile(player.getPosition().x, player.getPosition().y));
 
         // Save data
         Save save = new Save();
@@ -133,7 +133,7 @@ public class GameScreen implements Screen {
 
     private Projectile defineProjectile(float x, float y){
         projectile = new Projectile(
-            new Rectangle(x,y,10,10),
+            new Rectangle(x+15,y+15,10,10),
             10f,
             levelUtil,
             player.getPosition());
@@ -155,7 +155,7 @@ public class GameScreen implements Screen {
         enemy.move(player.getPosition());
         
         //Shoot 
-        projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot);
+        projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (!fired && (timeSinceLastShot >= 2f)) {
             timeSinceLastShot = 0;
