@@ -233,6 +233,10 @@ public class Player {
         return currentState;
     }
 
+    public Boolean isRunningLeft() {
+        return isRunningLeft;
+    }
+
     // Setters
     public void setSpeed(float speed) {
         this.speed = speed;
