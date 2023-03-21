@@ -40,9 +40,8 @@ public class GameScreen implements Screen {
     private TextureAtlas playerAtlas;
     private TextureAtlas tmpEnemyAtlas;
     
-    private float timeSinceLastShot = 0;
+    private float timeSinceLastShot = 3;
     private boolean fired = false;
-    private boolean isProjectileDestoyed = false;
     private List<Projectile> projectiles = new ArrayList<Projectile>();
 
     public GameScreen(final RonaSurvivors game) {
@@ -69,7 +68,7 @@ public class GameScreen implements Screen {
         defineEnemy();
 
         //Projectile
-        projectiles.add(defineProjectile());
+        projectiles.add(defineProjectile(player.getPosition().x, player.getPosition().y+1));
 
         // Save data
         Save save = new Save();
@@ -90,7 +89,7 @@ public class GameScreen implements Screen {
         this.playerAtlas = new TextureAtlas("character/doctor/doctor_white.atlas"); // newTextureAtlas("sprites/"++playerName)
         player = new Player(this,
             new Rectangle(
-                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2,
+                (levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2, //posision at the center of the map
                 (levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2,
                 16,
                 16
@@ -106,8 +105,8 @@ public class GameScreen implements Screen {
         TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
         enemy = new Enemy(
             new Rectangle(
-                ((levelUtil.getMapWidth() * levelUtil.getTileWidth()) / 2),
-                ((levelUtil.getMapHeight() * levelUtil.getTileHeight()) / 2),
+                (player.getPosition().x + 100), //make the enemys posision a little bit away from the player
+                (player.getPosition().y + 100),
                 20,
                 20
             ),
@@ -132,14 +131,9 @@ public class GameScreen implements Screen {
         }
     }
 
-    private Projectile defineProjectile(){
+    private Projectile defineProjectile(float x, float y){
         projectile = new Projectile(
-            new Rectangle(
-                (player.getPosition().x),
-                (player.getPosition().y),
-                10,
-                10
-            ),
+            new Rectangle(x,y,10,10),
             10f,
             levelUtil,
             player.getPosition());
@@ -161,7 +155,7 @@ public class GameScreen implements Screen {
         enemy.move(player.getPosition());
         
         //Shoot 
-        projectile.shoot(player.getPosition());
+        projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot);
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (!fired && (timeSinceLastShot >= 2f)) {
             timeSinceLastShot = 0;
@@ -174,7 +168,7 @@ public class GameScreen implements Screen {
                 levelUtil.world.destroyBody(projectile.getBody());
                 projectile.dispose();
                 projectiles.remove(0);
-                projectiles.add(defineProjectile());
+                projectiles.add(defineProjectile(player.getPosition().x,player.getPosition().y));
             }
         } 
 
