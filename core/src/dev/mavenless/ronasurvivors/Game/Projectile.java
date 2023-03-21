@@ -24,15 +24,15 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Projectile {
 
-    public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
+    //public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private Sprite sprite;
     private Rectangle size;
     private Body body;
     private float speed;
     private Fixture projectileFix;
     private LevelUtil levelUtil;
-    private TextureAtlas atlas;
     private Texture projectile;
+    private Vector2 direction = new Vector2(0,1);
 
     public Projectile(Rectangle size,  float speed, LevelUtil levelUtil, Vector2 posistion) {
         this.size = size;
@@ -80,28 +80,22 @@ public class Projectile {
         getBody().setFixedRotation(true);
     }
 
-    public void shoot(Vector2 playerPosition, Player.State playerState, float timeSinceLastShot) {
+
+    public void shoot(Vector2 playerPosition, Player.State currentPosistion, float timeSinceLastShot, Boolean runLeft) {
         // Set the direction vector based on the player state
-        Vector2 direction = new Vector2(0, 1);
-        if (timeSinceLastShot >3f) {
-            if (playerState == Player.State.RUNNINGUP) {
+        if (timeSinceLastShot == 0){
+            if (currentPosistion == Player.State.RUNNINGUP) {
                 direction = new Vector2(0, 1);
-            } else if (playerState == Player.State.STANDINGLEFT || playerState == Player.State.RUNNINGHORIZONTAL) {
+            } else if (currentPosistion == Player.State.RUNNINGHORIZONTAL && runLeft == true) {
                 direction = new Vector2(-1, 0);
-            } else if (playerState == Player.State.STANDINGRIGHT) {
+            } else if (currentPosistion == Player.State.RUNNINGHORIZONTAL && runLeft == false) {
                 direction = new Vector2(1, 0);
-            } else if (playerState == Player.State.RUNNINGDOWN) {
-                // Default to moving upward if the player state is not recognized
+            } else if (currentPosistion == Player.State.RUNNINGDOWN) {
                 direction = new Vector2(0, -1);
-            } else {
-                // Default to moving upward if the player state is not recognized
-                direction = new Vector2(0, 1);
-            }
-        }
+            }}
         
         // Set the velocity of the projectile body based on the direction and a speed value
-        float speed = 20; // or any other desired speed value
-        body.setLinearVelocity(direction.scl(speed));
+        body.setLinearVelocity(direction.nor().scl(100));
         
         //Get current projectile position 
         Vector2 projectilePos = getBody().getPosition();
