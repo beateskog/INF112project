@@ -1,11 +1,13 @@
 package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,7 +23,8 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 
 
 public class Projectile {
-    
+
+    public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private Sprite sprite;
     private Rectangle size;
     private Body body;
@@ -65,7 +68,7 @@ public class Projectile {
 
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;                     //Setting the shape of the fixture to our box
+        fixtureDef.shape = box;                     //Setting the shape of the fixture to our box
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
@@ -77,16 +80,34 @@ public class Projectile {
         getBody().setFixedRotation(true);
     }
 
-    public void shoot(Vector2 playerPosition) {
+    public void shoot(Vector2 playerPosition, Player.State playerState, float timeSinceLastShot) {
+        // Set the direction vector based on the player state
+        Vector2 direction = new Vector2(0, 1);
+        if (timeSinceLastShot >3f) {
+            if (playerState == Player.State.RUNNINGUP) {
+                direction = new Vector2(0, 1);
+            } else if (playerState == Player.State.STANDINGLEFT || playerState == Player.State.RUNNINGHORIZONTAL) {
+                direction = new Vector2(-1, 0);
+            } else if (playerState == Player.State.STANDINGRIGHT) {
+                direction = new Vector2(1, 0);
+            } else if (playerState == Player.State.RUNNINGDOWN) {
+                // Default to moving upward if the player state is not recognized
+                direction = new Vector2(0, -1);
+            } else {
+                // Default to moving upward if the player state is not recognized
+                direction = new Vector2(0, 1);
+            }
+        }
+        
+        // Set the velocity of the projectile body based on the direction and a speed value
+        float speed = 20; // or any other desired speed value
+        body.setLinearVelocity(direction.scl(speed));
+        
+        //Get current projectile position 
         Vector2 projectilePos = getBody().getPosition();
-        Vector2 velocity = new Vector2(speed, 0);
-        velocity.rotateRad(body.getAngle());
-        body.setLinearVelocity(velocity);
-            
-        /* Sprite image move */
+        //Move sprite image to that position
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
-         
     }
 
     public void render(SpriteBatch batch) {
