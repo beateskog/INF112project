@@ -229,6 +229,10 @@ public class Player {
         return body.getPosition();
     }
 
+    public State getCurrentState() {
+        return currentState;
+    }
+
     // Setters
     public void setSpeed(float speed) {
         this.speed = speed;
