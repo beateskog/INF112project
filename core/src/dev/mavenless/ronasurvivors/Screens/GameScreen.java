@@ -133,7 +133,7 @@ public class GameScreen implements Screen {
 
     private Projectile defineProjectile(float x, float y){
         projectile = new Projectile(
-            new Rectangle(x+15,y+15,10,10),
+            new Rectangle(x,y+20,10,10),
             10f,
             levelUtil,
             player.getPosition());
