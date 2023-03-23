@@ -2,6 +2,7 @@ package mavenless.ronasurvivors.Screens;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -41,8 +42,10 @@ public class GameScreen implements Screen {
     private TextureAtlas tmpEnemyAtlas;
     
     private float timeSinceLastShot = 0;
+    private float deltaTime = 0;
     private boolean fired = false;
     private List<Projectile> projectiles = new ArrayList<Projectile>();
+    public final long startTime = System.currentTimeMillis();
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -154,6 +157,8 @@ public class GameScreen implements Screen {
         // Move enemy
         enemy.move(player.getPosition());
         
+        Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
+        System.out.println(seconds);
         //Shoot 
         projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
@@ -164,11 +169,11 @@ public class GameScreen implements Screen {
         else if (fired) {
             if (timeSinceLastShot >= 2f) {
                 timeSinceLastShot = 0;
-                fired = false;
                 levelUtil.world.destroyBody(projectile.getBody());
                 projectile.dispose();
                 projectiles.remove(0);
                 projectiles.add(defineProjectile(player.getPosition().x,player.getPosition().y));
+                fired = false;
             }
         } 
 
@@ -192,7 +197,7 @@ public class GameScreen implements Screen {
 
         // Run game loop
         this.update();
-
+        
         // Render setup
         game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
         levelUtil.render((OrthographicCamera) extendViewport.getCamera());
