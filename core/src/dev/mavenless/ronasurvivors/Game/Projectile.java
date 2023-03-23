@@ -20,7 +20,6 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Projectile {
 
-    //public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private Sprite sprite;
     private Rectangle size;
     private Body body;
@@ -28,80 +27,56 @@ public class Projectile {
     private Fixture projectileFix;
     private LevelUtil levelUtil;
     private Texture projectile;
-    private Vector2 direction = new Vector2(0,1);
+    
 
-    public Projectile(Rectangle size,  float speed, LevelUtil levelUtil, Vector2 posistion) {
+    public Projectile(Rectangle size, float speed, LevelUtil levelUtil, float angle) {
         this.size = size;
-        this.speed = speed;
+        this.speed = speed * 100000000;
         this.levelUtil = levelUtil;
         projectile = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
 
         defineProjectile();
+
+        //body.setLinearVelocity(direction.nor().scl(10000));
+
+        body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),this.speed*(float)(Math.cos(Math.toRadians(angle))),0,0,true);
+        
     }
 
     private void defineProjectile() {
         // Defining the body of the projectile:
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
+        bodyDef.bullet = true;
         bodyDef.position.set(size.x, size.y);
         body = levelUtil.world.createBody(bodyDef);
 
-        // Defining the box of the projectiler body:  
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(
-            (size.width / 6),
-            (size.height / 6), 
-            new Vector2(
-                (size.width / 6),
-                (size.height / 6)
-            ),
-            0f
-        );
-
         // Create a circle shape and set its radius to 6
         CircleShape circle = new CircleShape();
-        circle.setRadius(6f);
+        circle.setRadius(6f/50);
 
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = box;                     //Setting the shape of the fixture to our box
+        fixtureDef.shape = circle;                     //Setting the shape of the fixture to our box
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
+        fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
+        fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PROJECTILE;  
+        fixtureDef.filter.maskBits = CollisionBits.MASK_PROJECTILE; 
 
         projectileFix = getBody().createFixture(fixtureDef);
         projectileFix.setUserData("Projectile");
-        box.dispose();
+        circle.dispose();
 
         getBody().setFixedRotation(true);
     }
 
-
-    public void shoot(Vector2 playerPosition, Player.State currentPosistion, float timeSinceLastShot, Boolean runLeft) {
-        // Set the direction vector based on the player state
-        if (timeSinceLastShot == 0){
-            if (currentPosistion == Player.State.RUNNINGUP) {
-                direction = new Vector2(0, 1);
-            } else if (currentPosistion == Player.State.RUNNINGHORIZONTAL && runLeft == true) {
-                direction = new Vector2(-1, 0);
-            } else if (currentPosistion == Player.State.RUNNINGHORIZONTAL && runLeft == false) {
-                direction = new Vector2(1, 0);
-            } else if (currentPosistion == Player.State.RUNNINGDOWN) {
-                direction = new Vector2(0, -1);
-            }}
-        
-        // Set the velocity of the projectile body based on the direction and a speed value
-        body.setLinearVelocity(direction.nor().scl(100));
-        
-        //Get current projectile position 
+    public void render(SpriteBatch batch) {
+        batch.draw(projectile, size.x, size.y, size.width, size.height);
         Vector2 projectilePos = getBody().getPosition();
         //Move sprite image to that position
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
-    }
-
-    public void render(SpriteBatch batch) {
-        batch.draw(projectile, size.x, size.y, size.width, size.height);
     }
 
      /* Getter methods */ 

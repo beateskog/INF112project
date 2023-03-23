@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 public class CollisionHandler implements ContactListener{
+
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();
@@ -16,6 +17,13 @@ public class CollisionHandler implements ContactListener{
             (fixB.getUserData() == "Player" && fixA.getUserData()== "Enemy")) {
             // Do something if collision;
             System.out.println("A collision was detected");
+        } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
+                    fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY) ||
+                    (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
+                    fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY)) {
+            System.out.println("A collision was detected projectile hit da wall :(");
+            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
+            }
         }
     }
 

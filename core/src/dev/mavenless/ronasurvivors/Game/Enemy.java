@@ -56,6 +56,8 @@ public class Enemy {
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
+        fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_ENEMY;  
+        fixtureDef.filter.maskBits = CollisionBits.MASK_ENEMY; 
 
         enemyFix = getBody().createFixture(fixtureDef);
         enemyFix.setUserData("Enemy");

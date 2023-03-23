@@ -17,9 +17,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+import mavenless.ronasurvivors.Game.CollisionBits;
 
 public class LevelUtil {
     
@@ -103,7 +106,15 @@ public class LevelUtil {
                 ),
                 0
             );
-            groundBody.createFixture(groundBox, 0.0f);
+
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = groundBox;                     //Setting the shape of the fixture to our box
+            fixtureDef.density = 0.0f;
+            fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_SCENERY;
+            fixtureDef.filter.maskBits = CollisionBits.MASK_SCENERY; 
+
+
+            groundBody.createFixture(fixtureDef);
             groundBox.dispose();
         }
     }

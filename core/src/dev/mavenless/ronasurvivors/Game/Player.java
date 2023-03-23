@@ -90,6 +90,8 @@ public class Player {
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f; // Make it bounce a little bit
+        fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PLAYER;  
+        fixtureDef.filter.maskBits = CollisionBits.MASK_PLAYER; 
 
         playerFix = body.createFixture(fixtureDef);
         playerFix.setUserData("Player");
@@ -134,6 +136,8 @@ public class Player {
         );
         camera.update();
     }
+
+    
 
     
     
@@ -214,8 +218,6 @@ public class Player {
         //System.out.println(this.stateTimer);
     }
 
-
-
     // Getters and Setters
     public Rectangle getSize() {
         return this.size;
@@ -227,14 +229,6 @@ public class Player {
 
     public Vector2 getPosition(){
         return body.getPosition();
-    }
-
-    public State getCurrentState() {
-        return currentState;
-    }
-
-    public Boolean isRunningLeft() {
-        return isRunningLeft;
     }
 
     // Setters

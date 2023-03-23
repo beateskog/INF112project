@@ -134,12 +134,37 @@ public class GameScreen implements Screen {
         }
     }
 
+    private float degreeOffset(float val, float offset) {
+        float ret = val; 
+
+        ret -= offset;
+
+        if (ret < 0) {
+            ret *= -1;
+            ret = offset - ret;
+            ret += 360 - offset; 
+        }
+
+        return ret;
+    }
+
     private Projectile defineProjectile(float x, float y){
+        float angle = degreeOffset(
+            (
+                (float) Math.atan2(
+                    -game.input.moveY(),
+                    game.input.moveX()
+                )
+            )
+            * (180 / (float) Math.PI)
+            + 180,
+            90
+        );
         projectile = new Projectile(
-            new Rectangle(x,y+20,10,10),
+            new Rectangle(x,y,10,10),
             10f,
             levelUtil,
-            player.getPosition());
+            angle);
         return projectile;
     }
 
@@ -160,7 +185,7 @@ public class GameScreen implements Screen {
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
         System.out.println(seconds);
         //Shoot 
-        projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
+        //projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (!fired && (timeSinceLastShot >= 2f)) {
             timeSinceLastShot = 0;
