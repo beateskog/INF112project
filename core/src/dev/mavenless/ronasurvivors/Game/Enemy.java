@@ -41,13 +41,13 @@ public class Enemy {
         // Defining the box of the enemy body:  
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2),
-            (size.height / 2), 
+            (size.width / 2)-4, // width of the box
+            (size.height / 2)-4, // height of the box
             new Vector2(
-                (size.width / 2),
-                (size.height / 2)
+                (size.width / 2), // center of the box in local coordinates (width)
+                (size.height / 2)-4 // center of the box in local coordinates (Height)
             ),
-            0f
+            0f // Rotation (Example if we want to add dodge ability)
         );
 
         // Defining the fixture of our box (not colliding with objs)

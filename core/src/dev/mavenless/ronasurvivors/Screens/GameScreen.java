@@ -71,7 +71,7 @@ public class GameScreen implements Screen {
         defineEnemy();
 
         //Projectile
-        projectiles.add(defineProjectile(player.getPosition().x, player.getPosition().y));
+        projectiles.add(defineProjectile());
 
         // Save data
         Save save = new Save();
@@ -97,7 +97,7 @@ public class GameScreen implements Screen {
                 16,
                 16
             ),
-            200f,
+            15f,
             levelUtil, 
             game.input
         );
@@ -114,7 +114,7 @@ public class GameScreen implements Screen {
                 20
             ),
             new Sprite(skeleton),
-            10f,
+            5f,
             levelUtil);
 
         //Healthbar
@@ -148,7 +148,7 @@ public class GameScreen implements Screen {
         return ret;
     }
 
-    private Projectile defineProjectile(float x, float y){
+    private Projectile defineProjectile(){
         float angle = degreeOffset(
             (
                 (float) Math.atan2(
@@ -161,7 +161,7 @@ public class GameScreen implements Screen {
             90
         );
         projectile = new Projectile(
-            new Rectangle(x,y,10,10),
+            new Rectangle(player.getPosition().x,player.getPosition().y,10,10),
             10f,
             levelUtil,
             angle);
@@ -183,7 +183,7 @@ public class GameScreen implements Screen {
         enemy.move(player.getPosition());
         
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
-        System.out.println(seconds);
+        //System.out.println(seconds);
         //Shoot 
         //projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
@@ -197,7 +197,7 @@ public class GameScreen implements Screen {
                 levelUtil.world.destroyBody(projectile.getBody());
                 projectile.dispose();
                 projectiles.remove(0);
-                projectiles.add(defineProjectile(player.getPosition().x,player.getPosition().y));
+                projectiles.add(defineProjectile());
                 fired = false;
             }
         } 

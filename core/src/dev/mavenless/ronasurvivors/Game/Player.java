@@ -92,7 +92,7 @@ public class Player {
         fixtureDef.restitution = 0.0f; // Make it bounce a little bit
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PLAYER;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PLAYER; 
-
+        
         playerFix = body.createFixture(fixtureDef);
         playerFix.setUserData("Player");
         box.dispose();
