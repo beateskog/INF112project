@@ -60,6 +60,19 @@ det grafiske. Fikk da beskjed om at vi kan gjøre manuelle tester for det grafis
 
 - Bli flinkere å bruke trello
 
+## Gruppemøte 23.03.2023 
+
+Alle gruppemedlemmer til stede (Tobias gyldig fravær)
+
+- Kristian R: Ordne Assests system 
+- Kristian S: Audio
+- Beate: Projectile
+- Askild: Jobber UI design 
+
+**Ting vi må finne ut av**
+
+- Bli flinkere å bruke trello 
+
 # Krav og spesifikasjon
 
 # Produkt kode 
