@@ -30,7 +30,7 @@ public class Projectile {
 
     public Projectile(Rectangle size, float speed, LevelUtil levelUtil, float angle) {
         this.size = size;
-        this.speed = speed * 100000000;
+        this.speed = speed * 100f;
         this.levelUtil = levelUtil;
         projectile = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
 
@@ -88,9 +88,7 @@ public class Projectile {
     public Sprite getSprite() {
         return this.sprite;
     }
-    public float getSpeed() {
-        return this.speed;
-    }
+
     public Vector2 getPosition() {
         return body.getPosition();
     }

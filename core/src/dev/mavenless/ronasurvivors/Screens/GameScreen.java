@@ -97,7 +97,7 @@ public class GameScreen implements Screen {
                 16,
                 16
             ),
-            15f,
+            10f,
             levelUtil, 
             game.input
         );
@@ -114,7 +114,7 @@ public class GameScreen implements Screen {
                 20
             ),
             new Sprite(skeleton),
-            5f,
+            3f,
             levelUtil);
 
         //Healthbar
@@ -162,7 +162,7 @@ public class GameScreen implements Screen {
         );
         projectile = new Projectile(
             new Rectangle(player.getPosition().x,player.getPosition().y,10,10),
-            10f,
+            20f,
             levelUtil,
             angle);
         return projectile;
@@ -187,12 +187,12 @@ public class GameScreen implements Screen {
         //Shoot 
         //projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (!fired && (timeSinceLastShot >= 2f)) {
+        if (!fired && (timeSinceLastShot >= 1f)) {
             timeSinceLastShot = 0;
             fired = true;
         }
         else if (fired) {
-            if (timeSinceLastShot >= 2f) {
+            if (timeSinceLastShot >= 1f) {
                 timeSinceLastShot = 0;
                 levelUtil.world.destroyBody(projectile.getBody());
                 projectile.dispose();

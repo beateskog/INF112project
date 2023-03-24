@@ -75,7 +75,22 @@ Alle gruppemedlemmer til stede (Tobias gyldig fravær)
 
 # Krav og spesifikasjon
 
+**Hvilke krav vi har prioritert og hva vi har gjort siden forrige gang:**
+
+-MVP og brukerhistorier + akseptansekriterier 
+
+- Nevne bugs om de finnes
+
+
 # Produkt kode 
+
+**Dette har vi fikset siden sist** 
+
+- Utbedring av feil 
+
+- Link til klassediagram
+
+- Link til manuelle tester 
 
 
 
