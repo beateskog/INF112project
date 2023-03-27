@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
         box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
-        levelUtil.world.setContactListener(new CollisionHandler());
+        levelUtil.world.setContactListener(new CollisionHandler(this));
 
         // Texture for player-sprite
         String playerName = "doctor"; // game.getSelectedPLayer()
@@ -185,7 +185,7 @@ public class GameScreen implements Screen {
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
         //System.out.println(seconds);
         //Shoot 
-        //projectile.shoot(player.getPosition(), player.getCurrentState(), timeSinceLastShot, player.isRunningLeft());
+        projectile.update();
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (!fired && (timeSinceLastShot >= 1f)) {
             timeSinceLastShot = 0;
@@ -247,6 +247,11 @@ public class GameScreen implements Screen {
 
     public TextureAtlas getAtlas(){
         return this.playerAtlas;
+    }
+
+    public void removeProjectile(Projectile projectile) {
+        projectiles.remove(projectile);
+        levelUtil.world.destroyBody(projectile.getBody());
     }
 
     @Override

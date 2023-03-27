@@ -72,6 +72,9 @@ public class Projectile {
 
     public void render(SpriteBatch batch) {
         batch.draw(projectile, size.x, size.y, size.width, size.height);
+    }
+
+    public void update(){ 
         Vector2 projectilePos = getBody().getPosition();
         //Move sprite image to that position
         getSize().x = projectilePos.x;
