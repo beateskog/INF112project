@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -44,8 +46,20 @@ public class GameScreen implements Screen {
     private float timeSinceLastShot = 0;
     private float deltaTime = 0;
     private boolean fired = false;
-    private List<Projectile> projectiles = new ArrayList<Projectile>();
+    
     public final long startTime = System.currentTimeMillis();
+
+    private final ArrayList<Projectile> activeProjectiles= new ArrayList<Projectile>();
+    private final Pool<Projectile> projectilePool = new Pool<Projectile>() {
+        @Override
+        protected Projectile newObject() {
+            return new Projectile(
+                new Rectangle(player.getPosition().x,player.getPosition().y,10,10),
+                20f,
+                levelUtil);
+        }
+        };
+
 
     public GameScreen(final RonaSurvivors game) {
 
@@ -71,7 +85,7 @@ public class GameScreen implements Screen {
         defineEnemy();
 
         //Projectile
-        projectiles.add(defineProjectile());
+        //activeProjectiles.add(defineProjectile());
 
         // Save data
         Save save = new Save();
@@ -148,26 +162,6 @@ public class GameScreen implements Screen {
         return ret;
     }
 
-    private Projectile defineProjectile(){
-        float angle = degreeOffset(
-            (
-                (float) Math.atan2(
-                    -game.input.moveY(),
-                    game.input.moveX()
-                )
-            )
-            * (180 / (float) Math.PI)
-            + 180,
-            90
-        );
-        projectile = new Projectile(
-            new Rectangle(player.getPosition().x,player.getPosition().y,10,10),
-            20f,
-            levelUtil,
-            angle);
-        return projectile;
-    }
-
     private void update() {
         // Update physics
         levelUtil.world.step(1/16f, 6, 2);
@@ -185,20 +179,44 @@ public class GameScreen implements Screen {
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
         //System.out.println(seconds);
         //Shoot 
-        projectile.update();
+        for (Projectile projectile : activeProjectiles){
+            projectile.update();
+        }
+       
+        
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (!fired && (timeSinceLastShot >= 1f)) {
+            float angle = degreeOffset(
+            (
+                (float) Math.atan2(
+                    -game.input.moveY(),
+                    game.input.moveX()
+                )
+            )
+            * (180 / (float) Math.PI)
+            + 180,
+            90
+            );
+            Projectile projectile = projectilePool.obtain();
+            projectile.init(angle);
+            activeProjectiles.add(projectile);
             timeSinceLastShot = 0;
             fired = true;
         }
         else if (fired) {
             if (timeSinceLastShot >= 1f) {
+                Projectile projectile; 
+                int len = activeProjectiles.size();
+                for (int i = 0; i < len; i++){
+                    projectile = activeProjectiles.get(i);
+                    if (projectile.getIsAlive() == false){
+                        activeProjectiles.remove(i);
+                        projectilePool.free(projectile);
+                    }
+                }
                 timeSinceLastShot = 0;
-                levelUtil.world.destroyBody(projectile.getBody());
-                projectile.dispose();
-                projectiles.remove(0);
-                projectiles.add(defineProjectile());
                 fired = false;
+                
             }
         } 
 
@@ -234,7 +252,7 @@ public class GameScreen implements Screen {
         game.batch.begin();
         player.render(game.batch);
         enemy.render(game.batch);
-        for (Projectile projectile : projectiles){
+        for (Projectile projectile : activeProjectiles) {
             projectile.render(game.batch);
         }
         game.batch.end();
@@ -250,8 +268,12 @@ public class GameScreen implements Screen {
     }
 
     public void removeProjectile(Projectile projectile) {
-        projectiles.remove(projectile);
+        activeProjectiles.remove(projectile);
         levelUtil.world.destroyBody(projectile.getBody());
+    }
+
+    public List<Projectile> getProjectiles(){
+        return activeProjectiles;
     }
 
     @Override

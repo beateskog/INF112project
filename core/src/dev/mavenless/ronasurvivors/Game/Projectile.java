@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 
-public class Projectile {
+public class Projectile implements Poolable {
 
     private Sprite sprite;
     private Rectangle size;
@@ -25,20 +26,21 @@ public class Projectile {
     private float speed;
     private Fixture projectileFix;
     private LevelUtil levelUtil;
-    private Texture projectile;
+    private Texture projectileText;
+
+    private boolean alive;
+    private float activeTime; 
     
 
-    public Projectile(Rectangle size, float speed, LevelUtil levelUtil, float angle) {
+    public Projectile(Rectangle size, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
-        projectile = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
+        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
+
+        alive = false;
 
         defineProjectile();
-
-        //body.setLinearVelocity(direction.nor().scl(10000));
-
-        body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),this.speed*(float)(Math.cos(Math.toRadians(angle))),0,0,true);
         
     }
 
@@ -52,7 +54,7 @@ public class Projectile {
 
         // Create a circle shape and set its radius to 6
         CircleShape circle = new CircleShape();
-        circle.setRadius(6f/50);
+        circle.setRadius(6f);
 
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
@@ -71,7 +73,7 @@ public class Projectile {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(projectile, size.x, size.y, size.width, size.height);
+        batch.draw(projectileText, size.x, size.y, size.width, size.height);
     }
 
     public void update(){ 
@@ -79,6 +81,16 @@ public class Projectile {
         //Move sprite image to that position
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
+    }
+
+    public void init(float angle){
+        activeTime = System.nanoTime();
+        alive = true;
+        body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
+                                this.speed*(float)(Math.cos(Math.toRadians(angle))),
+                                0,
+                                0,
+                                true);
     }
 
      /* Getter methods */ 
@@ -97,11 +109,30 @@ public class Projectile {
     }
 
     public Texture getTexture() { 
-        return projectile;
+        return projectileText;
     }
+
+    public boolean getIsAlive() {
+        return this.alive;
+    }
+
+    public void setAlive(boolean input) {
+        alive = input;
+    }
+
+    public float getActiveTime() {
+        return this.activeTime;
+    }
+
     
     // Dispose 
     public void dispose() {
 
+    }
+
+    @Override
+    public void reset() {
+        alive = false;
+        
     }
 }

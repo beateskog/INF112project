@@ -17,11 +17,11 @@ import mavenless.ronasurvivors.Screens.GameScreen;
 public class CollisionHandler implements ContactListener{
 
     private GameScreen gameScreen;
-    private List<Projectile> projectilesToRemove;
+    
 
     public CollisionHandler(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
-        this.projectilesToRemove = new ArrayList<Projectile>();
+        
         
     }
 
@@ -30,28 +30,52 @@ public class CollisionHandler implements ContactListener{
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        if ((fixA.getUserData() == "Player" && fixB.getUserData()== "Enemy") ||
-            (fixB.getUserData() == "Player" && fixA.getUserData()== "Enemy")) {
+        if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
+             fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
+            (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
+              fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
             // Do something if collision;
-            System.out.println("A collision was detected");
+            System.out.println("A collision was detected: Enemy hit Player");
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY) ||
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY)) {
             System.out.println("A collision was detected projectile hit da wall :(");
+
             if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
                 fixA.getBody();
                 World world = fixA.getBody().getWorld();
                 Projectile projectile = (Projectile)fixA.getBody().getUserData();
-                //gameScreen.getProjectiles().remove(projectile);
-                //world.destroyBody(fixA.getBody());
-                
+            
+                /* if (!world.isLocked()){
+                    gameScreen.getProjectiles().remove(projectile);
+                    world.destroyBody(fixA.getBody());
+                } */
+
             } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
+                World world = fixB.getBody().getWorld();
+                Projectile projectile = (Projectile)fixB.getBody().getUserData();
                 
+                /* if (!world.isLocked()){
+                    gameScreen.getProjectiles().remove(projectile);
+                    world.destroyBody(fixB.getBody());
+                } */
                 
             }
+        } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
+                    fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
+                    (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
+                    fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
+
+                System.out.println("A collision was detected: projectile hit enemy");
+                if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
+                    
+                } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
+                   
+                } 
         }
     }
+    
 
     // Methods not relevant for our game at the moment
     @Override
