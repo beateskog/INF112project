@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -12,15 +13,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
+import mavenless.ronasurvivors.Utils.InputUtil;
 
 public class MenuPrototype implements Screen{
     private final RonaSurvivors game;
     private Skin skin;
-
     private Stage stage;
+    private ExtendViewport extendViewport;
+    private InputUtil inputUtil;
+    private Texture backgroundImage;
+
 
     public MenuPrototype (RonaSurvivors game){
         this.game = game;
@@ -32,9 +38,14 @@ public class MenuPrototype implements Screen{
         skin = new Skin(Gdx.files.internal("ui/prototypeUI/MenuPrototype.json"));
         Gdx.input.setInputProcessor(stage);
 
+        extendViewport = new ExtendViewport(400f, 400f);
+        extendViewport.getCamera().position.set(200f, 200f, 1f);
+
         Table table = new Table();
         table.setName("Høie");
         table.setFillParent(true);
+
+        backgroundImage = new Texture(Gdx.files.internal("sprites/menu background.png"));
 
         final ImageButton imageButton1 = new ImageButton(skin, "doctorImageButton");
         imageButton1.setName("Doctor");
@@ -42,31 +53,47 @@ public class MenuPrototype implements Screen{
         imageButton1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.debug("UI", "Button 2: " + imageButton1.isChecked());
+                Gdx.app.debug("UI", "Button 1: " + imageButton1.isChecked());
                 game.setScreen(new GameScreen(game));
                 dispose();
             }
         });
 
-        ImageButton imageButton = new ImageButton(skin, "doctorImageButton");
-        imageButton.setName("Doctor");
-        table.add(imageButton);
+        final ImageButton imageButton2 = new ImageButton(skin, "doctorImageButton");
+        imageButton2.setName("Doctor");
+        table.add(imageButton2);
+        imageButton2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "Button 2: " + imageButton2.isChecked());
+                game.setScreen(new GameScreen(game));
+                dispose();
+            }
+        });
 
-        ImageTextButton imageTextButton = new ImageTextButton(null, skin, "Anti-Vaxxer");
-        imageButton.setName("Anti-Vaxxer");
-        table.add(imageTextButton);
+        final ImageTextButton imageTextButton1 = new ImageTextButton(null, skin, "Anti-Vaxxer");
+        imageTextButton1.setName("Anti-Vaxxer");
+        table.add(imageTextButton1);
+        imageButton1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "Button 1: " + imageTextButton1.isChecked());
+                game.setScreen(new GameScreen(game));
+                dispose();
+            }
+        });
 
         table.row();
-        imageButton = new ImageButton(skin, "doctorImageButton");
-        imageButton.setName("Doctor");
-        table.add(imageButton);
+        final ImageButton imageButton3 = new ImageButton(skin, "doctorImageButton");
+        imageButton3.setName("Doctor");
+        table.add(imageButton3);
 
-        imageTextButton = new ImageTextButton(null, skin);
-        table.add(imageTextButton);
+        final ImageTextButton imageTextButton2 = new ImageTextButton(null, skin);
+        table.add(imageTextButton2);
 
-        imageTextButton = new ImageTextButton(null, skin, "PlagueDoctor");
-        imageButton.setName("PlagueDoctor");
-        table.add(imageTextButton);
+        final ImageTextButton imageTextButton3 = new ImageTextButton(null, skin, "PlagueDoctor");
+        imageTextButton3.setName("PlagueDoctor");
+        table.add(imageTextButton3);
 
         table.row();
         table.add();
@@ -84,6 +111,15 @@ public class MenuPrototype implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
+
+        //Sannsynligvis en dårlig idé
+        //extendViewport.apply();
+        //game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
+        //game.batch.begin();
+        
+        //game.batch.draw(backgroundTexture, extendViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2f,
+                //extendViewport.getCamera().position.y - Gdx.graphics.getHeight() / 2f);
+        //game.batch.end();
     }
 
     public void resize(int width, int height) {
