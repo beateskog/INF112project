@@ -4,12 +4,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
@@ -34,11 +36,19 @@ public class MenuPrototype implements Screen{
         table.setName("Høie");
         table.setFillParent(true);
 
-        ImageButton imageButton = new ImageButton(skin, "doctorImageButton");
-        imageButton.setName("Doctor");
-        table.add(imageButton);
+        final ImageButton imageButton1 = new ImageButton(skin, "doctorImageButton");
+        imageButton1.setName("Doctor");
+        table.add(imageButton1);
+        imageButton1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "Button 2: " + imageButton1.isChecked());
+                game.setScreen(new GameScreen(game));
+                dispose();
+            }
+        });
 
-        imageButton = new ImageButton(skin, "doctorImageButton");
+        ImageButton imageButton = new ImageButton(skin, "doctorImageButton");
         imageButton.setName("Doctor");
         table.add(imageButton);
 
