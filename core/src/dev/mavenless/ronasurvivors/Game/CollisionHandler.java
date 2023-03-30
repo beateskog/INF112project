@@ -30,12 +30,18 @@ public class CollisionHandler implements ContactListener{
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
+        /* COLLISON BETWEEN PLAYER AND ENEMY */
         if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
              fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
             (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
               fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
-            // Do something if collision;
+            
+            HP_bar hp_bar = gameScreen.getHp_bar();
+            hp_bar.setHealth(hp_bar.getHealth()-10);
+
             System.out.println("A collision was detected: Enemy hit Player");
+
+        /* COLLISON BETWEEN PROJECTILE AND SCENERY */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY) ||
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
@@ -62,6 +68,8 @@ public class CollisionHandler implements ContactListener{
                 } */
                 
             }
+
+        /* COLLISON BETWEEN PROJECTILE AND ENEMY */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
@@ -81,7 +89,6 @@ public class CollisionHandler implements ContactListener{
     @Override
     public void endContact(Contact contact) {
     }
-
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
     }

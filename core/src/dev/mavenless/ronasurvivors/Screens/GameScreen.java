@@ -133,7 +133,6 @@ public class GameScreen implements Screen {
 
         //Healthbar
         this.hp_bar = new HP_bar(100, stage);
-        hp_bar.setHealth(50);
 
 
         // Save data
@@ -274,6 +273,10 @@ public class GameScreen implements Screen {
 
     public List<Projectile> getProjectiles(){
         return activeProjectiles;
+    }
+
+    public HP_bar getHp_bar(){
+        return this.hp_bar;
     }
 
     @Override
