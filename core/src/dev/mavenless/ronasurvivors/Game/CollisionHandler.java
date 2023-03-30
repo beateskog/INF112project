@@ -2,6 +2,7 @@ package mavenless.ronasurvivors.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -37,7 +38,8 @@ public class CollisionHandler implements ContactListener{
               fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
             
             HP_bar hp_bar = gameScreen.getHp_bar();
-            hp_bar.setHealth(hp_bar.getHealth()-10);
+            Random r = new Random();
+            hp_bar.setHealth(hp_bar.getHealth()-r.nextInt(10));
 
             System.out.println("A collision was detected: Enemy hit Player");
 
