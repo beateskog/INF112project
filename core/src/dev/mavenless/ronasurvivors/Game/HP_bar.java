@@ -1,10 +1,11 @@
 package mavenless.ronasurvivors.Game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-
-import mavenless.ronasurvivors.Utils.UiHandler;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class HP_bar{
     private final int MAX_HEALTH;
@@ -19,11 +20,10 @@ public class HP_bar{
 
 
     private void init_HpBar(Stage stage) {
-        Skin skin = UiHandler.UiStyle.Debug.getSkin();
+        Skin skin = new Skin(Gdx.files.internal("ui/HP_bar/HP_bar.json"));
         this.HpBar = new ProgressBar(0, MAX_HEALTH, 1, false, skin);
         this.HpBar.setValue(health);
-        this.HpBar.setWidth(200);
-        this.HpBar.setPosition(stage.getWidth()/2-(this.HpBar.getWidth()/2), stage.getHeight()-20);
+        this.HpBar.setPosition(stage.getWidth()/2-(this.getWidth()/2), stage.getHeight()-50);
         stage.addActor(HpBar);
     }
 
@@ -42,5 +42,9 @@ public class HP_bar{
      */
     public int getHealth() {
         return health;
+    }
+
+    public float getWidth() {
+        return HpBar.getWidth();
     }
 }

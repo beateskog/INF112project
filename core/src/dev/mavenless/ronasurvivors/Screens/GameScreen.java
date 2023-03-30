@@ -280,6 +280,8 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         extendViewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
+        // Resizing hp-bar
+        stage.getActors().get(0).setPosition(stage.getWidth()/2-(this.hp_bar.getWidth()/2), stage.getHeight()-50);
     }
 
     @Override

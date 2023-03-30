@@ -1,0 +1,27 @@
+
+HP_Bar.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+background
+  rotate: false
+  xy: 1, 181
+  size: 200, 30
+  orig: 200, 30
+  offset: 0, 0
+  index: -1
+beforeKnob
+  rotate: false
+  xy: 203, 181
+  size: 10, 30
+  orig: 10, 30
+  offset: 0, 0
+  index: -1
+knob
+  rotate: false
+  xy: 1, 144
+  size: 15, 35
+  orig: 15, 35
+  offset: 0, 0
+  index: -1
