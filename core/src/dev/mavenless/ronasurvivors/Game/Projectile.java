@@ -30,11 +30,10 @@ public class Projectile implements Poolable {
     private Player player;
     private boolean alive;
     private float activeTime; 
-    private Enum State = {}
+
     
 
-    public Projectile(Player player, Rectangle size, float speed, LevelUtil levelUtil) {
-        this.player = player;
+    public Projectile(Rectangle size, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
@@ -78,7 +77,6 @@ public class Projectile implements Poolable {
         batch.draw(projectileText, size.x, size.y, size.width, size.height);
     }
 
-    private 
 
     public void update(){ 
         Vector2 projectilePos = getBody().getPosition();
