@@ -27,12 +27,14 @@ public class Projectile implements Poolable {
     private Fixture projectileFix;
     private LevelUtil levelUtil;
     private Texture projectileText;
-
+    private Player player;
     private boolean alive;
     private float activeTime; 
+    private Enum State = {}
     
 
-    public Projectile(Rectangle size, float speed, LevelUtil levelUtil) {
+    public Projectile(Player player, Rectangle size, float speed, LevelUtil levelUtil) {
+        this.player = player;
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
@@ -75,6 +77,8 @@ public class Projectile implements Poolable {
     public void render(SpriteBatch batch) {
         batch.draw(projectileText, size.x, size.y, size.width, size.height);
     }
+
+    private 
 
     public void update(){ 
         Vector2 projectilePos = getBody().getPosition();
