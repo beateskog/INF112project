@@ -1,6 +1,6 @@
 # Prosjektrapport
 
-## Gruppemøte 13.03.2023 
+## Gruppemøte 13.03.2023 (08.15-10.00)
 
 Alle gruppemedlemer tilstede 
 
@@ -16,7 +16,7 @@ Alle gruppemedlemer tilstede
 2. Kontroll på hva som trengs hver innlevering 
 3. Planlegge hva man skal jobbe mellom hver gang. Hittil har vi hatt generelle tema, men kanskje mer spesifikke oppgaver. (Bruke Trello mer)
 
-## Gruppemøte 16.03.2023 
+## Gruppemøte 16.03.2023 (12.00-14.00)
 
 Alle gruppemedlemer tilstede 
 
@@ -41,7 +41,7 @@ Alle gruppemedlemer tilstede
 - Gå i gruppetime for å finne ut av hva/hvordan vi skal teste.
 - Ellers fungerer gruppedynamikken godt, vi har god dialog og alle gir en innsats. 
 
-## Gruppemøte 20.03.2023
+## Gruppemøte 20.03.2023 (08.15-10.00)
 
 Alle gruppemedlemmer til stede
 
@@ -60,37 +60,81 @@ det grafiske. Fikk da beskjed om at vi kan gjøre manuelle tester for det grafis
 
 - Bli flinkere å bruke trello
 
-## Gruppemøte 23.03.2023 
+## Gruppemøte 23.03.2023 (10.00-14.00)
 
 Alle gruppemedlemmer til stede (Tobias gyldig fravær)
 
 - Kristian R: Ordne Assests system 
 - Kristian S: Audio
 - Beate: Projectile
-- Askild: Jobber UI design 
+- Askild: UI design 
 
 **Ting vi må finne ut av**
 
 - Bli flinkere å bruke trello 
 
+## Gruppemøte 30.03.2023 (10.00-14.00)
+
+Alle gruppemedlemmer til stede
+
+- Kristian R: Ordne Assests system 
+- Kristian S: Projectile
+- Beate: Projectile
+- Askild: UI design implementering 
+- Tobias: HP-bar
+
 # Krav og spesifikasjon
 
 **Hvilke krav vi har prioritert og hva vi har gjort siden forrige gang:**
 
--MVP og brukerhistorier + akseptansekriterier 
+### MVP (minimum viable product):  
+
+1. Vise et spillebrett (fullført)
+2. Vise spiller på spillbrettet  (fullført)
+3. Flytte spiller i alle retninger  (fullført)
+4. Fiender som går i mot spiller (fullført)
+5. Spiller kan skyte automatisk (fullført)
+6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
+7. Fiender blir sterkere over tid
+8. Spillfigur kan få oppgraderinger underveis 
+9. Mål for spillbrett: få nok poeng
+10. Låser opp nytt spillbrett/nytt nivå 
+11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
+
+### Brukerhistorier vi har jobbet med denne obligen:
+2. Som en spiller, vil jeg ha en HP-bar, slik at fiender blir en hindiring og at spillet har et klart mål.
+3. Som en spiller, vil jeg ha muligheten til å skyte mot forskjellige typer fiender, som blir sterkere, i tillegg til at jeg skal kunne bruke forskjellige våpen og ferdigheter, slik at jeg kan utfordre meg selv og gjøre fremgang i spillet.
+
+### Akseptansekriterier:
+<em>Akseptanse kriterie for brukerhistorie 2:</em>
+* Spilleren kan unngå fiender med å forflytte seg rundt på spillbrettet. (fullført)
+* Fiender er til stede på brettet og kan følge spilleren. (Delvis fullført med 1 fiende)
+* Fiender skal kunne skade spilleren, og spillerens helse skal vise. (Ikke fullført)
+
+<em>Akseptanse kriterie for brukerhistorie 3:</em>
+* Spillet skal tilby spilleren en mulighet for å skyte fiender. (delvis fullført, fiender tar enda ikke skade)
+* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren.
+* Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
+
+### Oppsummering 
+- Jobbet med projectile, den skal skyte ut i fra hvilken vei spilleren er rettet. 
+- Jobbet med HP-bar slik at vi kan begynne å implementere at spiller skal ta skade osv. 
+- Jobbet med å lage ulike screens, slik at man kan velge character før man begynner spillet 
+- Fått lagt til lyd på når spilleren går 
 
 - Nevne bugs om de finnes
-
 
 # Produkt kode 
 
 **Dette har vi fikset siden sist** 
 
-- Utbedring av feil 
+- [Manuelle tester](https://git.app.uib.no/mavenless/rona-survivors/-/blob/main/doc/manuelleTester.md)
+- I tillegg har vi laget noen JUnit tester. 
 
 - Link til klassediagram
 
-- Link til manuelle tester 
+
+
 
 
 
