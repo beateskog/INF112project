@@ -20,7 +20,7 @@ public class HP_bar{
 
 
     private void init_HpBar(Stage stage) {
-        Skin skin = new Skin(Gdx.files.internal("ui/HP_bar/HP_bar.json"));
+        Skin skin = new Skin(Gdx.files.internal("ui/HP_bar/HP_Bar.json"));
         this.HpBar = new ProgressBar(0, MAX_HEALTH, 1, false, skin);
         this.HpBar.setValue(health);
         this.HpBar.setPosition(stage.getWidth()/2-(this.getWidth()/2), stage.getHeight()-50);
