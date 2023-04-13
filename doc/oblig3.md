@@ -83,6 +83,12 @@ Alle gruppemedlemmer til stede
 - Askild: UI design implementering 
 - Tobias: HP-bar
 
+## Gruppemøte 13.04.2023 
+
+Alle gruppemedlemmer til stede 
+
+
+
 # Krav og spesifikasjon
 
 **Hvilke krav vi har prioritert og hva vi har gjort siden forrige gang:**
@@ -133,6 +139,39 @@ Alle gruppemedlemmer til stede
 
 - Link til klassediagram
 
+- Links to Trello: 
+
+    - [TRELLO ISSUES](https://trello.com/b/QHYMXsMK/issues)
+
+    - [TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
+
+
+- All kommentert ut kode som ikke brukes må fjernes, eller kommentar på hvorfor det er der hvis det må være der 
+
+- Tester 
+
+- Dokumentasjon for public metoder 
+
+## Development-style og Rollefordeling:
+* Development-style: *Scrum*
+1. *Scrum-master* @Kristian.Rognsvaag
+- En Scrum-master har i et større prosjekt mange funksjoner, men de vi velger å fokusere på i vårt mindre prosjekt er:
+
+    - Sikrer Scrum-metodikken blir brukt for å guide teamet
+    - Vi vil fokusere på å bruke "Daily Scrum", som vil være ca. 2 ganger ukentlig med vår arbeidsmengde.
+    - Vi ser på de obligatoriske innleveringene som våre "sprinter" 
+
+2. *Dev. Team-member* @Askild.Heiret
+    - UX/UI ansvarlig: ansvar for brukervenlighet, layout og visual design. 
+
+3. *Dev. Team-member* @Kristian.Skeie
+    - Test ansvarlig: ansvar for produktkvalitet
+
+4. *Dev. Team-member* @Tobias.Husebo
+    -   Software arkitekt: beslutningstaker når det gjelder ordning av programvaren
+    
+5. *Dev. Team-member* @Beate.Skogvik
+    - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering.  
 
 
 
