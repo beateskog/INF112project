@@ -3,6 +3,7 @@ package mavenless.ronasurvivors.Screens;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -32,8 +34,8 @@ public class MenuPrototype implements Screen{
         this.game = game;
         create();
     }
-
-    public void create() {
+   
+    private void create() {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("ui/prototypeUI/MenuPrototype.json"));
         Gdx.input.setInputProcessor(stage);
@@ -54,34 +56,38 @@ public class MenuPrototype implements Screen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.debug("UI", "Button 1: " + imageButton1.isChecked());
-                game.setScreen(new GameScreen(game));
-                dispose();
+                //game.setScreen(new GameScreen(game));
+                //dispose();
             }
         });
 
         final ImageButton imageButton2 = new ImageButton(skin, "doctorImageButton");
         imageButton2.setName("Doctor");
         table.add(imageButton2);
+        
         imageButton2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.debug("UI", "Button 2: " + imageButton2.isChecked());
-                game.setScreen(new GameScreen(game));
-                dispose();
+                //game.setScreen(new GameScreen(game));
+                //dispose();
             }
         });
+        
 
         final ImageTextButton imageTextButton1 = new ImageTextButton(null, skin, "Anti-Vaxxer");
         imageTextButton1.setName("Anti-Vaxxer");
         table.add(imageTextButton1);
-        imageButton1.addListener(new ChangeListener() {
+        
+        imageTextButton1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.debug("UI", "Button 1: " + imageTextButton1.isChecked());
-                game.setScreen(new GameScreen(game));
-                dispose();
+                Gdx.app.debug("UI", "ImageTextButton 1: " + imageTextButton1.isChecked());
+                //game.setScreen(new GameScreen(game));
+                //dispose();
             }
         });
+        
 
         table.row();
         final ImageButton imageButton3 = new ImageButton(skin, "doctorImageButton");
@@ -105,21 +111,21 @@ public class MenuPrototype implements Screen{
         stage.addActor(table);
     }
 
+    
     @Override
     public void render(float arg) {
-        Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        ScreenUtils.clear(Color.RED);
+       
+        extendViewport.apply();
+        game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
+        game.batch.begin();
+        game.batch.draw(backgroundImage, extendViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2f,
+                extendViewport.getCamera().position.y - Gdx.graphics.getHeight() / 2f);
+        game.batch.end();
+
+        stage.getViewport().apply();
         stage.act();
         stage.draw();
-
-        //Sannsynligvis en dårlig idé
-        //extendViewport.apply();
-        //game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
-        //game.batch.begin();
-        
-        //game.batch.draw(backgroundTexture, extendViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2f,
-                //extendViewport.getCamera().position.y - Gdx.graphics.getHeight() / 2f);
-        //game.batch.end();
     }
 
     public void resize(int width, int height) {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import mavenless.ronasurvivors.Screens.GameScreen;
 import mavenless.ronasurvivors.Screens.MainMenu;
 import mavenless.ronasurvivors.Screens.MenuPrototype;
+import mavenless.ronasurvivors.Screens.MenuScreen;
 import mavenless.ronasurvivors.Utils.InputUtil;
 
 public class RonaSurvivors extends Game {
@@ -22,7 +23,7 @@ public class RonaSurvivors extends Game {
 
 		batch = new SpriteBatch();
 		input = new InputUtil();
-    	this.setScreen(new GameScreen(this));
+    	this.setScreen(new MainMenu(this));
 	}
 
 	@Override
