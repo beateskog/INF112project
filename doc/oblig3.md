@@ -21,7 +21,7 @@ Alle gruppemedlemer tilstede
 Alle gruppemedlemer tilstede 
 
 - Starter dagen med å snakke om hva vi har gjort siden sist
-- Effektiv gruppetime,der vi setter i gang å jobbe med ulike oppgaver.  
+- Effektiv gruppetime,der vi setter i gang å jobbe med ulike oppgaver. 
 
 **Jobbet med i gruppetimen, og fokus til neste time**
 
@@ -83,11 +83,19 @@ Alle gruppemedlemmer til stede
 - Askild: UI design implementering 
 - Tobias: HP-bar
 
-## Gruppemøte 13.04.2023 
+## Gruppemøte 13.04.2023 (10.00-14.00)
 
 Alle gruppemedlemmer til stede 
 
+- Diskuterer tilbakemeldinger fra sist oblig
+- Finner ut hva som må fikses til neste oblig 
 
+- Alle må dokumentere sine public metoder 
+- Alle må gå inn å slette kode som er kommentert ut, dersom det er en grunn til at den står der skriv en kommentar på det. 
+
+**Ting vi må finne ut av**
+
+- Vi har blitt litt flinkere til å bruke trello, men et mål for neste oblig er å få inn alle tasks inn i forhold til hva som mangler. Siden vi ikke har gjort dette tidligere er det kanskje ikke så rart at vi har vært dårlige på å bruke trello. Forhåpentligvis vil dette også gjøre det lettere å finne oppgaver man kan gjøre, når man er litt usikker på hva som burde prioriteres. 
 
 # Krav og spesifikasjon
 
@@ -112,23 +120,25 @@ Alle gruppemedlemmer til stede
 3. Som en spiller, vil jeg ha muligheten til å skyte mot forskjellige typer fiender, som blir sterkere, i tillegg til at jeg skal kunne bruke forskjellige våpen og ferdigheter, slik at jeg kan utfordre meg selv og gjøre fremgang i spillet.
 
 ### Akseptansekriterier:
+
 <em>Akseptanse kriterie for brukerhistorie 2:</em>
-* Spilleren kan unngå fiender med å forflytte seg rundt på spillbrettet. (fullført)
+* Spilleren kan unngå fiender med å forflytte seg rundt på spillbrettet. (Fullført)
 * Fiender er til stede på brettet og kan følge spilleren. (Delvis fullført med 1 fiende)
-* Fiender skal kunne skade spilleren, og spillerens helse skal vise. (Ikke fullført)
+* Fiender skal kunne skade spilleren, og spillerens helse skal vise. (Delvis fullført, spiller tar kun skade når kontakt oppstår, ikke under hele kontakten)
 
 <em>Akseptanse kriterie for brukerhistorie 3:</em>
-* Spillet skal tilby spilleren en mulighet for å skyte fiender. (delvis fullført, fiender tar enda ikke skade)
+* Spillet skal tilby spilleren en mulighet for å skyte fiender. (Delvis fullført, fiender tar enda ikke skade)
 * Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren.
 * Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
 
 ### Oppsummering 
 - Jobbet med projectile, den skal skyte ut i fra hvilken vei spilleren er rettet. 
-- Jobbet med HP-bar slik at vi kan begynne å implementere at spiller skal ta skade osv. 
+- Jobbet med HP-bar slik at vi kan begynne å implementere at spiller skal ta skade osv. Hittil tar spiller skade når kontakt oppstår, men ikke når den vedvarer. Spilleren kan heller ikke dø. 
 - Jobbet med å lage ulike screens, slik at man kan velge character før man begynner spillet 
 - Fått lagt til lyd på når spilleren går 
 
-- Nevne bugs om de finnes
+**Bugs**
+- En projectile kolliderer med andre projectiles 
 
 # Produkt kode 
 
@@ -146,11 +156,10 @@ Alle gruppemedlemmer til stede
     - [TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
 
 
-- All kommentert ut kode som ikke brukes må fjernes, eller kommentar på hvorfor det er der hvis det må være der 
+- Alle skal ha kommentert ut kode som ikke brukes, eller kommentert på hvorfor det må bli stående 
 
-- Tester 
+- Alle skal ha fikset dokumentasjon på public metoder de selv har laget 
 
-- Dokumentasjon for public metoder 
 
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
