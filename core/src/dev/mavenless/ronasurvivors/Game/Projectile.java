@@ -32,7 +32,13 @@ public class Projectile implements Poolable {
     private float activeTime; 
 
     
-
+    /**
+     * 
+     * 
+     * @param size the size of the Rectangle
+     * @param speed the speed of the Projectile
+     * @param levelUtil the levelUtil 
+     */
     public Projectile(Rectangle size, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.speed = speed * 100f;
@@ -73,18 +79,36 @@ public class Projectile implements Poolable {
         getBody().setFixedRotation(true);
     }
 
+    /**
+     * Renders the projectile
+     * 
+     * @param batch
+     */
     public void render(SpriteBatch batch) {
         batch.draw(projectileText, size.x, size.y, size.width, size.height);
     }
 
-
+    /**
+     * Updates the posistion of the sprite
+     * based on the projectiles position
+     */
     public void update(){ 
         Vector2 projectilePos = getBody().getPosition();
-        //Move sprite image to that position
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
     }
 
+    /**
+     * Initializes the projectile
+     * 
+     * Sets the time the projectile was initialized, 
+     * sets it as alive and
+     * applies linear impulse in a direction based
+     * on the player's position
+     * 
+     * @param angle the angle of the direction the
+     * projectile should move in
+     */
     public void init(float angle){
         activeTime = System.nanoTime();
         alive = true;
@@ -118,23 +142,15 @@ public class Projectile implements Poolable {
         return this.alive;
     }
 
-    public void setAlive(boolean input) {
-        alive = input;
-    }
-
     public float getActiveTime() {
         return this.activeTime;
     }
 
-    
-    // Dispose 
     public void dispose() {
-
     }
 
     @Override
     public void reset() {
         alive = false;
-        
     }
 }
