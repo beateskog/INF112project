@@ -22,9 +22,8 @@ public class CollisionHandler implements ContactListener{
 
     public CollisionHandler(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
-        
-        
     }
+    
 
     @Override
     public void beginContact(Contact contact) {
@@ -51,24 +50,11 @@ public class CollisionHandler implements ContactListener{
             System.out.println("A collision was detected projectile hit da wall :(");
 
             if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                fixA.getBody();
-                World world = fixA.getBody().getWorld();
-                Projectile projectile = (Projectile)fixA.getBody().getUserData();
+                // destory projectile here 
             
-                /* if (!world.isLocked()){
-                    gameScreen.getProjectiles().remove(projectile);
-                    world.destroyBody(fixA.getBody());
-                } */
 
             } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                World world = fixB.getBody().getWorld();
-                Projectile projectile = (Projectile)fixB.getBody().getUserData();
-                
-                /* if (!world.isLocked()){
-                    gameScreen.getProjectiles().remove(projectile);
-                    world.destroyBody(fixB.getBody());
-                } */
-                
+                // destroy projectile here 
             }
 
         /* COLLISON BETWEEN PROJECTILE AND ENEMY */
@@ -83,10 +69,11 @@ public class CollisionHandler implements ContactListener{
                 } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
                    
                 } 
+
+        /* COLLISION BETWEEN PROJECTILE AND PROJECTILE */ //should not happen :)) 
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
         fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE)) {
             System.out.println("A collision was detected: projectile hit projectile");
-
         }
 
     }
