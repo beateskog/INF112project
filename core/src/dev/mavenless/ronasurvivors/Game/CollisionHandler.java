@@ -83,7 +83,12 @@ public class CollisionHandler implements ContactListener{
                 } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
                    
                 } 
+        } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
+        fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE)) {
+            System.out.println("A collision was detected: projectile hit projectile");
+
         }
+
     }
     
 
