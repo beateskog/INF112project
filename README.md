@@ -21,7 +21,6 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 * Krever Java 8
 
 ## Kjente feil
-Ingenting hittil 😅
 * Projectile colliding with other projectiles 
 
 ## Credits
@@ -48,8 +47,8 @@ Ingenting hittil 😎
     -   Software arkitekt: beslutningstaker når det gjelder ordning av programvaren
     
 5. *Dev. Team-member* @Beate.Skogvik
-    - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering 
-    
+    - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering
+
 
 Links to Trello: 
 
