@@ -84,9 +84,6 @@ public class GameScreen implements Screen {
         // Enemy
         defineEnemy();
 
-        //Projectile
-        //activeProjectiles.add(defineProjectile());
-
         // Save data
         Save save = new Save();
         try {
