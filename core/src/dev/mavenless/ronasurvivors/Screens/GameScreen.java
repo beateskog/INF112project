@@ -170,20 +170,7 @@ public class GameScreen implements Screen {
 
         // Move enemy
         enemy.move(player.getPosition());
-       
         
-        
-        Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
-
-        //Shoot 
-        
-        
-        
-                
-                
-            
-         
-
         // Inputs
         if (game.input.up("pause")) {
             Gdx.app.exit();

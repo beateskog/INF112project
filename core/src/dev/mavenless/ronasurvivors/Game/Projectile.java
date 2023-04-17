@@ -33,7 +33,6 @@ public class Projectile implements Poolable {
     
     /**
      * Creates a projectile. 
-     * Calls the defineProjectile method
      * 
      * @param size the size of the Rectangle
      * @param speed the speed of the Projectile
@@ -46,8 +45,6 @@ public class Projectile implements Poolable {
         projectileText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
         alive = false;
 
-       
-        
     }
 
     private void defineProjectile() {
@@ -68,6 +65,7 @@ public class Projectile implements Poolable {
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
+        fixtureDef.filter.groupIndex = -1;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PROJECTILE;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PROJECTILE; 
 
@@ -104,24 +102,23 @@ public class Projectile implements Poolable {
      * Sets the time the projectile was initialized, 
      * sets it as alive and
      * applies linear impulse in a direction based
-     * on the player's position
+     * on the player's position. 
+     * Calls the defineProjectile method 
      * 
      * @param angle the angle of the direction the
      * projectile should move in
      */
     public void init(float angle, float playerX, float playerY){
         activeTime = System.currentTimeMillis();
-        System.out.println("YOKAAAKAKA");
         alive = true;
         this.size = new Rectangle (playerX,playerY,10,10);
         defineProjectile();
-
         
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
-                                this.speed*(float)(Math.cos(Math.toRadians(angle))),
-                                0,
-                                0,
-                                true);
+                        this.speed*(float)(Math.cos(Math.toRadians(angle))),
+                        0,
+                        0,
+                        true);
         
     }
 
@@ -172,13 +169,9 @@ public class Projectile implements Poolable {
 
     @Override
     public void reset() {
-        System.out.println("HEI");
         this.alive = false;
         this.activeTime = 0;
-        
-        
         this.body.destroyFixture(projectileFix);
-        System.out.println("LALALALAL");
         
         
     }
