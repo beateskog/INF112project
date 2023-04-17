@@ -1,7 +1,5 @@
 package mavenless.ronasurvivors.Game;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -22,10 +20,13 @@ import mavenless.ronasurvivors.Screens.GameScreen;
 import mavenless.ronasurvivors.Utils.InputUtil;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
+/**
+ * Class for displaying and handling the player
+ */
 public class Player {
+    private enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private LevelUtil levelUtil;
     private TextureAtlas atlas;
-    public enum State {STANDING, RUNNINGHORIZONTAL, STANDINGLEFT, STANDINGRIGHT, RUNNINGUP, RUNNINGDOWN};
     private State currentState, previousState;
     private Rectangle size;
     private float speed, stateTimer;
@@ -34,13 +35,20 @@ public class Player {
     private Animation<TextureRegion> runHorizontal, runUp, runDown;
     private TextureRegion standing;
     private Boolean isRunningLeft;
-    private Boolean isStanding;
     private Boolean isAudioPlaying;
     private InputUtil input;
     private String playerName;
     private Sound sound;
     private long soundId;
     
+    /**
+     * Constructor for constructing a new player object
+     * @param screen - Screen to display player on
+     * @param size - Size of the player
+     * @param speed - Predefined speed of player
+     * @param levelUtil - levelutil for defining body in world obj
+     * @param input - inpututil for handling user input
+     */
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.size = size;
         this.input = input;
@@ -61,13 +69,12 @@ public class Player {
         stateTimer = 0;
     
         definePlayer();
-       
     }
 
 
-    // Define the players body, box and fixture
+    /* Helper method for defining the body, box and fixture of the player */
     private void definePlayer(){
-         // Set up Box2D
+        // Set up Box2D
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.position.set(size.x, size.y);
@@ -76,20 +83,20 @@ public class Player {
         // Sets the hitbox around our player
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2)-3, // width of the box
-            (size.height / 2)-3, // height of the box
+            (size.width / 2)-3,     // width of the box
+            (size.height / 2)-3,    // height of the box
             new Vector2(
-                (size.width / 2), // center of the box in local coordinates (width)
+                (size.width / 2),   // center of the box in local coordinates (width)
                 (size.height / 2)-7 // center of the box in local coordinates (Height)
             ),
-            0f // Rotation (Example if we want to add dodge ability)
+            0f                // Rotation (Example if we want to add dodge ability)
         );
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.0f; // Make it bounce a little bit
+        fixtureDef.restitution = 0.0f; 
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PLAYER;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PLAYER; 
         
@@ -225,24 +232,35 @@ public class Player {
         batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
     }
 
-    // Getters and Setters
+    /* -- GETTER and SETTER functions -- */
     /**
-     * 
-     * @return the rectangle size 
+     * Get size of the body
+     * @return - rectangle size 
      */
     public Rectangle getSize() {
         return this.size;
     }
 
+    /**
+     * Get predefined player speed
+     * @return - player speed
+     */
     public float getSpeed() {
         return this.speed;
     }
 
+    /**
+     * Get position of the player
+     * @return - vector containing position
+     */
     public Vector2 getPosition(){
         return body.getPosition();
     }
 
-    // Setters
+    /**
+     * Updating the speed of the player
+     * @param speed - updated speed
+     */
     public void setSpeed(float speed) {
         this.speed = speed;
     }
@@ -251,5 +269,4 @@ public class Player {
     public void dispose() {
 
     }
-
 }

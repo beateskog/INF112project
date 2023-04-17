@@ -40,7 +40,7 @@ public class Enemy {
         defineEnemy();
     }
 
-    /* Helper method for defining the body of the enemy */
+    /* Helper method for defining the body, box and fixture of the enemy */
     private void defineEnemy() {
         // Defining the body of the enemy:
         BodyDef bodyDef = new BodyDef();
