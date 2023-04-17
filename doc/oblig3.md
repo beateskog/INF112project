@@ -139,17 +139,17 @@ Alle gruppemedlemmer til stede
 
 **Bugs**
 - En projectile kolliderer med andre projectiles 
+- Projectiles blir ikke fjernet fra skjermen, og lagt tilbake i Pool. 
 
 # Produkt kode 
 
 **Dette har vi fikset siden sist** 
 
 - [Manuelle tester](https://git.app.uib.no/mavenless/rona-survivors/-/blob/main/doc/manuelleTester.md)
+
 - I tillegg har vi laget noen JUnit tester. 
 
-- Link til klassediagram
-
-- Links to Trello: 
+- Links to Trello boards: 
 
     - [TRELLO ISSUES](https://trello.com/b/QHYMXsMK/issues)
 
@@ -159,7 +159,6 @@ Alle gruppemedlemmer til stede
 - Alle skal ha kommentert ut kode som ikke brukes, eller kommentert på hvorfor det må bli stående 
 
 - Alle skal ha fikset dokumentasjon på public metoder de selv har laget 
-
 
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
@@ -183,6 +182,221 @@ Alle gruppemedlemmer til stede
     - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering.  
 
 
+## Klassediagram
+```mermaid
+classDiagram
+    DesktopLauncher <-- RonaSurvivors
+    RonaSurvivors <-- MainMenu
+    MainMenu <--> Shop
+    MainMenu <-- GameScreen
+    InputUtil --> RonaSurvivors
+    InputUtil --> MainMenu
+    UiHandler --> MainMenu
+    LevelUtil --> GameScreen
 
+    InputIndex --> InputUtil
+    InputProfile --> InputUtil
 
+    UiStyle --> UiHandler
+    UiFont --> UiHandler
 
+    CollisionBits --> LevelUtil
+
+    %% Startup
+    class DesktopLauncher {
+        +void main()$
+    }
+
+    class RonaSurvivors {
+        +SpriteBatch batch
+        +InputUtil input
+
+        +void create()
+        +void render()
+        +void dispose()
+    }
+
+    %% Screens
+    class MainMenu {
+        #RonaSurvivors game
+        -ExtendViewport extendViewport
+        -InputUtil inputUtil
+        -Stage stage
+        -Table table
+        -Texture backgroundTexture
+
+        +MainMenu(final RonaSurvivors game)
+        +void show()
+        +void render(float delta)
+        +void resize(int width, int height)
+        +void pause()
+        +void resume()
+        +void hide()
+        +void dispose()
+    }
+
+    class Shop {
+        #RonaSurvivors game
+        -OrthographicCamera camera
+        -Stage stage
+        -Table table
+
+        +Shop(final RonaSurvivors game)
+        +void show()
+        +void render(float delta)
+        +void resize(int width, int height)
+        +void pause()
+        +void resume()
+        +void hide()
+        +void dispose()
+    }
+
+    class GameScreen {
+        #RonaSurvivors game
+        -LevelUtil levelUtil
+        -ExtendViewport extendViewport
+        -Box2DDebugRenderer box2dDebugRenderer
+        -Stage stage
+        -Player player
+        -HP_bar hp_bar
+        -Enemy enemy
+        -Projectile projectile
+        -TextureAtlas playerAtlas
+        -TextureAtlas tmpEnemyAtlas
+        -float timeSinceLastShot
+        -float deltaTime
+        -boolean fired
+        +#long startTime
+        -#ArrayList~Projectile~ activeProjectiles
+        -#Pool~Projectile~ projectilePool
+
+        +GameScreen(final RonaSurvivors game)
+        +void show()
+        -void defineEnemy()
+        -float degreeOffset(float val, float offset)
+        -void update()
+        +void render(float delta)
+        +TextureAtlas getAtlas()
+        +void removeProjectile(Projectile projectile)
+        +List~Projectile~ getProjectiles()
+        +HP_bar getHp_bar()
+        +void resize(int width, int height)
+        +void pause()
+        +void resume()
+        +void hide()
+        +void dispose()
+    }
+
+    %% Utils
+    class InputUtil {
+        -Controller controller
+        -ArrayList~Integer~ buttons
+        -HashMap~Integer~ ~Boolean~ buttonOn
+        -HashMap~Integer~ ~Boolean~ buttonJustOn
+        -HashMap~Integer~ ~Boolean~ buttonJustOff
+        -InputIndex inputIndex
+        -ArrayList~InputProfile~ inputProfiles
+
+        +InputUtil()
+        -boolean buttonDown(int buttonCode)
+        -boolean buttonUp(int buttonCode)
+        -int controllerButtonMapping(String button)
+        -InputProfile getInputProfile(String name)
+        +void update()
+        +boolean down(String profile)
+        +boolean up(String profile)
+        +float moveX()
+        +float moveY()
+        +void vibrate(int milliseconds, float strength)
+    }
+
+    class InputIndex {
+        -float deadzone
+        -List~String~ profiles
+        +InputIndex()
+        +float getDeadzone()
+        +List~String~ getProfiles()
+        +String toString()
+    }
+
+    class InputProfile {
+        -String name
+        -List~String~ keyboard
+        -List~String~ controller
+
+        +InputProfile()
+        +String getName()
+        +List~String~ getKeyboard()
+        +List~String~ getController()
+        +String toString()
+    }
+
+    class BitUtil {
+        -byte[] bytes
+
+        +BitUtil(byte[] bytes)
+        +BitUtil(String string)
+        +BitUtil(short value)
+        +BitUtil(int value)
+        
+        +byte[] getBytes()
+        +String toString()
+        +short toShort()
+        +int toInt()
+        +byte[] toLengthBytes()
+        +String toHex()
+    }
+
+    class UiHandler {
+        -BitmapFont loadFont(String path, int size, Color color)$
+        -BitmapFont loadFontWithBorder(String path, int size, Color color, Color borderColor, int borderSize)$
+        +LabelStyle labelStyle(BitmapFont font)$
+        +TextButtonStyle textButtonStyle(UiStyle style, BitmapFont font)$
+    }
+
+    class UiStyle {
+        <<enumeration>>
+        Debug
+        +Skin getSkin()*
+        +Drawable getButtonUp()*
+        +Drawable getButtonDown()*
+    }
+
+    class UiFont {
+        <<enumeration>>
+        Pixelated
+        +BitmapFont getFont(int size, Color color)*
+        +BitmapFont getFontBorder(int size, Color color, Color borderColor, int borderSize)*
+    }
+
+    class LevelUtil {
+        +TiledMap tiledMap
+        +World world
+        +OrthogonalTiledMapRenderer mapRenderer
+        -int tileWidth
+        -int tileHeight
+        -int mapWidth
+        -int mapHeight
+
+        +void loadTileMap(String tilePath)
+        +void render(OrthographicCamera camera)
+        +void getLayers()
+        +int getTileWidth()
+        +int getTileHeight()
+        +int getMapWidth()
+        +int getMapHeight()
+    }
+
+    %% Game
+    class CollisionBits {
+        +short CATEGORY_PLAYER$
+        +short CATEGORY_ENEMY$
+        +short CATEGORY_PROJECTILE$
+        +short CATEGORY_SCENERY$
+
+        +short MASK_PLAYER$
+        +short MASK_ENEMY$
+        +short MASK_PROJECTILE$
+        +short MASK_SCENERY$
+    }
+```

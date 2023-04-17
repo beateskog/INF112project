@@ -23,6 +23,13 @@
         1. Spiller kan flytte seg og unngå fiender ved bevegelse (Se manuell test nr 1).
         2. Fiende observeres fra spillet starter.
         3. Fiende observeres å følge spilleren i alle retninger spilleren måtte gå. 
-        4. ##FIENDE KAN IKKE SKADE SPILLEREN ENDA##.
+        4. Fiende kan skade spilleren i det kontakt oppstår. Men fortsatt under utvikling. 
         5. ##HP-BAR OBSERVERES, MEN SAMSVARER IKKE MED SPILLERENS EGENTLIGE HELSE##
+    ```
+3. **Akseptanse kriterie for brukerhistorie 3:**
+    - Spillet skal tilby spilleren en mulighet for å skyte fiender. 
+    - Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren.
+    - Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
+    ```note
+        1. Spilleren skyter, men fiender tar ikke skade.
     ```
