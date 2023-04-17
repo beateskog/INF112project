@@ -209,7 +209,7 @@ public class GameScreen implements Screen {
         game.batch.end();
         
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 0.1f) {
+        if (timeSinceLastShot >= 1f) {
             float angle = degreeOffset(
             (
                 (float) Math.atan2(
@@ -228,7 +228,7 @@ public class GameScreen implements Screen {
         }
        
         for (Projectile pro : activeProjectiles){
-            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
                 projectilePool.free(pro);
                 timeSinceLastShot = 0;
                 activeProjectiles.removeValue(pro,true);
