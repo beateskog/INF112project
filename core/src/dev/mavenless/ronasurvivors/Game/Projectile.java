@@ -97,7 +97,7 @@ public class Projectile implements Poolable {
         Vector2 projectilePos = getBody().getPosition();
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
-        System.out.println("CategoryBits: " + this.projectileFix.getFilterData().categoryBits + "    |  Mask: " + this.projectileFix.getFilterData().maskBits);
+        //System.out.println("CategoryBits: " + this.projectileFix.getFilterData().categoryBits + "    |  Mask: " + this.projectileFix.getFilterData().maskBits);
     }
 
     /**
