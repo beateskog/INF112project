@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -47,7 +48,7 @@ public class GameScreen implements Screen {
     
     public final long startTime = System.currentTimeMillis();
 
-    private final ArrayList<Projectile> activeProjectiles= new ArrayList<Projectile>();
+    private final Array<Projectile> activeProjectiles= new Array<Projectile>();
     private final Pool<Projectile> projectilePool = new Pool<Projectile>() {
         @Override
         protected Projectile newObject() {
@@ -169,50 +170,19 @@ public class GameScreen implements Screen {
 
         // Move enemy
         enemy.move(player.getPosition());
+       
+        
         
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
 
         //Shoot 
-        for (Projectile projectile : activeProjectiles){
-            projectile.update();
-        }
-       
         
-        timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (!fired && (timeSinceLastShot >= 1f)) {
-            float angle = degreeOffset(
-            (
-                (float) Math.atan2(
-                    -game.input.moveY(),
-                    game.input.moveX()
-                )
-            )
-            * (180 / (float) Math.PI)
-            + 180,
-            90
-            );
-            Projectile projectile = projectilePool.obtain();
-            projectile.init(angle);
-            activeProjectiles.add(projectile);
-            timeSinceLastShot = 0;
-            fired = true;
-        }
-        else if (fired) {
-            if (timeSinceLastShot >= 1f) {
-                Projectile projectile; 
-                int len = activeProjectiles.size();
-                for (int i = 0; i < len; i++){
-                    projectile = activeProjectiles.get(i);
-                    if (projectile.getIsAlive() == false){
-                        activeProjectiles.remove(i);
-                        projectilePool.free(projectile);
-                    }
-                }
-                timeSinceLastShot = 0;
-                fired = false;
+        
+        
                 
-            }
-        } 
+                
+            
+         
 
         // Inputs
         if (game.input.up("pause")) {
@@ -231,7 +201,6 @@ public class GameScreen implements Screen {
 
         // Applies the camera
         extendViewport.apply();
-
         // Run game loop
         this.update();
         
@@ -247,9 +216,37 @@ public class GameScreen implements Screen {
         player.render(game.batch);
         enemy.render(game.batch);
         for (Projectile projectile : activeProjectiles) {
+            projectile.update();
             projectile.render(game.batch);
         }
         game.batch.end();
+        
+        timeSinceLastShot += Gdx.graphics.getDeltaTime();
+        if (timeSinceLastShot >= 1f) {
+            float angle = degreeOffset(
+            (
+                (float) Math.atan2(
+                    -game.input.moveY(),
+                    game.input.moveX()
+                )
+            )
+            * (180 / (float) Math.PI)
+            + 180,
+            90
+            );
+            Projectile projectile1 = projectilePool.obtain();
+            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
+            activeProjectiles.add(projectile1);
+            timeSinceLastShot = 0;
+        }
+       
+        for (Projectile pro : activeProjectiles){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
+                projectilePool.free(pro);
+                timeSinceLastShot = 0;
+                activeProjectiles.removeValue(pro,true);
+            }
+        }
 
         // Stage render
         stage.getViewport().apply();
@@ -261,12 +258,8 @@ public class GameScreen implements Screen {
         return this.playerAtlas;
     }
 
-    public void removeProjectile(Projectile projectile) {
-        activeProjectiles.remove(projectile);
-        levelUtil.world.destroyBody(projectile.getBody());
-    }
 
-    public List<Projectile> getProjectiles(){
+    public Array<Projectile> getProjectiles(){
         return activeProjectiles;
     }
 
