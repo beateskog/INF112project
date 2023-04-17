@@ -216,14 +216,13 @@ public class Player {
         if(input.moveY() < 0) return State.RUNNINGDOWN;
         else return State.STANDING;
     }
+    
     /**
      * Renders the player 
-     * 
      * @param batch
      */
     public void render(SpriteBatch batch) {
         batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
-        //System.out.println(this.stateTimer);
     }
 
     // Getters and Setters

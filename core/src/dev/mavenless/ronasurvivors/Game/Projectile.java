@@ -29,7 +29,6 @@ public class Projectile implements Poolable {
     private long activeTime; 
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
-
     
     /**
      * Creates a projectile. 
@@ -44,7 +43,6 @@ public class Projectile implements Poolable {
         this.levelUtil = levelUtil;
         projectileText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
         alive = false;
-
     }
 
     private void defineProjectile() {
@@ -68,9 +66,11 @@ public class Projectile implements Poolable {
         fixtureDef.filter.groupIndex = -1;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PROJECTILE;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PROJECTILE; 
+        
 
         projectileFix = getBody().createFixture(fixtureDef);
         projectileFix.setUserData("Projectile");
+        
         circle.dispose();
 
         getBody().setFixedRotation(true);
@@ -83,7 +83,6 @@ public class Projectile implements Poolable {
      */
     public void render(SpriteBatch batch) {
         batch.draw(projectileText, size.x, size.y, size.width, size.height);
-      
     }
 
     /**
@@ -94,6 +93,7 @@ public class Projectile implements Poolable {
         Vector2 projectilePos = getBody().getPosition();
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
+        System.out.println("CategoryBits: " + this.projectileFix.getFilterData().categoryBits + "    |  Mask: " + this.projectileFix.getFilterData().maskBits);
     }
 
     /**
@@ -123,16 +123,13 @@ public class Projectile implements Poolable {
     }
 
     /* Getter methods */ 
-
     /**
-     * 
      * @return the size of a rectangle
      */
     public Rectangle getSize() {
         return this.size;
     }
     /**
-     * 
      * @return the body of the projectile
      */
     public Body getBody() {
@@ -141,7 +138,6 @@ public class Projectile implements Poolable {
     /**
      * Returns false if the porjectile is dead
      * and true if the projectile is alive
-     * 
      * @return the status of the projectile 
      */
     public boolean getIsAlive() {
@@ -153,7 +149,6 @@ public class Projectile implements Poolable {
      * the projectile was 
      * initialized. Is given 
      * in milliseconds
-     * 
      * @return the time the projectile was initialized
      */
     public void setAlive(boolean input) {
@@ -172,7 +167,5 @@ public class Projectile implements Poolable {
         this.alive = false;
         this.activeTime = 0;
         this.body.destroyFixture(projectileFix);
-        
-        
     }
 }

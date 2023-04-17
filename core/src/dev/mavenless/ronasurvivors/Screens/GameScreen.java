@@ -209,7 +209,7 @@ public class GameScreen implements Screen {
         game.batch.end();
         
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 1f) {
+        if (timeSinceLastShot >= 0.1f) {
             float angle = degreeOffset(
             (
                 (float) Math.atan2(
