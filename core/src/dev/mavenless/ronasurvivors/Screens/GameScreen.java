@@ -228,7 +228,7 @@ public class GameScreen implements Screen {
         }
        
         for (Projectile pro : activeProjectiles){
-            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2){
                 projectilePool.free(pro);
                 timeSinceLastShot = 0;
                 activeProjectiles.removeValue(pro,true);
