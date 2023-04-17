@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -44,7 +43,6 @@ public class GameScreen implements Screen {
     private TextureAtlas tmpEnemyAtlas;
     
     private float timeSinceLastShot = 0;
-    private float deltaTime = 0;
     private boolean fired = false;
     
     public final long startTime = System.currentTimeMillis();
@@ -173,7 +171,7 @@ public class GameScreen implements Screen {
         enemy.move(player.getPosition());
         
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
-        //System.out.println(seconds);
+
         //Shoot 
         for (Projectile projectile : activeProjectiles){
             projectile.update();

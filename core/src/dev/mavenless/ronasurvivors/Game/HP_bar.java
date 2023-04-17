@@ -1,17 +1,17 @@
 package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class HP_bar{
     private final int MAX_HEALTH;
     private int health;
     private ProgressBar HpBar;
 
+    
     public HP_bar(int initHealth, Stage stage) {
         this.MAX_HEALTH = initHealth;
         this.health = initHealth;

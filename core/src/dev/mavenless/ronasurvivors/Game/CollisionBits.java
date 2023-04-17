@@ -11,11 +11,5 @@ public class CollisionBits {
     public static final short MASK_ENEMY = CATEGORY_PLAYER | CATEGORY_SCENERY | CATEGORY_PROJECTILE;
     public static final short MASK_PROJECTILE = CATEGORY_ENEMY | CATEGORY_SCENERY;
     public static final short MASK_SCENERY = -1; //Collides with everything. 
-
-    
-
-    //public enum Mask {MASK_PLAYER, MASK_ENEMY, MASK_SCENERY}
-    //public enum Category {CATEGORY_PLAYER, CATEGORY_ENEMY, CATEGORY_PROJECTILE, CATEGORY_SCENERY}
-
     
 }
