@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -29,7 +30,9 @@ public class Projectile implements Poolable {
     private Texture projectileText;
     private Player player;
     private boolean alive;
-    private float activeTime; 
+    private long activeTime; 
+    private BodyDef bodyDef;
+    private FixtureDef fixtureDef;
 
     
 
@@ -38,16 +41,15 @@ public class Projectile implements Poolable {
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
         projectileText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
-
         alive = false;
 
-        defineProjectile();
+       
         
     }
 
     private void defineProjectile() {
         // Defining the body of the projectile:
-        BodyDef bodyDef = new BodyDef();
+        this.bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
         bodyDef.bullet = true;
         bodyDef.position.set(size.x, size.y);
@@ -58,7 +60,7 @@ public class Projectile implements Poolable {
         circle.setRadius(6f);
 
         // Defining the fixture of our box (not colliding with objs)
-        FixtureDef fixtureDef = new FixtureDef();
+        this.fixtureDef = new FixtureDef();
         fixtureDef.shape = circle;                     //Setting the shape of the fixture to our box
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.0f;
@@ -75,6 +77,7 @@ public class Projectile implements Poolable {
 
     public void render(SpriteBatch batch) {
         batch.draw(projectileText, size.x, size.y, size.width, size.height);
+      
     }
 
 
@@ -85,14 +88,20 @@ public class Projectile implements Poolable {
         getSize().y = projectilePos.y;
     }
 
-    public void init(float angle){
-        activeTime = System.nanoTime();
+    public void init(float angle, float playerX, float playerY){
+        activeTime = System.currentTimeMillis();
+        System.out.println("YOKAAAKAKA");
         alive = true;
+        this.size = new Rectangle (playerX,playerY,10,10);
+        defineProjectile();
+
+        
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
                                 this.speed*(float)(Math.cos(Math.toRadians(angle))),
                                 0,
                                 0,
                                 true);
+        
     }
 
      /* Getter methods */ 
@@ -122,7 +131,7 @@ public class Projectile implements Poolable {
         alive = input;
     }
 
-    public float getActiveTime() {
+    public long getActiveTime() {
         return this.activeTime;
     }
 
@@ -134,7 +143,14 @@ public class Projectile implements Poolable {
 
     @Override
     public void reset() {
-        alive = false;
+        System.out.println("HEI");
+        this.alive = false;
+        this.activeTime = 0;
+        
+        
+        this.body.destroyFixture(projectileFix);
+        System.out.println("LALALALAL");
+        
         
     }
 }

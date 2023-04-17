@@ -66,7 +66,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Render setup
-        float viewSize = 200f; // size of viewable area
+        float viewSize = 800f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
         stage = new Stage(new ScreenViewport());
@@ -174,17 +174,25 @@ public class GameScreen implements Screen {
 
         // Move enemy
         enemy.move(player.getPosition());
+       
+        
         
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
         //System.out.println(seconds);
         //Shoot 
+        int tmp = 0;
+       
         for (Projectile projectile : activeProjectiles){
             projectile.update();
+            //tmpp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - projectile.getActiveTime());
+            //System.out.println("Projectile getActiveTime " + tmp + ": " + (tmpp));
+            //System.out.println(System.currentTimeMillis() - projectile.getActiveTime());
+            tmp++;
         }
        
         
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (!fired && (timeSinceLastShot >= 1f)) {
+        if (timeSinceLastShot >= 1f) {
             float angle = degreeOffset(
             (
                 (float) Math.atan2(
@@ -196,28 +204,41 @@ public class GameScreen implements Screen {
             + 180,
             90
             );
-            Projectile projectile = projectilePool.obtain();
-            projectile.init(angle);
-            activeProjectiles.add(projectile);
+            Projectile projectile1 = projectilePool.obtain();
+            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
+            activeProjectiles.add(projectile1);
             timeSinceLastShot = 0;
-            fired = true;
+            System.out.println("YOYOYOYOYOYO");
         }
-        else if (fired) {
-            if (timeSinceLastShot >= 1f) {
-                Projectile projectile; 
-                int len = activeProjectiles.size();
-                for (int i = 0; i < len; i++){
-                    projectile = activeProjectiles.get(i);
-                    if (projectile.getIsAlive() == false){
-                        activeProjectiles.remove(i);
-                        projectilePool.free(projectile);
-                    }
-                }
+        //else if (fired) {
+        //    if (timeSinceLastShot >= 1f) {
+        //        Projectile projectile; 
+        //        int len = activeProjectiles.size();
+        //        for (int i = 0; i < len; i++){
+        //            projectile = activeProjectiles.get(i);
+        //            if (projectile.getIsAlive() == false){
+        //                System.out.println("Kom hit 1");
+        //                activeProjectiles.remove(i);
+        //                projectilePool.free(projectile);
+        //            }
+        //        }
+        for (Projectile pro : activeProjectiles){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
+                System.out.println("sji");
+                projectilePool.free(pro);
+                System.out.println("Kom hit 2");
                 timeSinceLastShot = 0;
-                fired = false;
-                
+                activeProjectiles.remove(pro);
+                System.out.println("neinX");
             }
-        } 
+        }
+        long tmpp =0;
+        
+        
+                
+                
+            
+         
 
         // Inputs
         if (game.input.up("pause")) {
@@ -236,7 +257,6 @@ public class GameScreen implements Screen {
 
         // Applies the camera
         extendViewport.apply();
-
         // Run game loop
         this.update();
         
