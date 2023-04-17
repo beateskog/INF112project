@@ -101,6 +101,14 @@ public class Player {
         body.setFixedRotation(true);
     }
 
+    /**
+     * Moves the player, and makes the 
+     * camera follow the player. 
+     * 
+     * @param camera the camera 
+     * @param worldWidth the world width
+     * @param worldHeight the world height
+     */
     public void move(Camera camera, float worldWidth, float worldHeight) {
         // Move size box
         float movementX = input.moveX();
@@ -136,9 +144,6 @@ public class Player {
         );
         camera.update();
     }
-
-    
-
     
     
     /** 
@@ -211,14 +216,21 @@ public class Player {
         if(input.moveY() < 0) return State.RUNNINGDOWN;
         else return State.STANDING;
     }
-
-    
+    /**
+     * Renders the player 
+     * 
+     * @param batch
+     */
     public void render(SpriteBatch batch) {
         batch.draw(getFrame(), size.x-5, size.y-5, size.width+10, size.height+10);
         //System.out.println(this.stateTimer);
     }
 
     // Getters and Setters
+    /**
+     * 
+     * @return the rectangle size 
+     */
     public Rectangle getSize() {
         return this.size;
     }

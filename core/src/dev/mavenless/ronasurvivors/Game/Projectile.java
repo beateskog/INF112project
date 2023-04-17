@@ -2,7 +2,6 @@ package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,20 +19,19 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 
 public class Projectile implements Poolable {
 
-    private Sprite sprite;
     private Rectangle size;
     private Body body;
     private float speed;
     private Fixture projectileFix;
     private LevelUtil levelUtil;
     private Texture projectileText;
-    private Player player;
     private boolean alive;
     private float activeTime; 
 
     
     /**
-     * 
+     * Creates a projectile. 
+     * Calls the defineProjectile method
      * 
      * @param size the size of the Rectangle
      * @param speed the speed of the Projectile
@@ -65,7 +63,7 @@ public class Projectile implements Poolable {
 
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;                     //Setting the shape of the fixture to our box
+        fixtureDef.shape = circle;   
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
@@ -110,7 +108,7 @@ public class Projectile implements Poolable {
      * projectile should move in
      */
     public void init(float angle){
-        activeTime = System.nanoTime();
+        activeTime = System.currentTimeMillis();
         alive = true;
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
                                 this.speed*(float)(Math.cos(Math.toRadians(angle))),
@@ -119,33 +117,44 @@ public class Projectile implements Poolable {
                                 true);
     }
 
-     /* Getter methods */ 
-     public Rectangle getSize() {
+    /* Getter methods */ 
+
+    /**
+     * 
+     * @return the size of a rectangle
+     */
+    public Rectangle getSize() {
         return this.size;
     }
+    /**
+     * 
+     * @return the body of the projectile
+     */
     public Body getBody() {
         return this.body;
     }
-    public Sprite getSprite() {
-        return this.sprite;
-    }
-
-    public Vector2 getPosition() {
-        return body.getPosition();
-    }
-
-    public Texture getTexture() { 
-        return projectileText;
-    }
-
+    /**
+     * Returns false if the porjectile is dead
+     * and true if the projectile is alive
+     * 
+     * @return the status of the projectile 
+     */
     public boolean getIsAlive() {
         return this.alive;
     }
 
+    /**
+     * Returns the time 
+     * the projectile was 
+     * initialized. Is given 
+     * in milliseconds
+     * 
+     * @return the time the projectile was initialized
+     */
     public float getActiveTime() {
         return this.activeTime;
     }
-
+    
     public void dispose() {
     }
 

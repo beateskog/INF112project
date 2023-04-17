@@ -22,6 +22,15 @@ public class Enemy {
     private Fixture enemyFix;
     private LevelUtil levelUtil;
 
+    /**
+     * Creates an enemy. 
+     * Calls the defineEnemy method. 
+     * 
+     * @param size the size of the Rectangle
+     * @param sprite the sprite to display 
+     * @param speed the speed of the enemy
+     * @param levelUtil the levelUtil 
+     */
     public Enemy(Rectangle size, Sprite sprite, float speed, LevelUtil levelUtil) {
         this.size = size;
         this.sprite = sprite;
@@ -66,6 +75,14 @@ public class Enemy {
         getBody().setFixedRotation(true);
     }
 
+    /**
+     * Move the enemy's position
+     * to follow the player position. 
+     * This function also updates the sprite
+     * image in the way the enemy is moving. 
+     * 
+     * @param player_pos
+     */
     public void move(Vector2 player_pos) {
         /* Get enemy position, and get dir-vector */
         Vector2 enemyPos = getBody().getPosition();
@@ -84,26 +101,39 @@ public class Enemy {
             getSprite().setFlip(false, false);
         }
     }
-
+    /**
+     * Renders the enemy
+     * 
+     * @param batch
+     */
     public void render(SpriteBatch batch) {
         batch.draw(sprite, size.x, size.y, size.width, size.height);
     }
 
     /* Getter methods */ 
+
+    /**
+     * 
+     * @return rectangle size 
+     */
     public Rectangle getSize() {
         return this.size;
     }
+
+    /**
+     * 
+     * @return the body of the enemy
+     */
     public Body getBody() {
         return this.body;
     }
+
+    /**
+     * 
+     * @return the sprite of the enemy 
+     */
     public Sprite getSprite() {
         return this.sprite;
-    }
-    public float getSpeed() {
-        return this.speed;
-    }
-    public Vector2 getPosition() {
-        return body.getPosition();
     }
     
     /* Dispose */
