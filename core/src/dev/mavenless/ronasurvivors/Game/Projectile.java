@@ -17,7 +17,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
-
+/**
+ * Class for handling and displaying projectiles
+ */
 public class Projectile implements Poolable {
     private Rectangle size;
     private Body body;
@@ -45,7 +47,9 @@ public class Projectile implements Poolable {
         alive = false;
     }
 
+    /* Helper method for defining the body of the projectile */
     private void defineProjectile() {
+
         // Defining the body of the projectile:
         this.bodyDef = new BodyDef();
         bodyDef.type = BodyType.DynamicBody;
@@ -155,6 +159,10 @@ public class Projectile implements Poolable {
         alive = input;
     }
 
+    /**
+     * Getter method retrieving time of creation
+     * @return projectile creation timestamp
+     */
     public long getActiveTime() {
         return this.activeTime;
     }

@@ -40,6 +40,7 @@ public class CollisionHandler implements ContactListener{
             (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
               fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
             
+            /* Update player health after encounter with enemy */
             HP_bar hp_bar = gameScreen.getHp_bar();
             Random r = new Random();
             hp_bar.setHealth(hp_bar.getHealth()-r.nextInt(10));
