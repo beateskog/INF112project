@@ -56,8 +56,8 @@ public class MenuPrototype implements Screen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.debug("UI", "Button 1: " + imageButton1.isChecked());
-                //game.setScreen(new GameScreen(game));
-                //dispose();
+                game.setScreen(new GameScreen(game));
+                dispose();
             }
         });
 
@@ -69,22 +69,23 @@ public class MenuPrototype implements Screen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.debug("UI", "Button 2: " + imageButton2.isChecked());
-                //game.setScreen(new GameScreen(game));
-                //dispose();
+                game.setScreen(new GameScreen(game));
+                dispose();
             }
         });
         
 
         final ImageTextButton imageTextButton1 = new ImageTextButton(null, skin, "Anti-Vaxxer");
         imageTextButton1.setName("Anti-Vaxxer");
+        imageTextButton1.setText("It do be like that");
         table.add(imageTextButton1);
         
         imageTextButton1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.debug("UI", "ImageTextButton 1: " + imageTextButton1.isChecked());
-                //game.setScreen(new GameScreen(game));
-                //dispose();
+                game.setScreen(new GameScreen(game));
+                dispose();
             }
         });
         
@@ -95,6 +96,7 @@ public class MenuPrototype implements Screen{
         table.add(imageButton3);
 
         final ImageTextButton imageTextButton2 = new ImageTextButton(null, skin);
+        imageTextButton2.setText("Please forgive me for what I got to yabba dabba do");
         table.add(imageTextButton2);
 
         final ImageTextButton imageTextButton3 = new ImageTextButton(null, skin, "PlagueDoctor");
@@ -116,14 +118,14 @@ public class MenuPrototype implements Screen{
     public void render(float arg) {
         ScreenUtils.clear(Color.RED);
        
-        extendViewport.apply();
-        game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
+        //extendViewport.apply();
+       //game.batch.setProjectionMatrix(extendViewport.getCamera().combined);
         game.batch.begin();
         game.batch.draw(backgroundImage, extendViewport.getCamera().position.x - Gdx.graphics.getWidth() / 2f,
                 extendViewport.getCamera().position.y - Gdx.graphics.getHeight() / 2f);
         game.batch.end();
 
-        stage.getViewport().apply();
+        //stage.getViewport().apply();
         stage.act();
         stage.draw();
     }
