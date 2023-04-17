@@ -137,10 +137,6 @@ Alle gruppemedlemmer til stede
 - Jobbet med å lage ulike screens, slik at man kan velge character før man begynner spillet 
 - Fått lagt til lyd på når spilleren går 
 
-**Bugs**
-- En projectile kolliderer med andre projectiles 
-- Projectiles blir ikke fjernet fra skjermen, og lagt tilbake i Pool. 
-
 # Produkt kode 
 
 **Dette har vi fikset siden sist** 
