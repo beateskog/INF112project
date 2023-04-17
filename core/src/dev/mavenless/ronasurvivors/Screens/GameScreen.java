@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -49,7 +50,7 @@ public class GameScreen implements Screen {
     
     public final long startTime = System.currentTimeMillis();
 
-    private final ArrayList<Projectile> activeProjectiles= new ArrayList<Projectile>();
+    private final Array<Projectile> activeProjectiles= new Array<Projectile>();
     private final Pool<Projectile> projectilePool = new Pool<Projectile>() {
         @Override
         protected Projectile newObject() {
@@ -66,7 +67,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Render setup
-        float viewSize = 800f; // size of viewable area
+        float viewSize = 200f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
         stage = new Stage(new ScreenViewport());
@@ -180,59 +181,7 @@ public class GameScreen implements Screen {
         Long seconds = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()- startTime);
         //System.out.println(seconds);
         //Shoot 
-        int tmp = 0;
-       
-        for (Projectile projectile : activeProjectiles){
-            projectile.update();
-            //tmpp = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - projectile.getActiveTime());
-            //System.out.println("Projectile getActiveTime " + tmp + ": " + (tmpp));
-            //System.out.println(System.currentTimeMillis() - projectile.getActiveTime());
-            tmp++;
-        }
-       
         
-        timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 1f) {
-            float angle = degreeOffset(
-            (
-                (float) Math.atan2(
-                    -game.input.moveY(),
-                    game.input.moveX()
-                )
-            )
-            * (180 / (float) Math.PI)
-            + 180,
-            90
-            );
-            Projectile projectile1 = projectilePool.obtain();
-            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
-            activeProjectiles.add(projectile1);
-            timeSinceLastShot = 0;
-            System.out.println("YOYOYOYOYOYO");
-        }
-        //else if (fired) {
-        //    if (timeSinceLastShot >= 1f) {
-        //        Projectile projectile; 
-        //        int len = activeProjectiles.size();
-        //        for (int i = 0; i < len; i++){
-        //            projectile = activeProjectiles.get(i);
-        //            if (projectile.getIsAlive() == false){
-        //                System.out.println("Kom hit 1");
-        //                activeProjectiles.remove(i);
-        //                projectilePool.free(projectile);
-        //            }
-        //        }
-        for (Projectile pro : activeProjectiles){
-            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
-                System.out.println("sji");
-                projectilePool.free(pro);
-                System.out.println("Kom hit 2");
-                timeSinceLastShot = 0;
-                activeProjectiles.remove(pro);
-                System.out.println("neinX");
-            }
-        }
-        long tmpp =0;
         
         
                 
@@ -272,9 +221,37 @@ public class GameScreen implements Screen {
         player.render(game.batch);
         enemy.render(game.batch);
         for (Projectile projectile : activeProjectiles) {
+            projectile.update();
             projectile.render(game.batch);
         }
         game.batch.end();
+        
+        timeSinceLastShot += Gdx.graphics.getDeltaTime();
+        if (timeSinceLastShot >= 1f) {
+            float angle = degreeOffset(
+            (
+                (float) Math.atan2(
+                    -game.input.moveY(),
+                    game.input.moveX()
+                )
+            )
+            * (180 / (float) Math.PI)
+            + 180,
+            90
+            );
+            Projectile projectile1 = projectilePool.obtain();
+            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
+            activeProjectiles.add(projectile1);
+            timeSinceLastShot = 0;
+        }
+       
+        for (Projectile pro : activeProjectiles){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
+                projectilePool.free(pro);
+                timeSinceLastShot = 0;
+                activeProjectiles.removeValue(pro,true);
+            }
+        }
 
         // Stage render
         stage.getViewport().apply();
@@ -286,12 +263,8 @@ public class GameScreen implements Screen {
         return this.playerAtlas;
     }
 
-    public void removeProjectile(Projectile projectile) {
-        activeProjectiles.remove(projectile);
-        levelUtil.world.destroyBody(projectile.getBody());
-    }
 
-    public List<Projectile> getProjectiles(){
+    public Array<Projectile> getProjectiles(){
         return activeProjectiles;
     }
 

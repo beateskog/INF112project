@@ -20,7 +20,6 @@ import mavenless.ronasurvivors.Utils.LevelUtil;
 
 
 public class Projectile implements Poolable {
-
     private Sprite sprite;
     private Rectangle size;
     private Body body;
