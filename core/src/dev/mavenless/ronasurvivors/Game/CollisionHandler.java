@@ -12,23 +12,29 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import mavenless.ronasurvivors.Screens.GameScreen;
 
 
-
+/**
+ * Class for handling collision between physics objects
+ */
 public class CollisionHandler implements ContactListener{
 
     private GameScreen gameScreen;
     
-
+    /**
+     * Constructor for collision handler
+     * @param gameScreen - current gamescreen for
+     *                     collisionhandling
+     */
     public CollisionHandler(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
     
-
     @Override
     public void beginContact(Contact contact) {
+        /* Retrieving fixtures currently touching eachother */
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
-        /* COLLISON BETWEEN PLAYER AND ENEMY */
+        /* Collision between player and enemy */
         if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
              fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
             (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
@@ -38,42 +44,24 @@ public class CollisionHandler implements ContactListener{
             Random r = new Random();
             hp_bar.setHealth(hp_bar.getHealth()-r.nextInt(10));
 
-            System.out.println("A collision was detected: Enemy hit Player");
-
-        /* COLLISON BETWEEN PROJECTILE AND SCENERY */
+        /* Collision between projectile and scenery */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY) ||
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY)) {
-            System.out.println("A collision was detected projectile hit da wall :(");
 
-            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                // destory projectile here 
-            
+            /* Locate the projectile and destroy it */
+            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) { } else { }
 
-            } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                // destroy projectile here 
-            }
-
-        /* COLLISON BETWEEN PROJECTILE AND ENEMY */
+        /* Collision between enemy and projectile */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY) ||
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
-
-                System.out.println("A collision was detected: projectile hit enemy");
-                if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                    
-                } else if (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
-                   
-                } 
-
-        /* COLLISION BETWEEN PROJECTILE AND PROJECTILE */ //should not happen :)) 
-        } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
-        fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE)) {
-            System.out.println("A collision was detected: projectile hit projectile");
-        }
-
+                
+                /* Locate the projectile and destroy */
+                if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) { } else { } 
+        } 
     }
     
 
