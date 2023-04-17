@@ -56,3 +56,82 @@ Links to Trello:
 
 [TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
 
+
+## Klassediagram
+```mermaid
+classDiagram
+    DesktopLauncher --> RonaSurvivors
+    RonaSurvivors --> MainMenu
+    MainMenu <--> Shop
+    MainMenu --> GameScreen
+
+    %% Startup
+    class DesktopLauncher {
+        +void main()$
+    }
+
+    class RonaSurvivors {
+        +SpriteBatch batch
+        +InputUtil input
+
+        +void create()
+        +void render()
+        +void dispose()
+    }
+
+    %% Screens
+    class MainMenu {
+        #RonaSurvivors game
+        -ExtendViewport extendViewport
+        -InputUtil inputUtil
+        -Stage stage
+        -Table table
+        -Texture backgroundTexture
+
+        +MainMenu(final RonaSurvivors game)
+        +void show()
+        +void render(float delta)
+        +void resize(int width, int height)
+        +void pause()
+        +void resume()
+        +void hide()
+        +void dispose()
+    }
+
+    class Shop {
+        #RonaSurvivors game
+        -OrthographicCamera camera
+        -Stage stage
+        -Table table
+
+        +Shop(final RonaSurvivors game)
+        +void show()
+        +void render(float delta)
+        +void resize(int width, int height)
+        +void pause()
+        +void resume()
+        +void hide()
+        +void dispose()
+    }
+
+    class GameScreen {
+
+    }
+
+    %% Utils
+    class BitUtil {
+        -byte[] bytes
+
+        +BitUtil(byte[] bytes)
+        +BitUtil(String string)
+        +BitUtil(short value)
+        +BitUtil(int value)
+        
+        +byte[] getBytes()
+        +String toString()
+        +short toShort()
+        +int toInt()
+        +byte[] toLengthBytes()
+        +String toHex()
+    }
+```
