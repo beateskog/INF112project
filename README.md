@@ -21,7 +21,7 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 * Krever Java 8
 
 ## Kjente feil
-* Projectile colliding with other projectiles 
+
 
 ## Credits
 Ingenting hittil 😎
