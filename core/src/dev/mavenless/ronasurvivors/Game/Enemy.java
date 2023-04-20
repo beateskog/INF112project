@@ -181,7 +181,9 @@ public class Enemy implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
+        this.alive = false;
+        this.body.destroyFixture(enemyFix);
+    }
         
     }
 
