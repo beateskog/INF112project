@@ -292,6 +292,14 @@ public class GameScreen implements Screen {
         return activeProjectiles;
     }
 
+    public Array<Enemy> getActiveEnemies(){
+        return activeEnemies;
+    }
+
+    public Pool<Enemy> getEnemyPool(){
+        return enemyPool;
+    }
+
     public HP_bar getHp_bar(){
         return this.hp_bar;
     }

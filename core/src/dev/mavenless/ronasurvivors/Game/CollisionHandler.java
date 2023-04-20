@@ -63,8 +63,26 @@ public class CollisionHandler implements ContactListener{
             /* Locate the projectile and destroy, -health on enemy */
             if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
                 //Enemy take damage, remove proj
+                for (Enemy enemy : gameScreen.getActiveEnemies()) {
+                    if (fixB.getUserData() == enemy.getFixture().getUserData()) {
+                        enemy.setHealth(enemy.getHealth()-10);
+                        if (!enemy.isAlive()) {
+                            gameScreen.getEnemyPool().free(enemy);
+                            gameScreen.getActiveEnemies().removeValue(enemy, true);
+                        }
+                    }
+                }
             } else {
                 //Enemy take damage, remove proj
+                for (Enemy enemy : gameScreen.getActiveEnemies()) {
+                    if (fixA.getUserData() == enemy.getFixture().getUserData()) {
+                        enemy.setHealth(enemy.getHealth()-10);
+                        if (!enemy.isAlive()) {
+                            gameScreen.getEnemyPool().free(enemy);
+                            gameScreen.getActiveEnemies().removeValue(enemy, true);
+                        }
+                    }
+                }
             } 
         } 
     }

@@ -121,6 +121,8 @@ public class Enemy implements Poolable {
         this.size = new Rectangle(player_pos.x + 100, player_pos.y+100, 20, 20);
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
+
+        getFixture().setUserData(System.currentTimeMillis()); // FOR COLLISION HANDLING DONT CHANGE!!
         
         /* Set movement to equal direction (scale by speed) */
         getBody().setLinearVelocity(direction.scl(speed));
@@ -159,11 +161,19 @@ public class Enemy implements Poolable {
 
     public void setHealth(int newHealth){
         if (newHealth <= 0) {
-            //Alive == false
+            this.alive = false;
             this.health = 0;
         } else {
             this.health = newHealth;
         }
+    }
+
+    public boolean isAlive(){
+        return alive;
+    }
+
+    public Fixture getFixture(){
+        return enemyFix;
     }
 
     /**
