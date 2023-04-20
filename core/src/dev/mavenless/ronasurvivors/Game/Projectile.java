@@ -121,6 +121,7 @@ public class Projectile implements Poolable {
         alive = true;
         this.size = new Rectangle (playerX,playerY,10,10);
         defineProjectile();
+        getFixture().setUserData(activeTime); // FOR COLLISION HANDLING DONT CHANGE!!
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
                         this.speed*(float)(Math.cos(Math.toRadians(angle))),
                         0,
@@ -146,7 +147,7 @@ public class Projectile implements Poolable {
      * and true if the projectile is alive
      * @return the status of the projectile 
      */
-    public boolean getIsAlive() {
+    public boolean IsAlive() {
         return this.alive;
     }
 
@@ -168,7 +169,10 @@ public class Projectile implements Poolable {
     public long getActiveTime() {
         return this.activeTime;
     }
-    
+
+    public Fixture getFixture(){
+        return this.projectileFix;
+    }
     public void dispose() {
     }
 

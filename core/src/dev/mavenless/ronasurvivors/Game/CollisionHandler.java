@@ -52,7 +52,21 @@ public class CollisionHandler implements ContactListener{
                     fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_SCENERY)) {
 
             /* Locate the projectile and destroy it */
-            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) { } else { }
+            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) { 
+                 
+                for (Projectile pro : gameScreen.getActiveProjectiles()) {
+                    if (fixA.getUserData() == pro.getFixture().getUserData()) {
+                        pro.setAlive(false);
+                    }
+                }
+            }
+             else { 
+                for (Projectile pro : gameScreen.getActiveProjectiles()) {
+                    if (fixB.getUserData() == pro.getFixture().getUserData()) {
+                        pro.setAlive(false);
+                    }
+                }
+             }
 
         /* Collision between enemy and projectile */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
@@ -68,6 +82,11 @@ public class CollisionHandler implements ContactListener{
                         enemy.setHealth(enemy.getHealth()-10);
                     }
                 }
+                for (Projectile pro : gameScreen.getActiveProjectiles()) {
+                    if (fixA.getUserData() == pro.getFixture().getUserData()) {
+                        pro.setAlive(false);
+                    }
+                }
             } else {
                 //Enemy take damage, remove proj
                 for (Enemy enemy : gameScreen.getActiveEnemies()) {
@@ -75,6 +94,12 @@ public class CollisionHandler implements ContactListener{
                         enemy.setHealth(enemy.getHealth()-10);
                     }
                 }
+                for (Projectile pro : gameScreen.getActiveProjectiles()) {
+                    if (fixB.getUserData() == pro.getFixture().getUserData()) {
+                        pro.setAlive(false);
+                    }
+                }
+
             } 
         } 
     }
