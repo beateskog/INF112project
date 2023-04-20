@@ -2,6 +2,7 @@ package mavenless.ronasurvivors.Game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -31,6 +32,7 @@ public class Projectile implements Poolable {
     private long activeTime; 
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
+    private Sprite sprite;
     
     /**
      * Creates a projectile. 
@@ -43,7 +45,7 @@ public class Projectile implements Poolable {
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
-        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
+        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken2.png"));
         alive = false;
     }
 
@@ -67,7 +69,7 @@ public class Projectile implements Poolable {
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
-        fixtureDef.filter.groupIndex = -1;
+        fixtureDef.filter.groupIndex = CollisionBits.GROUP_PROJECTILE;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PROJECTILE;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PROJECTILE; 
         
@@ -78,7 +80,10 @@ public class Projectile implements Poolable {
         circle.dispose();
 
         getBody().setFixedRotation(true);
+
+        this.sprite = new Sprite(projectileText);
     }
+
 
     /**
      * Renders the projectile
@@ -86,8 +91,8 @@ public class Projectile implements Poolable {
      * @param batch
      */
     public void render(SpriteBatch batch) {
-        batch.draw(projectileText, size.x, size.y, size.width, size.height);
-    }
+        batch.draw(sprite, size.x-(size.width/2), size.y-(size.height/2), size.width, size.height);
+    }   
 
     /**
      * Updates the posistion of the sprite
@@ -97,7 +102,6 @@ public class Projectile implements Poolable {
         Vector2 projectilePos = getBody().getPosition();
         getSize().x = projectilePos.x;
         getSize().y = projectilePos.y;
-        //System.out.println("CategoryBits: " + this.projectileFix.getFilterData().categoryBits + "    |  Mask: " + this.projectileFix.getFilterData().maskBits);
     }
 
     /**
@@ -117,13 +121,11 @@ public class Projectile implements Poolable {
         alive = true;
         this.size = new Rectangle (playerX,playerY,10,10);
         defineProjectile();
-        
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),
                         this.speed*(float)(Math.cos(Math.toRadians(angle))),
                         0,
                         0,
                         true);
-        
     }
 
     /* Getter methods */ 

@@ -124,20 +124,22 @@ public class GameScreen implements Screen {
             levelUtil, 
             game.input
         );
+         //Healthbar
+         this.hp_bar = new HP_bar(100, stage);
 
-        //Healthbar
-        this.hp_bar = new HP_bar(100, stage);
 
-        // Save data
-        Save save = new Save();
-        try {
-            save.write();
-            save.read();
-        } catch (Exception e) {
-            e.printStackTrace();
-            dispose();
-            Gdx.app.exit();
-        }
+         // Save data
+         Save save = new Save();
+         try {
+             save.write();
+             save.read();
+         } catch (Exception e) {
+             e.printStackTrace();
+             dispose();
+             Gdx.app.exit();
+         }
+
+       
     }
 
     private float degreeOffset(float val, float offset) {
@@ -272,6 +274,7 @@ public class GameScreen implements Screen {
                 timeSinceLastShot = 0;
                 activeProjectiles.removeValue(pro,true);
             }
+            
         }
 
         // Stage render
