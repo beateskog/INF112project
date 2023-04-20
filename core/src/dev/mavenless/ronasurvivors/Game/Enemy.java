@@ -30,6 +30,7 @@ public class Enemy implements Poolable {
     private Texture enemyText;
     private TextureRegion textureReg; 
     private boolean alive;
+    private int health;
 
     /**
      * Creates an enemy. 
@@ -83,6 +84,7 @@ public class Enemy implements Poolable {
         box.dispose();
 
         getBody().setFixedRotation(true);
+        this.health = 30;
     }
 
 
@@ -151,6 +153,19 @@ public class Enemy implements Poolable {
         return this.body;
     }
 
+    public int getHealth(){
+        return health;
+    }
+
+    public void setHealth(int newHealth){
+        if (newHealth <= 0) {
+            //Alive == false
+            this.health = 0;
+        } else {
+            this.health = newHealth;
+        }
+    }
+
     /**
      * 
      * @return the sprite of the enemy 
@@ -169,4 +184,5 @@ public class Enemy implements Poolable {
         // TODO Auto-generated method stub
         
     }
+
 }

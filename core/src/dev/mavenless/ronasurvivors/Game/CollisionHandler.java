@@ -60,8 +60,12 @@ public class CollisionHandler implements ContactListener{
                     (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
                     fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_ENEMY)) {
                 
-                /* Locate the projectile and destroy */
-                if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) { } else { } 
+            /* Locate the projectile and destroy, -health on enemy */
+            if (fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE) {
+                //Enemy take damage, remove proj
+            } else {
+                //Enemy take damage, remove proj
+            } 
         } 
     }
     
