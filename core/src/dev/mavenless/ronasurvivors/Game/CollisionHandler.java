@@ -66,10 +66,6 @@ public class CollisionHandler implements ContactListener{
                 for (Enemy enemy : gameScreen.getActiveEnemies()) {
                     if (fixB.getUserData() == enemy.getFixture().getUserData()) {
                         enemy.setHealth(enemy.getHealth()-10);
-                        if (!enemy.isAlive()) {
-                            gameScreen.getEnemyPool().free(enemy);
-                            gameScreen.getActiveEnemies().removeValue(enemy, true);
-                        }
                     }
                 }
             } else {
@@ -77,10 +73,6 @@ public class CollisionHandler implements ContactListener{
                 for (Enemy enemy : gameScreen.getActiveEnemies()) {
                     if (fixA.getUserData() == enemy.getFixture().getUserData()) {
                         enemy.setHealth(enemy.getHealth()-10);
-                        if (!enemy.isAlive()) {
-                            gameScreen.getEnemyPool().free(enemy);
-                            gameScreen.getActiveEnemies().removeValue(enemy, true);
-                        }
                     }
                 }
             } 

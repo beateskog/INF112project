@@ -191,7 +191,7 @@ public class Enemy implements Poolable {
 
     @Override
     public void reset() {
-        //this.body.destroyFixture(enemyFix); //NEEDS TO BE FIXED!!! (look trello)
+        this.body.destroyFixture(enemyFix);
     }
         
     
