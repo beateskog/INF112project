@@ -213,9 +213,12 @@ public class GameScreen implements Screen {
             }
         }
 
+        //Destroy enemies:
         for (Enemy enemy : activeEnemies){
-            //enemyPool.free(enemy);
-            //activeEnemies.removeValue(enemy, true);
+            if (!enemy.isAlive()){
+                enemyPool.free(enemy);
+                activeEnemies.removeValue(enemy, true);
+            }
         }
     }
 
@@ -273,8 +276,7 @@ public class GameScreen implements Screen {
                 projectilePool.free(pro);
                 timeSinceLastShot = 0;
                 activeProjectiles.removeValue(pro,true);
-            }
-            
+            } 
         }
 
         // Stage render
