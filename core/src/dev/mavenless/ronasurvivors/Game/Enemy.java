@@ -185,6 +185,6 @@ public class Enemy implements Poolable {
         this.body.destroyFixture(enemyFix);
     }
         
-    }
+    
 
 }
