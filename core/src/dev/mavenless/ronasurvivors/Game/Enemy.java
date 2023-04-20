@@ -44,7 +44,7 @@ public class Enemy implements Poolable {
         this.size = size;
         this.speed = speed;
         this.levelUtil = levelUtil;
-        enemyText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
+        enemyText = new Texture(Gdx.files.internal("sprites/Skeleton/SkeletonSingle.png"));
         alive = false;
         
     }
