@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Render setup
-        float viewSize = 600f; // size of viewable area
+        float viewSize = 200f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
         stage = new Stage(new ScreenViewport());
@@ -178,7 +178,7 @@ public class GameScreen implements Screen {
         }
 
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 1f) {
+        if (timeSinceLastShot >= 0.1f) {
             float angle = degreeOffset(
             (
                 (float) Math.atan2(
