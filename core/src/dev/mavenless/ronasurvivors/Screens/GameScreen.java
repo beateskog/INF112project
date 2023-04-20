@@ -44,9 +44,25 @@ public class GameScreen implements Screen {
     private TextureAtlas tmpEnemyAtlas;
     
     private float timeSinceLastShot = 0;
-    private boolean fired = false;
+    private float timeSinceLastEnemy = 0;
     
     public final long startTime = System.currentTimeMillis();
+
+    private final Array<Enemy> activeEnemies = new Array<Enemy>();
+    private final Pool<Enemy> enemyPool = new Pool<Enemy>() {
+        @Override
+        protected Enemy newObject() {
+            return new Enemy(
+                new Rectangle(
+                    (player.getPosition().x + 100), //make the enemys posision a little bit away from the player
+                    (player.getPosition().y + 100),
+                    20,
+                    20
+                ),
+                3f,
+                levelUtil);
+        }
+    };
 
     private final Array<Projectile> activeProjectiles= new Array<Projectile>();
     private final Pool<Projectile> projectilePool = new Pool<Projectile>() {
@@ -65,7 +81,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // Render setup
-        float viewSize = 200f; // size of viewable area
+        float viewSize = 600f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
         extendViewport.getCamera().position.set(viewSize / 2f, viewSize / 2f, 1f); // center camera position at center
         stage = new Stage(new ScreenViewport());
@@ -79,9 +95,6 @@ public class GameScreen implements Screen {
         // Texture for player-sprite
         String playerName = "doctor"; // game.getSelectedPLayer()
         definePlayer(playerName);
-
-        // Enemy
-        defineEnemy();
 
         // Save data
         Save save = new Save();
@@ -111,25 +124,9 @@ public class GameScreen implements Screen {
             levelUtil, 
             game.input
         );
-    }
-
-    private void defineEnemy(){
-        this.tmpEnemyAtlas = new TextureAtlas("sprites/Skeleton/Skeleton.atlas");
-        TextureRegion skeleton = new TextureRegion(tmpEnemyAtlas.findRegion("Skeleton_idleDown"));
-        enemy = new Enemy(
-            new Rectangle(
-                (player.getPosition().x + 100), //make the enemys posision a little bit away from the player
-                (player.getPosition().y + 100),
-                20,
-                20
-            ),
-            new Sprite(skeleton),
-            3f,
-            levelUtil);
 
         //Healthbar
         this.hp_bar = new HP_bar(100, stage);
-
 
         // Save data
         Save save = new Save();
@@ -168,8 +165,6 @@ public class GameScreen implements Screen {
             extendViewport.getWorldHeight()
         );
 
-        // Move enemy
-        enemy.move(player.getPosition());
         
         // Inputs
         if (game.input.up("pause")) {
@@ -178,6 +173,47 @@ public class GameScreen implements Screen {
 
         if (game.input.down("select")) {
             game.input.vibrate(1000, 1f);
+        }
+
+        timeSinceLastShot += Gdx.graphics.getDeltaTime();
+        if (timeSinceLastShot >= 1f) {
+            float angle = degreeOffset(
+            (
+                (float) Math.atan2(
+                    -game.input.moveY(),
+                    game.input.moveX()
+                )
+            )
+            * (180 / (float) Math.PI)
+            + 180,
+            90
+            );
+            Projectile projectile1 = projectilePool.obtain();
+            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
+            activeProjectiles.add(projectile1);
+            timeSinceLastShot = 0;
+        }
+
+        timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
+        if (timeSinceLastEnemy >= 2f){
+            Enemy enemy1 = enemyPool.obtain();
+            enemy1.init(player.getPosition());
+            activeEnemies.add(enemy1);
+            timeSinceLastEnemy = 0; 
+        }
+        
+    
+        for (Projectile pro : activeProjectiles){
+            if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
+                projectilePool.free(pro);
+                timeSinceLastShot = 0;
+                activeProjectiles.removeValue(pro,true);
+            }
+        }
+
+        for (Enemy enemy : activeEnemies){
+            //enemyPool.free(enemy);
+            //activeEnemies.removeValue(enemy, true);
         }
     }
 
@@ -201,7 +237,10 @@ public class GameScreen implements Screen {
         // Draw & render sprites, enemies, projectiles, etc..
         game.batch.begin();
         player.render(game.batch);
-        enemy.render(game.batch);
+        for (Enemy enemy : activeEnemies){
+            enemy.update(player.getPosition());
+            enemy.render(game.batch);
+        }
         for (Projectile projectile : activeProjectiles) {
             projectile.update();
             projectile.render(game.batch);

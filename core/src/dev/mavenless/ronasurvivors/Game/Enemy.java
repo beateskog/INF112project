@@ -1,7 +1,11 @@
 package mavenless.ronasurvivors.Game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,34 +14,38 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.utils.Pool.Poolable;
 
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 /* Class for displaying enemies */
-public class Enemy {
+public class Enemy implements Poolable {
+
     private Rectangle size;
     private Sprite sprite;
     private float speed;
     private Body body;
     private Fixture enemyFix;
     private LevelUtil levelUtil;
+    private Texture enemyText;
+    private TextureRegion textureReg; 
+    private boolean alive;
 
     /**
      * Creates an enemy. 
-     * Calls the defineEnemy method. 
      * 
      * @param size the size of the Rectangle
      * @param sprite the sprite to display 
      * @param speed the speed of the enemy
      * @param levelUtil the levelUtil 
      */
-    public Enemy(Rectangle size, Sprite sprite, float speed, LevelUtil levelUtil) {
+    public Enemy(Rectangle size, float speed, LevelUtil levelUtil) {
         this.size = size;
-        this.sprite = sprite;
         this.speed = speed;
         this.levelUtil = levelUtil;
-
-        defineEnemy();
+        enemyText = new Texture(Gdx.files.internal("sprites/Projectile/projectile.png"));
+        alive = false;
+        
     }
 
     /* Helper method for defining the body, box and fixture of the enemy */
@@ -77,6 +85,7 @@ public class Enemy {
         getBody().setFixedRotation(true);
     }
 
+
     /**
      * Move the enemy's position
      * to follow the player position. 
@@ -85,7 +94,7 @@ public class Enemy {
      * 
      * @param player_pos
      */
-    public void move(Vector2 player_pos) {
+    public void update(Vector2 player_pos) {
         /* Get enemy position, and get dir-vector */
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
@@ -93,15 +102,27 @@ public class Enemy {
         /* Set movement to equal direction (scale by speed) */
         getBody().setLinearVelocity(direction.scl(speed));
 
-        /* Sprite image move */
         getSize().x = enemyPos.x;
         getSize().y = enemyPos.y;
 
+        /* 
         if (direction.x < 0) {
             getSprite().setFlip(true, false);
         } else if (direction.x > 0) {
-            getSprite().setFlip(false, false);
-        }
+            getSprite().setFlip(false, false); 
+        }*/
+    }
+
+    public void init(Vector2 player_pos){
+        defineEnemy();
+        alive = true;
+        this.size = new Rectangle(player_pos.x + 100, player_pos.y+100, 20, 20);
+        Vector2 enemyPos = getBody().getPosition();
+        Vector2 direction = player_pos.sub(enemyPos).nor();
+        
+        /* Set movement to equal direction (scale by speed) */
+        getBody().setLinearVelocity(direction.scl(speed));
+
     }
     /**
      * Renders the enemy
@@ -109,7 +130,7 @@ public class Enemy {
      * @param batch
      */
     public void render(SpriteBatch batch) {
-        batch.draw(sprite, size.x, size.y, size.width, size.height);
+        batch.draw(enemyText, size.x, size.y, size.width, size.height);
     }
 
     /* Getter methods */ 
@@ -141,5 +162,11 @@ public class Enemy {
     /* Dispose */
     public void dispose() {
     
+    }
+
+    @Override
+    public void reset() {
+        // TODO Auto-generated method stub
+        
     }
 }
