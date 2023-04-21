@@ -86,15 +86,6 @@ public class Projectile implements Poolable {
 
 
     /**
-     * Renders the projectile
-     * 
-     * @param batch
-     */
-    public void render(SpriteBatch batch) {
-        batch.draw(sprite, size.x-(size.width/2), size.y-(size.height/2), size.width, size.height);
-    }   
-
-    /**
      * Updates the posistion of the sprite
      * based on the projectiles position
      */
@@ -105,16 +96,18 @@ public class Projectile implements Poolable {
     }
 
     /**
-     * Initializes the projectile
-     * 
+     * Initializes the projectile.
+     *
      * Sets the time the projectile was initialized, 
-     * sets it as alive and
+     * sets the projectile to alive and
      * applies linear impulse in a direction based
      * on the player's position. 
      * Calls the defineProjectile method 
      * 
      * @param angle the angle of the direction the
      * projectile should move in
+     * @param playerX the x position of the player
+     * @param playerY the y position of the player
      */
     public void init(float angle, float playerX, float playerY){
         activeTime = System.currentTimeMillis();
@@ -129,9 +122,18 @@ public class Projectile implements Poolable {
                         true);
     }
 
+      /**
+     * Renders the projectile
+     * 
+     * @param batch
+     */
+    public void render(SpriteBatch batch) {
+        batch.draw(sprite, size.x-(size.width/2), size.y-(size.height/2), size.width, size.height);
+    }   
+
     /* Getter methods */ 
     /**
-     * @return the size of a rectangle
+     * @return rectangle size
      */
     public Rectangle getSize() {
         return this.size;
@@ -170,6 +172,10 @@ public class Projectile implements Poolable {
         return this.activeTime;
     }
 
+    /**
+     * Getter method retrieving the fixture of the projectile
+     * @return projectile fixture
+     */
     public Fixture getFixture(){
         return this.projectileFix;
     }
