@@ -1,5 +1,7 @@
 package mavenless.ronasurvivors.Game;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -106,19 +108,31 @@ public class Enemy implements Poolable {
 
         getSize().x = enemyPos.x;
         getSize().y = enemyPos.y;
-
-        /* 
-        if (direction.x < 0) {
-            getSprite().setFlip(true, false);
-        } else if (direction.x > 0) {
-            getSprite().setFlip(false, false); 
-        }*/
     }
 
+    /**
+     * Sets the enemy to alive and sets the position
+     * of the enemy to go in the direction of 
+     * the player position. The userdata of the Enemy 
+     * is set to the time it was created. 
+     * Calls the defineEnemy method. 
+     * 
+     * @param player_pos the position of the player
+     */
     public void init(Vector2 player_pos){
-        defineEnemy();
         alive = true;
-        this.size = new Rectangle(player_pos.x + 100, player_pos.y+100, 20, 20);
+        Random rand = new Random();
+        int x;
+        int y;
+        while (true){
+            x = (int) rand.nextInt(-1, 1) * 100 ;
+            y = (int) rand.nextInt(-1, 1) * 100 ;
+            if (x != 0 && y != 0){
+                break;
+            }
+        }
+        this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 20, 20);
+        defineEnemy();
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
 
@@ -155,10 +169,21 @@ public class Enemy implements Poolable {
         return this.body;
     }
 
+    /**
+     * 
+     * @return the current healt of the enemy
+     */
     public int getHealth(){
         return health;
     }
 
+    /**
+     * Sets the health of the enemy. If the 
+     * healt is less than or equal to 0, the enemy
+     * alive status is set to false.
+     * 
+     * @param newHealth the healt of the enemy
+     */
     public void setHealth(int newHealth){
         if (newHealth <= 0) {
             this.alive = false;
@@ -168,10 +193,19 @@ public class Enemy implements Poolable {
         }
     }
 
+    /**
+     * Returns false if the enemy is dead
+     * and true otherwise. 
+     * @return if the enemy is alive or not
+     */
     public boolean isAlive(){
         return alive;
     }
 
+    /**
+     * 
+     * @return the fixture of the enemy
+     */
     public Fixture getFixture(){
         return enemyFix;
     }
@@ -191,7 +225,8 @@ public class Enemy implements Poolable {
 
     @Override
     public void reset() {
-        this.body.destroyFixture(enemyFix);
+        this.body.destroyFixture(enemyFix); 
+        
     }
         
     
