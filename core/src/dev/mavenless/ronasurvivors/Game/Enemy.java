@@ -46,7 +46,7 @@ public class Enemy implements Poolable {
         this.size = size;
         this.speed = speed;
         this.levelUtil = levelUtil;
-        enemyText = new Texture(Gdx.files.internal("sprites/Skeleton/SkeletonSingle.png"));
+        this.enemyText = new Texture(Gdx.files.internal("sprites/Skeleton/SkeletonSingle.png"));
         alive = false;
         
     }
@@ -125,8 +125,8 @@ public class Enemy implements Poolable {
         int x;
         int y;
         while (true){
-            x = (int) rand.nextInt(-1, 1) * 100 ;
-            y = (int) rand.nextInt(-1, 1) * 100 ;
+            x = (int) rand.nextInt(-1, 2) * 200 ;
+            y = (int) rand.nextInt(-1, 2) * 200 ;
             if (x != 0 && y != 0){
                 break;
             }
