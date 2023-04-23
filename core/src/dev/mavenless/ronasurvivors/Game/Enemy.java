@@ -6,8 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -30,9 +28,9 @@ public class Enemy implements Poolable {
     private Fixture enemyFix;
     private LevelUtil levelUtil;
     private Texture enemyText;
-    private TextureRegion textureReg; 
     private boolean alive;
     private int health;
+    
 
     /**
      * Creates an enemy. 
@@ -48,7 +46,6 @@ public class Enemy implements Poolable {
         this.levelUtil = levelUtil;
         this.enemyText = new Texture(Gdx.files.internal("sprites/Skeleton/SkeletonSingle.png"));
         alive = false;
-        
     }
 
     /* Helper method for defining the body, box and fixture of the enemy */
@@ -87,6 +84,8 @@ public class Enemy implements Poolable {
 
         getBody().setFixedRotation(true);
         this.health = 30;
+        this.sprite = new Sprite(enemyText);
+
     }
 
 
@@ -108,6 +107,14 @@ public class Enemy implements Poolable {
 
         getSize().x = enemyPos.x;
         getSize().y = enemyPos.y;
+
+        /* Flip sprite */
+        if (direction.x < 0) {
+            getSprite().setFlip(true, true);
+        } else if (direction.x > 0) {
+            getSprite().setFlip(false, false);
+        }
+        
     }
 
     /**
@@ -125,13 +132,14 @@ public class Enemy implements Poolable {
         int x;
         int y;
         while (true){
-            x = (int) rand.nextInt(-1, 2) * 200 ;
-            y = (int) rand.nextInt(-1, 2) * 200 ;
+            x = (int) rand.nextInt(-1, 2) * 110 ;
+            y = (int) rand.nextInt(-1, 2) * 110 ;
+            
             if (x != 0 && y != 0){
                 break;
             }
         }
-        this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 20, 20);
+        this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 18, 25);
         defineEnemy();
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
@@ -141,6 +149,12 @@ public class Enemy implements Poolable {
         /* Set movement to equal direction (scale by speed) */
         getBody().setLinearVelocity(direction.scl(speed));
 
+        /* Flip sprite */
+        if (direction.x < 0) {
+            getSprite().setFlip(true, false);
+        } else if (direction.x > 0) {
+            getSprite().setFlip(false, false);
+        }
     }
     /**
      * Renders the enemy
@@ -220,7 +234,6 @@ public class Enemy implements Poolable {
     
     /* Dispose */
     public void dispose() {
-    
     }
 
     @Override
