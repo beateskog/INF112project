@@ -40,6 +40,7 @@ public class Player {
     private String playerName;
     private Sound sound;
     private long soundId;
+    private Vector2 lastMovementDirection; 
     
     /**
      * Constructor for constructing a new player object
@@ -67,6 +68,7 @@ public class Player {
         previousState = State.STANDING;
         isRunningLeft = true;
         stateTimer = 0;
+        lastMovementDirection = new Vector2(0,0);
     
         definePlayer();
     }
@@ -123,6 +125,11 @@ public class Player {
             movementX * speed,
             input.moveY() * speed
         );
+
+        Vector2 direction = new Vector2(input.moveY(), input.moveX());
+        if (direction.len()>0){
+            lastMovementDirection = direction;
+        }
         
         Vector2 bodyPos = body.getPosition();
         size.x = bodyPos.x;
@@ -235,7 +242,7 @@ public class Player {
     /* -- GETTER and SETTER functions -- */
     /**
      * Get size of the body
-     * @return - rectangle size 
+     * @return rectangle size 
      */
     public Rectangle getSize() {
         return this.size;
@@ -243,7 +250,7 @@ public class Player {
 
     /**
      * Get predefined player speed
-     * @return - player speed
+     * @return player speed
      */
     public float getSpeed() {
         return this.speed;
@@ -251,10 +258,18 @@ public class Player {
 
     /**
      * Get position of the player
-     * @return - vector containing position
+     * @return vector containing position
      */
     public Vector2 getPosition(){
         return body.getPosition();
+    }
+
+    /**
+     * Get the last direction the player moved in
+     * @return vector containing the last direction
+     */
+    public Vector2 getLastMovementDirection(){
+        return lastMovementDirection;
     }
 
     /**
@@ -267,6 +282,7 @@ public class Player {
 
     // Dispose
     public void dispose() {
+        sound.dispose();
 
     }
 }
