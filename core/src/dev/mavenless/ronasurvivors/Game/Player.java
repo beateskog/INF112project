@@ -130,7 +130,6 @@ public class Player {
         if (direction.len()>0){
             lastMovementDirection = direction;
         }
-        
         Vector2 bodyPos = body.getPosition();
         size.x = bodyPos.x;
         size.y = bodyPos.y;

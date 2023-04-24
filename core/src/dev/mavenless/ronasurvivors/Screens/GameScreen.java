@@ -173,7 +173,7 @@ public class GameScreen implements Screen {
         Vector2 playerLastMovement = player.getLastMovementDirection();
         
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 1f) {
+        if (timeSinceLastShot >= 0.3f) {
             
             float angle = degreeOffset(
             (
@@ -187,7 +187,7 @@ public class GameScreen implements Screen {
             90
             );
             Projectile projectile1 = projectilePool.obtain();
-            projectile1.init(angle, player.getPosition().x,player.getPosition().y);
+            projectile1.init(angle, player.getPosition().x+(player.getSize().width/2),player.getPosition().y);
             activeProjectiles.add(projectile1);
             timeSinceLastShot = 0;
         }
