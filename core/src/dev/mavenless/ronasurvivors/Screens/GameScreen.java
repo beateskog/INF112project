@@ -30,6 +30,7 @@ public class GameScreen implements Screen {
     private ExtendViewport extendViewport;
     private Box2DDebugRenderer box2dDebugRenderer;
     private Stage stage;
+    private float enemySpawnInterval = 2.0f;
 
     private Player player;
     private HP_bar hp_bar;
@@ -38,6 +39,8 @@ public class GameScreen implements Screen {
     
     private float timeSinceLastShot = 0;
     private float timeSinceLastEnemy = 0;
+    private float enemySpeed = 3.0f;
+
     
     public final long startTime = System.currentTimeMillis();
 
@@ -151,7 +154,10 @@ public class GameScreen implements Screen {
 
     private void update() {
 
-        player.checkPlayerUpgrade();
+        if (player.checkPlayerUpgrade()){
+            enemySpawnInterval *= 0.8;
+            enemySpeed += 0.2f;
+        }
 
         // Update physics
         levelUtil.world.step(1/16f, 6, 2);
@@ -196,7 +202,7 @@ public class GameScreen implements Screen {
         }
 
         timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastEnemy >= 4f){
+        if (timeSinceLastEnemy >= enemySpawnInterval){
             Enemy enemy1 = enemyPool.obtain();
             enemy1.init(player.getPosition());
             activeEnemies.add(enemy1);
@@ -222,7 +228,7 @@ public class GameScreen implements Screen {
                 activeEnemies.removeValue(enemy, true);
             }
         }
-        System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel());
+        System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel() + "     " + enemySpawnInterval);
     }
 
     @Override
@@ -246,7 +252,7 @@ public class GameScreen implements Screen {
         game.batch.begin();
         player.render(game.batch);
         for (Enemy enemy : activeEnemies){
-            enemy.update(player.getPosition());
+            enemy.update(player.getPosition(), enemySpeed);
             enemy.render(game.batch);
         }
         for (Projectile projectile : activeProjectiles) {

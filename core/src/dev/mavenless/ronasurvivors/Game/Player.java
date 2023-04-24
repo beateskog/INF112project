@@ -55,7 +55,7 @@ public class Player {
      */
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.killcount = 0;
-        this.killsForNextLevel = 20;
+        this.killsForNextLevel = 1;
         this.shootInterval = 1.0f;
         this.size = size;
         this.input = input;
@@ -277,11 +277,13 @@ public class Player {
         return lastMovementDirection;
     }
 
-    public void checkPlayerUpgrade(){
+    public Boolean checkPlayerUpgrade(){
         if(killcount == killsForNextLevel){
             increaseKillsForNextLevel();
             decreaseShootInterval();
+            return true;
         }
+        return false;
     }
 
 

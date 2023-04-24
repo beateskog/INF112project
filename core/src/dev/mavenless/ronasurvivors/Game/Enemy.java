@@ -96,14 +96,14 @@ public class Enemy implements Poolable {
      * 
      * @param player_pos
      */
-    public void update(Vector2 player_pos) {
+    public void update(Vector2 player_pos, float enemySpeed) {
         /* Get enemy position, and get dir-vector */
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
-
+        this.speed = enemySpeed;
         /* Set movement to equal direction (scale by speed) */
         getBody().setLinearVelocity(direction.scl(speed));
-
+        
         getSize().x = enemyPos.x;
         getSize().y = enemyPos.y;
 
@@ -154,6 +154,7 @@ public class Enemy implements Poolable {
         } else if (direction.x > 0) {
             getSprite().setFlip(false, false);
         }
+        System.out.println("Enemy speed" + speed);
     }
     /**
      * Renders the enemy
