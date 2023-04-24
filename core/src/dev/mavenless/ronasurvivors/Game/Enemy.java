@@ -74,7 +74,6 @@ public class Enemy implements Poolable {
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
-        fixtureDef.filter.groupIndex = CollisionBits.GROUP_ENEMY;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_ENEMY;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_ENEMY; 
 
