@@ -83,7 +83,7 @@ public class Enemy implements Poolable {
         box.dispose();
 
         getBody().setFixedRotation(true);
-        this.health = 30;
+        this.health = 10;
         this.sprite = new Sprite(enemyText);
 
     }

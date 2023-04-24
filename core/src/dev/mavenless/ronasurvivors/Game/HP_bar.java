@@ -57,4 +57,7 @@ public class HP_bar{
     public float getWidth() {
         return HpBar.getWidth();
     }
+
+    
+
 }

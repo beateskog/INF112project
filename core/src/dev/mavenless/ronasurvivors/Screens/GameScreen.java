@@ -150,6 +150,9 @@ public class GameScreen implements Screen {
     }
 
     private void update() {
+
+        player.checkPlayerUpgrade();
+
         // Update physics
         levelUtil.world.step(1/16f, 6, 2);
 
@@ -173,7 +176,7 @@ public class GameScreen implements Screen {
         Vector2 playerLastMovement = player.getLastMovementDirection();
         
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
-        if (timeSinceLastShot >= 0.3f) {
+        if (timeSinceLastShot >= player.getShootInterval()) {
             
             float angle = degreeOffset(
             (
@@ -214,10 +217,12 @@ public class GameScreen implements Screen {
         //Destroy enemies:
         for (Enemy enemy : activeEnemies){
             if (!enemy.isAlive()){
+                player.increaseKillcount();
                 enemyPool.free(enemy);
                 activeEnemies.removeValue(enemy, true);
             }
         }
+        System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel());
     }
 
     @Override

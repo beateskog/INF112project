@@ -40,7 +40,10 @@ public class Player {
     private String playerName;
     private Sound sound;
     private long soundId;
-    private Vector2 lastMovementDirection; 
+    private Vector2 lastMovementDirection;
+    private int killcount; 
+    private int killsForNextLevel;
+    private float shootInterval;
     
     /**
      * Constructor for constructing a new player object
@@ -51,6 +54,9 @@ public class Player {
      * @param input - inpututil for handling user input
      */
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
+        this.killcount = 0;
+        this.killsForNextLevel = 20;
+        this.shootInterval = 1.0f;
         this.size = size;
         this.input = input;
         this.speed = speed;
@@ -69,7 +75,7 @@ public class Player {
         isRunningLeft = true;
         stateTimer = 0;
         lastMovementDirection = new Vector2(0,0);
-    
+        
         definePlayer();
     }
 
@@ -271,6 +277,14 @@ public class Player {
         return lastMovementDirection;
     }
 
+    public void checkPlayerUpgrade(){
+        if(killcount == killsForNextLevel){
+            increaseKillsForNextLevel();
+            decreaseShootInterval();
+        }
+    }
+
+
     /**
      * Updating the speed of the player
      * @param speed - updated speed
@@ -282,6 +296,27 @@ public class Player {
     // Dispose
     public void dispose() {
         sound.dispose();
+    }
+    public void increaseKillcount(){
+        this.killcount += 1;
+    }
+    public int getKillcount(){
+        return this.killcount;
+    }
 
+    public void decreaseShootInterval(){
+        this.shootInterval *= 0.9f;
+    }
+
+    public float getShootInterval(){
+        return this.shootInterval;
+    }
+
+    public void increaseKillsForNextLevel(){
+        this.killsForNextLevel *= 2;
+    }
+
+    public int getKillsForNextLevel(){
+        return this.killsForNextLevel;
     }
 }
