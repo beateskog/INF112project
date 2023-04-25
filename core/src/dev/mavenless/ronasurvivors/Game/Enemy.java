@@ -29,14 +29,13 @@ public class Enemy implements Poolable {
     private LevelUtil levelUtil;
     private Texture enemyText;
     private boolean alive;
-    private int health;
+    private float health;
     
 
     /**
      * Creates an enemy. 
      * 
      * @param size the size of the Rectangle
-     * @param sprite the sprite to display 
      * @param speed the speed of the enemy
      * @param levelUtil the levelUtil 
      */
@@ -59,11 +58,11 @@ public class Enemy implements Poolable {
         // Defining the box of the enemy body:  
         PolygonShape box = new PolygonShape();
         box.setAsBox(
-            (size.width / 2)-4,     // width of the box
-            (size.height / 2)-4,    // height of the box
+            (size.width / 2)-5,     // width of the box
+            (size.height / 2)-5,    // height of the box
             new Vector2(
                 (size.width / 2),   // center of the box in local coordinates (width)
-                (size.height / 2)-4 // center of the box in local coordinates (Height)
+                (size.height / 2)-1// center of the box in local coordinates (Height)
             ),
             0f                // Rotation (Example if we want to add dodge ability)
         );
@@ -71,7 +70,7 @@ public class Enemy implements Poolable {
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;                     //Setting the shape of the fixture to our box
-        fixtureDef.density = 0.5f;
+        fixtureDef.density = 0.1f; 
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.0f;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_ENEMY;  
@@ -82,39 +81,10 @@ public class Enemy implements Poolable {
         box.dispose();
 
         getBody().setFixedRotation(true);
-        this.health = 20;
         this.sprite = new Sprite(enemyText);
 
     }
 
-
-    /**
-     * Move the enemy's position
-     * to follow the player position. 
-     * This function also updates the sprite
-     * image in the way the enemy is moving. 
-     * 
-     * @param player_pos
-     */
-    public void update(Vector2 player_pos, float enemySpeed) {
-        /* Get enemy position, and get dir-vector */
-        Vector2 enemyPos = getBody().getPosition();
-        Vector2 direction = player_pos.sub(enemyPos).nor();
-        this.speed = enemySpeed;
-        /* Set movement to equal direction (scale by speed) */
-        getBody().setLinearVelocity(direction.scl(speed));
-        
-        getSize().x = enemyPos.x;
-        getSize().y = enemyPos.y;
-
-        /* Flip sprite */
-        if (direction.x < 0) {
-            getSprite().setFlip(true, true);
-        } else if (direction.x > 0) {
-            getSprite().setFlip(false, false);
-        }
-        
-    }
 
     /**
      * Sets the enemy to alive and sets the position
@@ -157,6 +127,35 @@ public class Enemy implements Poolable {
         }
         System.out.println("Enemy speed" + speed);
     }
+
+     /**
+     * Move the enemy's position
+     * to follow the player position. 
+     * This function also updates the sprite
+     * image in the way the enemy is moving. 
+     * 
+     * @param player_pos
+     */
+    public void update(Vector2 player_pos, float enemySpeed) {
+        /* Get enemy position, and get dir-vector */
+        Vector2 enemyPos = getBody().getPosition();
+        Vector2 direction = player_pos.sub(enemyPos).nor();
+        this.speed = enemySpeed;
+        /* Set movement to equal direction (scale by speed) */
+        getBody().setLinearVelocity(direction.scl(speed));
+        
+        getSize().x = enemyPos.x;
+        getSize().y = enemyPos.y;
+
+        /* Flip sprite */
+        if (direction.x < 0) {
+            getSprite().setFlip(true, true);
+        } else if (direction.x > 0) {
+            getSprite().setFlip(false, false);
+        }
+        
+    }
+
     /**
      * Renders the enemy
      * 
@@ -188,7 +187,7 @@ public class Enemy implements Poolable {
      * 
      * @return the current healt of the enemy
      */
-    public int getHealth(){
+    public float getHealth(){
         return health;
     }
 
@@ -199,7 +198,7 @@ public class Enemy implements Poolable {
      * 
      * @param newHealth the healt of the enemy
      */
-    public void setHealth(int newHealth){
+    public void setHealth(float newHealth){
         if (newHealth <= 0) {
             this.alive = false;
             this.health = 0;

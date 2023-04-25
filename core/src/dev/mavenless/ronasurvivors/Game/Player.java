@@ -55,7 +55,7 @@ public class Player {
      */
     public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
         this.killcount = 0;
-        this.killsForNextLevel = 1;
+        this.killsForNextLevel = 10;
         this.shootInterval = 1.0f;
         this.size = size;
         this.input = input;
@@ -135,6 +135,7 @@ public class Player {
         Vector2 direction = new Vector2(input.moveY(), input.moveX());
         if (direction.len()>0){
             lastMovementDirection = direction;
+            
         }
         Vector2 bodyPos = body.getPosition();
         size.x = bodyPos.x;

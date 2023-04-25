@@ -19,6 +19,7 @@ public class CollisionHandler implements ContactListener{
 
     private GameScreen gameScreen;
     
+    
     /**
      * Constructor for collision handler
      * @param gameScreen - current gamescreen for
@@ -79,7 +80,7 @@ public class CollisionHandler implements ContactListener{
                 //Enemy take damage, remove proj
                 for (Enemy enemy : gameScreen.getActiveEnemies()) {
                     if (fixB.getUserData() == enemy.getFixture().getUserData()) {
-                        enemy.setHealth(enemy.getHealth()-10);
+                        enemy.setHealth(enemy.getHealth()-gameScreen.getProjectileDamage());
                     }
                 }
                 for (Projectile pro : gameScreen.getActiveProjectiles()) {
@@ -91,7 +92,7 @@ public class CollisionHandler implements ContactListener{
                 //Enemy take damage, remove proj
                 for (Enemy enemy : gameScreen.getActiveEnemies()) {
                     if (fixA.getUserData() == enemy.getFixture().getUserData()) {
-                        enemy.setHealth(enemy.getHealth()-10);
+                        enemy.setHealth(enemy.getHealth()-gameScreen.getProjectileDamage());
                     }
                 }
                 for (Projectile pro : gameScreen.getActiveProjectiles()) {

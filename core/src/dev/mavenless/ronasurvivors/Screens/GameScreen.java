@@ -40,7 +40,8 @@ public class GameScreen implements Screen {
     private float timeSinceLastShot = 0;
     private float timeSinceLastEnemy = 0;
     private float enemySpeed = 3.0f;
-    private int enemyHealth = 15; 
+    private int enemyHealth = 10; 
+    private float projectileDamage = 5f; 
 
     
     public final long startTime = System.currentTimeMillis();
@@ -156,9 +157,10 @@ public class GameScreen implements Screen {
     private void update() {
 
         if (player.checkPlayerUpgrade()){
-            enemySpawnInterval *= 0.9;
-            enemySpeed += 0.1f;
-            enemyHealth += 3;
+            enemySpawnInterval *= 0.95;
+            enemySpeed *= 1.05f;
+            enemyHealth *= 1.3; 
+            projectileDamage *= 1.4f;
         }
 
         // Update physics
@@ -288,6 +290,10 @@ public class GameScreen implements Screen {
 
     public HP_bar getHp_bar(){
         return this.hp_bar;
+    }
+
+    public float getProjectileDamage(){
+        return this.projectileDamage;
     }
 
     @Override
