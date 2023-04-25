@@ -82,7 +82,7 @@ public class Enemy implements Poolable {
         box.dispose();
 
         getBody().setFixedRotation(true);
-        this.health = 10;
+        this.health = 20;
         this.sprite = new Sprite(enemyText);
 
     }
@@ -125,7 +125,7 @@ public class Enemy implements Poolable {
      * 
      * @param player_pos the position of the player
      */
-    public void init(Vector2 player_pos){
+    public void init(Vector2 player_pos, int enemyHealth){
         alive = true;
         Random rand = new Random();
         int x;
@@ -140,6 +140,7 @@ public class Enemy implements Poolable {
         }
         this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 18, 25);
         defineEnemy();
+        this.health = enemyHealth;
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
 
@@ -230,6 +231,10 @@ public class Enemy implements Poolable {
      */
     public Sprite getSprite() {
         return this.sprite;
+    }
+
+    public void increaseHealt(float increase){
+        this.health += increase;
     }
     
     /* Dispose */

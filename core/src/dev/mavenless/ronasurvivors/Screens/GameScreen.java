@@ -40,6 +40,7 @@ public class GameScreen implements Screen {
     private float timeSinceLastShot = 0;
     private float timeSinceLastEnemy = 0;
     private float enemySpeed = 3.0f;
+    private int enemyHealth = 15; 
 
     
     public final long startTime = System.currentTimeMillis();
@@ -55,7 +56,7 @@ public class GameScreen implements Screen {
                     20,
                     20
                 ),
-                3f,
+                enemySpeed,
                 levelUtil);
         }
     };
@@ -155,8 +156,9 @@ public class GameScreen implements Screen {
     private void update() {
 
         if (player.checkPlayerUpgrade()){
-            enemySpawnInterval *= 0.8;
-            enemySpeed += 0.2f;
+            enemySpawnInterval *= 0.9;
+            enemySpeed += 0.1f;
+            enemyHealth += 3;
         }
 
         // Update physics
@@ -204,7 +206,7 @@ public class GameScreen implements Screen {
         timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
         if (timeSinceLastEnemy >= enemySpawnInterval){
             Enemy enemy1 = enemyPool.obtain();
-            enemy1.init(player.getPosition());
+            enemy1.init(player.getPosition(), enemyHealth);
             activeEnemies.add(enemy1);
             timeSinceLastEnemy = 0; 
         }
