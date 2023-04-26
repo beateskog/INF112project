@@ -100,21 +100,18 @@ public class Enemy implements Poolable {
         Random rand = new Random();
         int x;
         int y;
-        while (true){
-            x = (int) rand.nextInt(-8, 8) * 120; 
-            y = (int) rand.nextInt(-8, 8) * 120;
-            
-            //Only choose points inside map
-            if ((x != 0 && y != 0) &&
-               (player_pos.x + x) > 20 && 
-               (player_pos.y + y ) > 20 && 
-               ((player_pos.x + x) < (levelUtil.getMapWidth() * levelUtil.getTileWidth())-50) &&
-               ((player_pos.y + y )< (levelUtil.getMapHeight() * levelUtil.getTileHeight()-50))){
-                break;
-            }
 
-        }
-  
+        do {
+            
+            x = (int) rand.nextInt(8) * 120;
+            y = (int) rand.nextInt(8) * 120;
+        } while ((x == 0 || y == 0) ||
+                 (player_pos.x + x) <= 20 ||
+                 (player_pos.y + y) <= 20 ||
+                 ((player_pos.x + x) > (levelUtil.getMapWidth() * levelUtil.getTileWidth()) - 50) ||
+                 ((player_pos.y + y) > (levelUtil.getMapHeight() * levelUtil.getTileHeight() - 50)));
+    
+        
         this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 18, 25);
         defineEnemy();
         this.health = enemyHealth;
@@ -164,10 +161,6 @@ public class Enemy implements Poolable {
         
     }
 
-    private boolean validEnemyPos(Vector2 enemyPos){
-        return (enemyPos.x < 0 || enemyPos.x > levelUtil.getMapWidth() * levelUtil.getTileWidth() ||
-        enemyPos.y < 0 || enemyPos.y > levelUtil.getMapHeight() * levelUtil.getTileHeight());
-    }
 
     /**
      * Renders the enemy
