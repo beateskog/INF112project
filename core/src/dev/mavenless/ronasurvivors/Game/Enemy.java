@@ -101,16 +101,24 @@ public class Enemy implements Poolable {
         int x;
         int y;
         while (true){
-            x = (int) rand.nextInt(-1, 2) * 110 ;
-            y = (int) rand.nextInt(-1, 2) * 110 ;
+            x = (int) rand.nextInt(-8, 8) * 120; 
+            y = (int) rand.nextInt(-8, 8) * 120;
             
-            if (x != 0 && y != 0){
+            //Only choose points inside map
+            if ((x != 0 && y != 0) &&
+               (player_pos.x + x) > 20 && 
+               (player_pos.y + y ) > 20 && 
+               ((player_pos.x + x) < (levelUtil.getMapWidth() * levelUtil.getTileWidth())-50) &&
+               ((player_pos.y + y )< (levelUtil.getMapHeight() * levelUtil.getTileHeight()-50))){
                 break;
             }
+
         }
+  
         this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 18, 25);
         defineEnemy();
         this.health = enemyHealth;
+        
         Vector2 enemyPos = getBody().getPosition();
         Vector2 direction = player_pos.sub(enemyPos).nor();
 
@@ -125,7 +133,7 @@ public class Enemy implements Poolable {
         } else if (direction.x > 0) {
             getSprite().setFlip(false, false);
         }
-        System.out.println("Enemy speed" + speed);
+
     }
 
      /**
@@ -154,6 +162,11 @@ public class Enemy implements Poolable {
             getSprite().setFlip(false, false);
         }
         
+    }
+
+    private boolean validEnemyPos(Vector2 enemyPos){
+        return (enemyPos.x < 0 || enemyPos.x > levelUtil.getMapWidth() * levelUtil.getTileWidth() ||
+        enemyPos.y < 0 || enemyPos.y > levelUtil.getMapHeight() * levelUtil.getTileHeight());
     }
 
     /**

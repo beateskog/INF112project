@@ -30,19 +30,20 @@ public class GameScreen implements Screen {
     private ExtendViewport extendViewport;
     private Box2DDebugRenderer box2dDebugRenderer;
     private Stage stage;
-    private float enemySpawnInterval = 2.0f;
-
+    
     private Player player;
     private HP_bar hp_bar;
-    private Enemy enemy;
     private TextureAtlas playerAtlas;
     
     private float timeSinceLastShot = 0;
-    private float timeSinceLastEnemy = 0;
-    private float enemySpeed = 3.0f;
-    private int enemyHealth = 10; 
     private float projectileDamage = 5f; 
 
+    //Enemy
+    private float timeSinceLastEnemy = 0;
+    private float enemySpawnInterval = 2.0f;
+    private float enemySpeed = 3.0f;
+    private int enemyHealth = 10; 
+    
     
     public final long startTime = System.currentTimeMillis();
 
@@ -157,7 +158,7 @@ public class GameScreen implements Screen {
     private void update() {
 
         if (player.checkPlayerUpgrade()){
-            enemySpawnInterval *= 0.95;
+            enemySpawnInterval *= 0.9;
             enemySpeed *= 1.05f;
             enemyHealth *= 1.3; 
             projectileDamage *= 1.4f;
@@ -185,6 +186,7 @@ public class GameScreen implements Screen {
 
         Vector2 playerLastMovement = player.getLastMovementDirection();
         
+        //New projectile
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
         if (timeSinceLastShot >= player.getShootInterval()) {
             
@@ -205,6 +207,7 @@ public class GameScreen implements Screen {
             timeSinceLastShot = 0;
         }
 
+        //New enemy 
         timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
         if (timeSinceLastEnemy >= enemySpawnInterval){
             Enemy enemy1 = enemyPool.obtain();
@@ -213,7 +216,7 @@ public class GameScreen implements Screen {
             timeSinceLastEnemy = 0; 
         }
         
-    
+        // Check if projectile should be removed 
         for (Projectile pro : activeProjectiles){
             if ((System.currentTimeMillis() - pro.getActiveTime()) >= 2000){
                 projectilePool.free(pro);
@@ -224,7 +227,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        //Destroy enemies:
+        //Check if enemies should me removed 
         for (Enemy enemy : activeEnemies){
             if (!enemy.isAlive()){
                 player.increaseKillcount();
@@ -232,7 +235,7 @@ public class GameScreen implements Screen {
                 activeEnemies.removeValue(enemy, true);
             }
         }
-        System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel() + "     " + enemySpawnInterval);
+        //System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel() + "     " + enemySpawnInterval);
     }
 
     @Override
@@ -323,7 +326,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         box2dDebugRenderer.dispose();
         player.dispose();
-        enemy.dispose();
         
     }    
 }
