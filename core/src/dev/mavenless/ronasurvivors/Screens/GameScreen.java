@@ -101,7 +101,6 @@ public class GameScreen implements Screen {
         String playerName = "doctor"; // game.getSelectedPLayer()
         definePlayer(playerName);
 
-        killCountLabel.setPosition(0, stage.getViewport().getScreenHeight() - killCountLabel.getHeight());
         killCountLabel.setFontScale(2f, 2f);
 
         // Save data
@@ -136,19 +135,16 @@ public class GameScreen implements Screen {
          //Healthbar
          this.hp_bar = new HP_bar(100, stage);
 
-
-         // Save data
-         Save save = new Save();
-         try {
-             save.write();
-             save.read();
-         } catch (Exception e) {
-             e.printStackTrace();
-             dispose();
-             Gdx.app.exit();
-         }
-
-       
+        // Save data
+        Save save = new Save();
+        try {
+            save.write();
+            save.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+            dispose();
+            Gdx.app.exit();
+        }
     }
 
     private float degreeOffset(float val, float offset) {
@@ -220,13 +216,12 @@ public class GameScreen implements Screen {
         //more enemies when game starts 
         if (start == 0) {
             start+= 1;
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 50; i++) {
                 Enemy enemy1 = enemyPool.obtain();
                 enemy1.init(player.getPosition(), enemyHealth);
                 activeEnemies.add(enemy1);
             }
         }
-
         //New enemy 
         timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
         if (timeSinceLastEnemy >= enemySpawnInterval){
@@ -257,6 +252,7 @@ public class GameScreen implements Screen {
                 activeEnemies.removeValue(enemy, true);
             }
         }
+
         //System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel() + "     " + enemySpawnInterval);
     }
 
@@ -301,17 +297,12 @@ public class GameScreen implements Screen {
         return this.playerAtlas;
     }
 
-
     public Array<Projectile> getActiveProjectiles(){
         return activeProjectiles;
     }
 
     public Array<Enemy> getActiveEnemies(){
         return activeEnemies;
-    }
-
-    public Pool<Enemy> getEnemyPool(){
-        return enemyPool;
     }
 
     public HP_bar getHp_bar(){
@@ -328,7 +319,7 @@ public class GameScreen implements Screen {
         stage.getViewport().update(width, height, true);
         // Resizing hp-bar
         stage.getActors().get(0).setPosition(stage.getWidth()/2-(this.hp_bar.getWidth()/2), stage.getHeight()-50);
-        killCountLabel.setPosition(0, stage.getViewport().getScreenHeight() - killCountLabel.getHeight());
+        killCountLabel.setPosition(5, (stage.getViewport().getScreenHeight() - killCountLabel.getHeight())-10);
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -45,6 +46,7 @@ public class LevelUtil {
     private int tileHeight;
     private int mapWidth;
     private int mapHeight;
+
     
     /**
      * Loads a tile map from a local asset file
@@ -118,6 +120,23 @@ public class LevelUtil {
             groundBox.dispose();
         }
     }
+
+    /**
+     * Calcualtes a random location on the edges of the map.  
+     * @return a vector2 with the x and y posistion
+     */
+    public Vector2 getRandomLocation(){
+        int x_bound = getMapWidth() * getTileWidth()-50;
+        int y_bound = getMapHeight() * getTileHeight()-50;
+        int[] x_posistions = new int[]{20, x_bound, x_bound/2, x_bound/3, x_bound/4};
+        int[] y_posistions = new int[]{20, y_bound, y_bound/2, y_bound/3, y_bound/4};
+        Random rand = new Random();
+        int x = (int) rand.nextInt(x_posistions.length);
+        int y = (int) rand.nextInt(y_posistions.length);
+        
+        return new Vector2(x_posistions[x], y_posistions[y]);
+    }
+
 
     /**
      * Renders the world with

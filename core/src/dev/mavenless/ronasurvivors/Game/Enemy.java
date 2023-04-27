@@ -1,7 +1,5 @@
 package mavenless.ronasurvivors.Game;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -30,6 +28,8 @@ public class Enemy implements Poolable {
     private Texture enemyText;
     private boolean alive;
     private float health;
+
+    
     
 
     /**
@@ -96,31 +96,13 @@ public class Enemy implements Poolable {
      * @param player_pos the position of the player
      */
     public void init(Vector2 player_pos, int enemyHealth){
+        Vector2 randomLocation = levelUtil.getRandomLocation();
+        do {
+            randomLocation = levelUtil.getRandomLocation();
+        } while (randomLocation.dst(player_pos) < 120);
+        
         alive = true;
-        int x_bound= levelUtil.getMapWidth() * levelUtil.getTileWidth();
-        int y_bound = levelUtil.getMapHeight() * levelUtil.getTileHeight();
-        Random rand = new Random();
-        int x;
-        int y;
-        boolean addX = rand.nextBoolean();
-        boolean addY = rand.nextBoolean();
-    
-        /* do {
-            x = (int) rand.nextInt(8) * 50;
-            y = (int) rand.nextInt(8) * 50;
-            if (!addX) {
-                x = -x;
-            }
-            if (!addY) {
-                y = -y;
-            }
-        } while ((x == 0 || y == 0) ||
-                 (player_pos.x + x) <= 20 ||
-                 (player_pos.y + y) <= 20 ||
-                 ((player_pos.x + x) > x_bound ||
-                 ((player_pos.y + y) > y_bound)));  */
-     
-        this.size = new Rectangle(player_pos.x -70, player_pos.y -70, 18, 25);
+        this.size = new Rectangle(randomLocation.x, randomLocation.y, 18, 25);
         defineEnemy();
         this.health = enemyHealth;
         
@@ -168,7 +150,6 @@ public class Enemy implements Poolable {
         }
         
     }
-
 
     /**
      * Renders the enemy
