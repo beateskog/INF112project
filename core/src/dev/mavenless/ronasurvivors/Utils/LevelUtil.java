@@ -25,6 +25,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
 import mavenless.ronasurvivors.Game.CollisionBits;
 
+
 public class LevelUtil {
     
     /**
@@ -126,11 +127,12 @@ public class LevelUtil {
      * @return a vector2 with the x and y posistion
      */
     public Vector2 getRandomLocation(){
-        int x_bound = getMapWidth() * getTileWidth()-50;
-        int y_bound = getMapHeight() * getTileHeight()-50;
-        int[] x_posistions = new int[]{20, x_bound, x_bound/2, x_bound/3, x_bound/4};
-        int[] y_posistions = new int[]{20, y_bound, y_bound/2, y_bound/3, y_bound/4};
+        int x_bound = getMapWidth() * getTileWidth()-30;
+        int y_bound = getMapHeight() * getTileHeight()-30;
         Random rand = new Random();
+        int[] x_posistions = rand.ints(40, x_bound/16, x_bound).toArray();
+        int[] y_posistions = rand.ints(40, y_bound/16, y_bound).toArray();
+
         int x = (int) rand.nextInt(x_posistions.length);
         int y = (int) rand.nextInt(y_posistions.length);
         

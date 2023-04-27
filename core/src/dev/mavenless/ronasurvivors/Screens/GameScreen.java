@@ -43,7 +43,7 @@ public class GameScreen implements Screen {
 
     //Enemy
     private float timeSinceLastEnemy = 0;
-    private float enemySpawnInterval = 2.0f;
+    private float enemySpawnInterval = 1.0f;
     private float enemySpeed = 3.0f;
     private int enemyHealth = 5; 
     private int start = 0;
@@ -216,7 +216,7 @@ public class GameScreen implements Screen {
         //more enemies when game starts 
         if (start == 0) {
             start+= 1;
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 20; i++) {
                 Enemy enemy1 = enemyPool.obtain();
                 enemy1.init(player.getPosition(), enemyHealth);
                 activeEnemies.add(enemy1);

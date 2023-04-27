@@ -99,7 +99,7 @@ public class Enemy implements Poolable {
         Vector2 randomLocation = levelUtil.getRandomLocation();
         do {
             randomLocation = levelUtil.getRandomLocation();
-        } while (randomLocation.dst(player_pos) < 120);
+        } while (randomLocation.dst(player_pos) < 200);
         
         alive = true;
         this.size = new Rectangle(randomLocation.x, randomLocation.y, 18, 25);
