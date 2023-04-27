@@ -30,7 +30,7 @@ Tilstede: Kristian S, Kristian R, Beate og Tobias. (Askild gyldig fravær)
 
 ## Gruppemøte 24.04.2023 (14.15-16.15)
 
-Tilstede: Kristian S, Askild, Beate og Tobias. (Kristian F gyldig fravær)
+Tilstede: Kristian S, Askild, Beate og Tobias. (Kristian R gyldig fravær)
 
 Prioriteringslisten vi lagde 17.04 er vi allerede nesten ferdige med. Derfor brukte vi dette gruppemøtet til å bli enige om nye prioriteringspunkter. Disse la vi inn som tasks på trello, og alle kan plukke oppgaver der i fra, når de har fullført oppgaver de har begynt på. 
 
@@ -42,7 +42,19 @@ Prioriteringsliste:
 - Projetiles rendrer oftere over tid 
 - Enemies rendrer oftere over tid 
 
-Vi diskuterte også vår MVP, og mener selv at punkt 1-6 er de absolutt viktigste for et fungerende spill, og oppnådd MVP. De resterende punktene synes vi er viktige for å ha et spill som faktisk er gøy å spille, men ikke nødvendig for MVP. 
+Vi diskuterte også vår MVP, og mener selv at punkt 1-6 er de absolutt viktigste for et fungerende spill, og oppnådd MVP. De resterende punktene synes vi er viktige for å ha et spill som faktisk er gøy/givende å spille, men ikke nødvendig for MVP. 
+
+**Jobbet med i gruppetimen**
+- Askild: Pause knapp  
+- Kristian S: Killcount, enemies rendrer oftere 
+- Beate: Fiender blir sterkere over tid 
+- Tobias: Spiller kan dø 
+
+## Gruppemøte 27.04.2023 (10.15-13.00)
+
+Tilstede Kristian S, Askild og Beate.
+
+Jobbet med individuelle ting, og sammarbeidet om å finne løsninger hvis noen hadde problemer. 
 
 # Krav og spesifikasjon
 
