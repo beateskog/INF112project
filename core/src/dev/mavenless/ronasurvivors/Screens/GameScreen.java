@@ -24,6 +24,9 @@ import mavenless.ronasurvivors.Game.Projectile;
 import mavenless.ronasurvivors.Game.Save;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
 public class GameScreen implements Screen {
     final RonaSurvivors game;
     private LevelUtil levelUtil;
@@ -42,7 +45,10 @@ public class GameScreen implements Screen {
     private float timeSinceLastEnemy = 0;
     private float enemySpawnInterval = 2.0f;
     private float enemySpeed = 3.0f;
-    private int enemyHealth = 10; 
+    private int enemyHealth = 5; 
+    private int start = 0;
+    
+    private Label killCountLabel = new Label("Kills: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     
     
     public final long startTime = System.currentTimeMillis();
@@ -95,6 +101,9 @@ public class GameScreen implements Screen {
         String playerName = "doctor"; // game.getSelectedPLayer()
         definePlayer(playerName);
 
+        killCountLabel.setPosition(0, stage.getViewport().getScreenHeight() - killCountLabel.getHeight());
+        killCountLabel.setFontScale(2f, 2f);
+
         // Save data
         Save save = new Save();
         try {
@@ -105,6 +114,7 @@ public class GameScreen implements Screen {
             dispose();
             Gdx.app.exit();
         }
+    
     }
 
     @Override
@@ -160,8 +170,8 @@ public class GameScreen implements Screen {
         if (player.checkPlayerUpgrade()){
             enemySpawnInterval *= 0.9;
             enemySpeed *= 1.05f;
-            enemyHealth *= 1.3; 
-            projectileDamage *= 1.4f;
+            enemyHealth *= 1.6; 
+            projectileDamage *= 1.3f;
         }
 
         // Update physics
@@ -207,6 +217,16 @@ public class GameScreen implements Screen {
             timeSinceLastShot = 0;
         }
 
+        //more enemies when game starts 
+        if (start == 0) {
+            start+= 1;
+            for (int i = 0; i < 15; i++) {
+                Enemy enemy1 = enemyPool.obtain();
+                enemy1.init(player.getPosition(), enemyHealth);
+                activeEnemies.add(enemy1);
+            }
+        }
+
         //New enemy 
         timeSinceLastEnemy += Gdx.graphics.getDeltaTime();
         if (timeSinceLastEnemy >= enemySpawnInterval){
@@ -231,6 +251,8 @@ public class GameScreen implements Screen {
         for (Enemy enemy : activeEnemies){
             if (!enemy.isAlive()){
                 player.increaseKillcount();
+                int killCount = player.getKillcount();
+                killCountLabel.setText("Kills: " + killCount);
                 enemyPool.free(enemy);
                 activeEnemies.removeValue(enemy, true);
             }
@@ -270,6 +292,7 @@ public class GameScreen implements Screen {
 
         // Stage render
         stage.getViewport().apply();
+        stage.addActor(killCountLabel);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
@@ -305,6 +328,7 @@ public class GameScreen implements Screen {
         stage.getViewport().update(width, height, true);
         // Resizing hp-bar
         stage.getActors().get(0).setPosition(stage.getWidth()/2-(this.hp_bar.getWidth()/2), stage.getHeight()-50);
+        killCountLabel.setPosition(0, stage.getViewport().getScreenHeight() - killCountLabel.getHeight());
     }
 
     @Override

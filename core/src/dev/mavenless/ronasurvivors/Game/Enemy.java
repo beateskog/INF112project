@@ -100,18 +100,24 @@ public class Enemy implements Poolable {
         Random rand = new Random();
         int x;
         int y;
-
+        boolean addX = rand.nextBoolean();
+        boolean addY = rand.nextBoolean();
+    
         do {
-            
             x = (int) rand.nextInt(8) * 120;
             y = (int) rand.nextInt(8) * 120;
+            if (!addX) {
+                x = -x;
+            }
+            if (!addY) {
+                y = -y;
+            }
         } while ((x == 0 || y == 0) ||
                  (player_pos.x + x) <= 20 ||
                  (player_pos.y + y) <= 20 ||
                  ((player_pos.x + x) > (levelUtil.getMapWidth() * levelUtil.getTileWidth()) - 50) ||
                  ((player_pos.y + y) > (levelUtil.getMapHeight() * levelUtil.getTileHeight() - 50)));
     
-        
         this.size = new Rectangle(player_pos.x + x, player_pos.y + y, 18, 25);
         defineEnemy();
         this.health = enemyHealth;
