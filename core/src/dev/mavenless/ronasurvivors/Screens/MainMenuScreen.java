@@ -54,6 +54,13 @@ public class MainMenuScreen implements Screen {
         TextButton textButton3 = new TextButton(null, skin);
         textButton3.setText("EXIT");
         table.add(textButton3);
+        textButton3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
         stage.addActor(table);
     }
 
