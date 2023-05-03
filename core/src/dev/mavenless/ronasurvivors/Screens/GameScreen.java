@@ -262,12 +262,6 @@ public class GameScreen implements Screen {
             gameOver();
         }
 
-
-        if (hp_bar.getHealth() <= 0) {
-            gameOver();
-        }
-
-
         timeSurvived.setText("Timer: " + TimeUtils.timeSinceMillis(startTime)/1000);
     }
 
