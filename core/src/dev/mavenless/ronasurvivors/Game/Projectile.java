@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -122,9 +121,7 @@ public class Projectile implements Poolable {
                         true);
     }
 
-
-
-      /**
+    /**
      * Renders the projectile
      * 
      * @param batch
@@ -146,6 +143,7 @@ public class Projectile implements Poolable {
     public Body getBody() {
         return this.body;
     }
+    
     /**
      * Returns false if the porjectile is dead
      * and true if the projectile is alive
@@ -182,6 +180,10 @@ public class Projectile implements Poolable {
     public Fixture getFixture(){
         return this.projectileFix;
     }
+
+    /**
+     * Disposes the projectile
+     */
     public void dispose() {
     }
 

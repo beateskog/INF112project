@@ -29,9 +29,6 @@ public class Enemy implements Poolable {
     private boolean alive;
     private float health;
 
-    
-    
-
     /**
      * Creates an enemy. 
      * 
@@ -231,7 +228,9 @@ public class Enemy implements Poolable {
         this.health += increase;
     }
     
-    /* Dispose */
+    /**
+     * Disposes the enemy
+     */
     public void dispose() {
         enemyText.dispose();
     }
