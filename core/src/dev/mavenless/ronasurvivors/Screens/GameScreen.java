@@ -258,6 +258,16 @@ public class GameScreen implements Screen {
             }
         }
 
+        if (hp_bar.getHealth() <= 0) {
+            gameOver();
+        }
+
+
+        if (hp_bar.getHealth() <= 0) {
+            gameOver();
+        }
+
+
         timeSurvived.setText("Timer: " + TimeUtils.timeSinceMillis(startTime)/1000);
     }
 
@@ -298,6 +308,14 @@ public class GameScreen implements Screen {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    /**
+     * Function for initiating
+     * gameOverScreen class
+     */
+    private void gameOver() {
+        game.setScreen(new GameOverScreen(game, player.getKillcount()));
     }
 
     public TextureAtlas getAtlas(){
@@ -348,6 +366,5 @@ public class GameScreen implements Screen {
     public void dispose() {
         box2dDebugRenderer.dispose();
         player.dispose();
-        
     }    
 }
