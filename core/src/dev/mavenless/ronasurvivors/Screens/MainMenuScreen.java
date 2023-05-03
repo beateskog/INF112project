@@ -33,28 +33,54 @@ public class MainMenuScreen implements Screen {
         table.setBackground(skin.getDrawable("Group 1"));
         table.setFillParent(true);
 
+        
+        table.add(startButton());
+        table.row();
+        table.add(instructionsButton());
+        table.row();
+        table.add(exitButton());
+
+        stage.addActor(table);
+    }
+    
+    private TextButton startButton(){
         TextButton textButton1 = new TextButton(null, skin);
         textButton1.setText("START GAME");
-        table.add(textButton1);
         textButton1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.debug("UI", "textButton1: " + textButton1.isChecked());
+                Gdx.app.debug("UI", "startButton: " + textButton1.isChecked());
                 game.setScreen(new GameScreen(game));
                 dispose();
             }
         });
-
-        table.row();
+        return textButton1;
+    }
+    
+    private TextButton instructionsButton(){
         TextButton textButton2 = new TextButton(null, skin);
-        textButton2.setText("SETTINGS");
-        table.add(textButton2);
-
-        table.row();
+        textButton2.setText("INSTRUCTIONS");
+        textButton2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "instructionsButton: " + textButton2.isChecked());
+                game.setScreen(new InstructionsScreen(game));
+                dispose();
+            }
+        });
+        return textButton2;
+    }
+    
+    private TextButton exitButton(){
         TextButton textButton3 = new TextButton(null, skin);
         textButton3.setText("EXIT");
-        table.add(textButton3);
-        stage.addActor(table);
+        textButton3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+        return textButton3;
     }
 
     @Override
