@@ -45,7 +45,7 @@ public class Projectile implements Poolable {
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
-        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken2.png"));
+        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken.png"));
         alive = false;
     }
 
@@ -122,6 +122,8 @@ public class Projectile implements Poolable {
                         true);
     }
 
+
+
       /**
      * Renders the projectile
      * 
@@ -172,6 +174,7 @@ public class Projectile implements Poolable {
         return this.activeTime;
     }
 
+    
     /**
      * Getter method retrieving the fixture of the projectile
      * @return projectile fixture
