@@ -45,7 +45,7 @@ public class Projectile implements Poolable {
         this.size = size;
         this.speed = speed * 100f;
         this.levelUtil = levelUtil;
-        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken2.png"));
+        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken.png"));
         alive = false;
     }
 
