@@ -1,5 +1,7 @@
 package mavenless.ronasurvivors.Screens;
 
+import java.sql.Time;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -49,6 +52,7 @@ public class GameScreen implements Screen {
     private int start = 0;
     
     private Label killCountLabel = new Label("Kills: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    private Label timeSurvived = new Label("Timer: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     
     
     public final long startTime = System.currentTimeMillis();
@@ -102,6 +106,7 @@ public class GameScreen implements Screen {
         definePlayer(playerName);
 
         killCountLabel.setFontScale(2f, 2f);
+        timeSurvived.setPosition(0, stage.getViewport().getScreenHeight() - timeSurvived.getHeight()*3);
 
         // Save data
         Save save = new Save();
@@ -253,7 +258,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        //System.out.println(player.getKillcount()+ "     " + player.getShootInterval() + "    " + player.getKillsForNextLevel() + "     " + enemySpawnInterval);
+        timeSurvived.setText("Timer: " + TimeUtils.timeSinceMillis(startTime)/1000);
     }
 
     @Override
@@ -289,6 +294,8 @@ public class GameScreen implements Screen {
         // Stage render
         stage.getViewport().apply();
         stage.addActor(killCountLabel);
+        stage.addActor(timeSurvived);
+
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }

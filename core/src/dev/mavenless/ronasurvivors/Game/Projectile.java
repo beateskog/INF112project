@@ -122,6 +122,8 @@ public class Projectile implements Poolable {
                         true);
     }
 
+
+
       /**
      * Renders the projectile
      * 
@@ -172,6 +174,7 @@ public class Projectile implements Poolable {
         return this.activeTime;
     }
 
+    
     /**
      * Getter method retrieving the fixture of the projectile
      * @return projectile fixture
