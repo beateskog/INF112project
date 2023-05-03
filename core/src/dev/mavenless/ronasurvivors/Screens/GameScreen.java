@@ -1,7 +1,5 @@
 package mavenless.ronasurvivors.Screens;
 
-import java.sql.Time;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -17,6 +15,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Game.CollisionHandler;
@@ -27,8 +27,6 @@ import mavenless.ronasurvivors.Game.Projectile;
 import mavenless.ronasurvivors.Game.Save;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class GameScreen implements Screen {
     final RonaSurvivors game;
@@ -106,7 +104,8 @@ public class GameScreen implements Screen {
         definePlayer(playerName);
 
         killCountLabel.setFontScale(2f, 2f);
-        timeSurvived.setPosition(0, stage.getViewport().getScreenHeight() - timeSurvived.getHeight()*3);
+        timeSurvived.setFontScale(2f, 2f);
+        
 
         // Save data
         Save save = new Save();
@@ -336,9 +335,10 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         extendViewport.update(width, height, true);
         stage.getViewport().update(width, height, true);
-        // Resizing hp-bar
+        // Resizing hp-bar + labels
         stage.getActors().get(0).setPosition(stage.getWidth()/2-(this.hp_bar.getWidth()/2), stage.getHeight()-50);
-        killCountLabel.setPosition(5, (stage.getViewport().getScreenHeight() - killCountLabel.getHeight())-10);
+        killCountLabel.setPosition(200, (stage.getViewport().getScreenHeight() - killCountLabel.getHeight())-10);
+        timeSurvived.setPosition(5, (stage.getViewport().getScreenHeight() - timeSurvived.getHeight())-10);
     }
 
     @Override
