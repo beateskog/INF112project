@@ -15,7 +15,7 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 
 `s - gå nedover`
 
-`a - gå mot høyre`
+`a - gå mot venstre`
 
 `d - gå mot høyre`
 
@@ -27,12 +27,13 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 * Krever Java 8
 
 ## Kjente feil
+
 - Ingenting 😎
 
 
 ## Credits
-<!-- Tileset fra https://opengameart.org/content/2d-cave-platformer-tileset-16x16 -->
 
+- [CREDITS](https://git.app.uib.no/mavenless/rona-survivors/-/blob/main/credits.csv)
 
 ## Development-style og Rollefordeling:
 * Development-style: *Scrum*
