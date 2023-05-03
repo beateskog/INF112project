@@ -54,51 +54,110 @@ Vi diskuterte også vår MVP, og mener selv at punkt 1-6 er de absolutt viktigst
 
 Tilstede Kristian S, Askild og Beate.
 
-Jobbet med individuelle ting, og sammarbeidet om å finne løsninger hvis noen hadde problemer. 
+Jobbet med individuelle ting, og sammarbeidet om å finne løsninger hvis noen hadde problemer.
+
+## Gruppemøte 03.05.2023 (10.00-12.00)
+
+Alle gruppemedlemmer tilstede
+
+**Diskusjon**
+
+- Finne ut når vi kan ha fremføring (Kun onsdag 10.mai alle kan møte opp)
+- Fikse på det vi har fått kommentarer om på oblig 3 
+- Hva som må gjøres før innlevering fredag, og hvem som gjør hva: 
+
+Kristian R: Dokumentasjon tester, clean code
+Kristian S: credits
+Beate: Shine dokumenter før innlevering, få med alt som skal være med 
+Tobias: Spiller kan dø -> game over 
+Askild: hjelpeside om hvordan spille spillet
 
 # Krav og spesifikasjon
 
 **Hvilke krav vi har prioritert og hva vi har gjort siden forrige gang:**
 
 ### MVP (minimum viable product):  
-1. Vise et spillebrett (fullført)
-2. Vise spiller på spillbrettet  (fullført)
-3. Flytte spiller i alle retninger  (fullført)
-4. Fiender som går i mot spiller (fullført)
-5. Spiller kan skyte automatisk (fullført)
-6. Spiller kan dø/få mindre HP (ved kontakt med fiender)
-7. Fiender blir sterkere over tid (fullført)
-8. Spillfigur kan få oppgraderinger underveis 
+1. Vise et spillebrett *(fullført)*
+2. Vise spiller på spillbrettet  *(fullført)*
+3. Flytte spiller i alle retninger  *(fullført)*
+4. Fiender som går i mot spiller *(fullført)*
+5. Spiller kan skyte automatisk *(fullført)*
+6. Spiller kan dø/få mindre HP *(fullført)*
+7. Fiender blir sterkere over tid *(fullført)*
+8. Spillfigur kan få oppgraderinger underveis *(delvis fullført)*
+
+**Tidligere MVP**
+- Etter diskusjon og enighet i gruppen mener vi at disse punktene ikke er nødvendige for MVP. Men viktigere for å forbedre spillopplevelsen. Derfor prioriterer vi ikke disse punktene direkte i siste innlevering. 
+
 9. Mål for spillbrett: få nok poeng
 10. Låser opp nytt spillbrett/nytt nivå 
 11. Start-skjerm ved oppstart. Kan kjøpe permanente oppgraderinger for opptjente penger. 
 
 ### Brukerhistorier vi har jobbet med denne obligen:
 3. Som en spiller, vil jeg ha muligheten til å skyte mot forskjellige typer fiender, som blir sterkere, i tillegg til at jeg skal kunne bruke forskjellige våpen og ferdigheter, slik at jeg kan utfordre meg selv og gjøre fremgang i spillet.
+
 4. Som en spiller, vil jeg ha muligheten til å velge og oppgradere egenskaper for å bli sterkere, slik at jeg kan komme videre i spillet.
-5. Som en spiller, vil jeg ha muligheten til å låse opp nye spillbrett nivå, slik at jeg opplever variasjon og progresjon i spillet.
+
 
 ### Akseptansekriterier:
 <em>Akseptanse kriterie for brukerhistorie 3:</em>
-* Spillet skal tilby spilleren en mulighet for å skyte fiender.
-* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren.
+
+* Spillet skal tilby spilleren en mulighet for å skyte fiender. *(fullført)*
+
+* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren. *(Ikke fullført, men spiller blir sterkere jo fler fiender han dreper)*
+
 * Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
 
 <em>Akseptanse kriterie for brukerhistorie 4:</em>
-* Spillet gir spilleren valget mellom flere forskjellige egneskaper å oppgradere, som f.eks.: rekkevidde på våpen, hastighet på spiller, etc. 
-* Oppgraderingene gir en merkbar og meningsfull økning i spillerens presentasjoner, slik at spilleren føler på progresjon.
-* Det skal være to forskjellige typer oppgraderinger, enten på spiller, eller våpen.
 
-<em>Akseptanse kriterie for brukerhistorie 5:</em>
-* Spillet har flere ulike spillbrett nivåer spilleren kan låse opp ved å fullføre tidligere nivåer, eller andre oppgaver i spillet.
-* Nye spillbrett nivå byr på økt utfordring og krever at spilleren bruker nye strategier, eller ferdigheter for å fullføre dem.
-* Hvert nye nivå oppleves som spennende og utfordrende for å gi spilleren motivasjon til å fortsette å spille.
+* Spillet gir spilleren valget mellom flere forskjellige egneskaper å oppgradere, som f.eks.: rekkevidde på våpen, hastighet på spiller, etc. *(Spilleren får ikke valgmuligheter, men det oppgraderes etter antall kills)*
+
+* Oppgraderingene gir en merkbar og meningsfull økning i spillerens presentasjoner, slik at spilleren føler på progresjon.
+
+* Det skal være to forskjellige typer oppgraderinger, enten på spiller, eller våpen. *(Både spiller og våpen blir bedre etter antall kills)*
 
 # Produkt kode 
 
+I README ligger:
+
+- development-style og rollefordeling 
+- linker til trello 
+- klassediagramm
+
 **Bugs**
-Fiender rendrer inne i scenery, og utenfor map. 
+
+- Fiender rendrer inne i scenery (men de kommer seg ut/blir ikke fanget, dermed egentlig ikke et problem vi har brukt tid på å fikse) 
 
 **Dette har vi fikset siden sist** 
+
+*Spillfunksjoner vi har lagt til* 
+
+*Enemies* 
+- Enemies blitt poolable -> flere fiender blitt rendret
+- Fiender tar skade og kan dø
+- Fiender blir sterkere og raskere over tid  
+- Fiender blir rendret oftere, slik at det blir vanskeligere å overleve
+
+*Projectile* 
+- Projectiles forsvinner når de kolliderer med noe 
+- Projectiles gjør skade på fiende 
+- Projectiles gjør mer skade over tid 
+- Projectiles fortsetter å skyte i den retningen spilleren sist gikk, dette gjør det bedre/lettere å skite mot og treffe fiender
+
+*HP*
+- HP blir gradvis mindre under kontakt 
+- Spiller kan dø
+
+*Spill logikk* 
+- Laget killcount, og viser den på skjermen 
+- Killcount styrer oppgraderingene til spiller, fiende og projectile
+- Tid viser på skjermen, hvor lenge vi har overlevd/spillt
+- Ryddet i koden 
+
+
+*Fra tilbakemeldinger på oblig:*
+- Credits på grafikk og lyd
+- Dokumentasjon av tester
+
 
 

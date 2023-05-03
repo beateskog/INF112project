@@ -1,19 +1,25 @@
  [![coverage report](https://git.app.uib.no/mavenless/rona-survivors/badges/main/coverage.svg)](https://git.app.uib.no/mavenless/rona-survivors)
 
-README.md-filen skal (gjennom hele semesteret) holdes oppdatert med:
-
-navn på team-medlemmene, teamet og prosjektet, samt gruppenummer
-kort beskrivelse av spillet og hvordan det brukes (f.eks. hvilke tastetrykk som gjør hva).
-hvordan koden kjøres.
-hvor evt. grafikk/lyd-ressurser er hentet fra.
-
 # INF112 Project – *Rona Survivors*
 
 * Team: *Mavenless* (Gruppe 4.1): *Askild Heiret, Beate Skogvik, Kristian Fredrik Rognsvaag, Kristian Skeie, Tobias Husebø*
-* Lenke til GitLab/Trello/etc.
+
+* [TRELLO ISSUES](https://trello.com/b/QHYMXsMK/issues)
+
+* [TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
 
 ## Om spillet
 Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg. 
+
+`w - gå oppover`
+
+`s - gå nedover`
+
+`a - gå mot høyre`
+
+`d - gå mot høyre`
+
+`esc - avslutter spillet`
 
 ## Kjøring
 * Kompileres med `./make.py -d` (alias/helper for abstracion)
@@ -21,10 +27,10 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 * Krever Java 8
 
 ## Kjente feil
+- Ingenting 😎
 
 
 ## Credits
-Ingenting hittil 😎
 <!-- Tileset fra https://opengameart.org/content/2d-cave-platformer-tileset-16x16 -->
 
 
@@ -48,13 +54,6 @@ Ingenting hittil 😎
     
 5. *Dev. Team-member* @Beate.Skogvik
     - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering
-
-
-Links to Trello: 
-
-[TRELLO ISSUES](https://trello.com/b/QHYMXsMK/issues)
-
-[TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
 
 
 ## Klassediagram
