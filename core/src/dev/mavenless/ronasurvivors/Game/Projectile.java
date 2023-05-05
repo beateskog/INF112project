@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
-
+import mavenless.ronasurvivors.Screens.GameScreen;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 /**
@@ -32,6 +32,8 @@ public class Projectile implements Poolable {
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
     private Sprite sprite;
+    private String filename;
+    private GameScreen game;
     
     /**
      * Creates a projectile. 
@@ -40,12 +42,14 @@ public class Projectile implements Poolable {
      * @param speed the speed of the Projectile
      * @param levelUtil the levelUtil 
      */
-    public Projectile(Rectangle size, float speed, LevelUtil levelUtil) {
-        this.size = size;
-        this.speed = speed * 100f;
-        this.levelUtil = levelUtil;
-        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/shuriken.png"));
+    public Projectile(String filename, GameScreen game) {
+        this.filename = filename;
+        this.size = new Rectangle(game.getPlayerPos().x,game.getPlayerPos().y,10,10);
+        this.speed = 200000f;
+        this.levelUtil = game.getLevelUtil();
+        projectileText = new Texture(Gdx.files.internal("sprites/Projectile/"+filename));
         alive = false;
+        
     }
 
     /* Helper method for defining the body of the projectile */
@@ -108,10 +112,11 @@ public class Projectile implements Poolable {
      * @param playerX the x position of the player
      * @param playerY the y position of the player
      */
-    public void init(float angle, float playerX, float playerY){
+    public void init(float angle, GameScreen screen){
         activeTime = System.currentTimeMillis();
         alive = true;
-        this.size = new Rectangle (playerX,playerY,10,10);
+        float playerWidth = screen.getPlayer().getSize().width;
+        this.size = new Rectangle (screen.getPlayerPos().x + (playerWidth/2), screen.getPlayerPos().y,10,10);
         defineProjectile();
         getFixture().setUserData(activeTime); // FOR COLLISION HANDLING DONT CHANGE!!
         body.applyLinearImpulse(this.speed*(float)(Math.sin(Math.toRadians(angle))),

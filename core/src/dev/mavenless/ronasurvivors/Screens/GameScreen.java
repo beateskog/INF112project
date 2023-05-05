@@ -20,15 +20,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Game.CollisionHandler;
+import mavenless.ronasurvivors.Game.ConcreteProjectileFactory;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.HP_bar;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Projectile;
+import mavenless.ronasurvivors.Game.ProjectileFactory;
 import mavenless.ronasurvivors.Game.Save;
 import mavenless.ronasurvivors.Utils.LevelUtil;
 
 
 public class GameScreen implements Screen {
+    private GameScreen gameScreen = this;
     final RonaSurvivors game;
     private LevelUtil levelUtil;
     private ExtendViewport extendViewport;
@@ -70,23 +73,14 @@ public class GameScreen implements Screen {
                 levelUtil);
         }
     };
-
+    ProjectileFactory projectileFactory = new ConcreteProjectileFactory(); 
     private final Array<Projectile> activeProjectiles= new Array<Projectile>();
-    private final Pool<Projectile> projectilePool = new Pool<Projectile>() {
-        @Override
-        protected Projectile newObject() {
-            return new Projectile(
-                new Rectangle(player.getPosition().x,player.getPosition().y,10,10),
-                2000f,
-                levelUtil);
-        }
-        };
-
+    private final Pool<Projectile> projectilePool;
+    
 
     public GameScreen(final RonaSurvivors game) {
 
         this.game = game;
-
         // Render setup
         float viewSize = 200f; // size of viewable area
         extendViewport = new ExtendViewport(viewSize, viewSize);
@@ -106,6 +100,7 @@ public class GameScreen implements Screen {
         killCountLabel.setFontScale(2f, 2f);
         timeSurvived.setFontScale(2f, 2f);
         
+        
 
         // Save data
         Save save = new Save();
@@ -117,6 +112,13 @@ public class GameScreen implements Screen {
             dispose();
             Gdx.app.exit();
         }
+        projectilePool = new Pool<Projectile>() {
+            @Override
+            protected Projectile newObject() {
+                return projectileFactory.createProjectile("shuriken.png", gameScreen);
+                   
+            }
+            };
     
     }
 
@@ -212,7 +214,7 @@ public class GameScreen implements Screen {
             90
             );
             Projectile projectile1 = projectilePool.obtain();
-            projectile1.init(angle, player.getPosition().x+(player.getSize().width/2),player.getPosition().y);
+            projectile1.init(angle, this);
             activeProjectiles.add(projectile1);
             timeSinceLastShot = 0;
         }
@@ -323,12 +325,24 @@ public class GameScreen implements Screen {
         return activeEnemies;
     }
 
+    public Vector2 getPlayerPos(){
+        return this.player.getPosition();
+    }
+
+    public LevelUtil getLevelUtil(){
+        return this.levelUtil;
+    }
+
     public HP_bar getHp_bar(){
         return this.hp_bar;
     }
 
     public float getProjectileDamage(){
         return this.projectileDamage;
+    }
+
+    public Player getPlayer(){
+        return this.player;
     }
 
     @Override
