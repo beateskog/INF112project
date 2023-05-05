@@ -34,9 +34,8 @@ public class MainMenuScreen implements Screen {
         skin = new Skin(Gdx.files.internal("ui/Menu/MainMenuScreen.json"));
         Gdx.input.setInputProcessor(stage);
         
-
         header.setFontScale(8f, 5f);
-
+        
         Table table = new Table();
         table.setBackground(skin.getDrawable("Group 1"));
         table.setFillParent(true);
@@ -47,7 +46,7 @@ public class MainMenuScreen implements Screen {
         table.add(instructionsButton());
         table.row();
         table.add(exitButton());
-
+        
         stage.addActor(table);
     }
     
