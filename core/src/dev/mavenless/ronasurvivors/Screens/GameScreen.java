@@ -66,8 +66,8 @@ public class GameScreen implements Screen {
         protected Enemy newObject() {
             return new Enemy(
                 new Rectangle(
-                    (player.getPosition().x + 100), //make the enemys posision a little bit away from the player
-                    (player.getPosition().y + 100),
+                    (0), 
+                    (0),
                     20,
                     20
                 ),

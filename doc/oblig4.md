@@ -174,6 +174,7 @@ I README ligger:
 - Projectiles gjør skade på fiende 
 - Projectiles gjør mer skade over tid 
 - Projectiles fortsetter å skyte i den retningen spilleren sist gikk, dette gjør det bedre/lettere å skite mot og treffe fiender
+- Projectile Factory 
 
 *HP*
 - HP blir gradvis mindre under kontakt 
