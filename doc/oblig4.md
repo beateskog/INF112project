@@ -104,7 +104,7 @@ Askild: hjelpeside om hvordan spille spillet
 
 * Spillet skal tilby spilleren en mulighet for å skyte fiender. *(fullført)*
 
-* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren. *(Ikke fullført, men spiller blir sterkere jo fler fiender han dreper)*
+* Spillet skal tilby ulike typer oppgraderinger som en spiller kan skaffe seg, som f.eks.: rustning, våpen, eller tilbehør, for å styrke spilleren. *(Ikke fullført, men spiller blir sterkere jo fler fiender han dreper, kan samle coins)*
 
 * Spillet skal tilby en klar oversikt over hva og hvor mye en oppgradering skal forbedre en spillers egenskaper.
 
@@ -114,7 +114,7 @@ Askild: hjelpeside om hvordan spille spillet
 
 * Oppgraderingene gir en merkbar og meningsfull økning i spillerens presentasjoner, slik at spilleren føler på progresjon.
 
-* Det skal være to forskjellige typer oppgraderinger, enten på spiller, eller våpen. *(Både spiller og våpen blir bedre etter antall kills)*
+* Det skal være to forskjellige typer oppgraderinger, enten på spiller, eller våpen. *(Både spiller og våpen blir bedre etter antall kills, spiller får mer liv når det plukkes opp coins)*
 
 # Produkt kode 
 
@@ -123,7 +123,7 @@ I README ligger:
 - klassediagramm
 
 **Commits + Gruppedynamikk** 
-- Vi har kanskje noe ujevne commits, men vi opplever selv at alle på gruppen bidrar like mye. Den ulike mengden kommer av ulike faktorer som at noen liker å gjøre seg helt ferdig med en feature før de psuher til git, mens andre liker å pushe underveis (noe som fører til flere commits). I tillegg har Beate fått ansvaret for å skrive møtereferater osv, men alle gruppemedlemmene er med på å utfore hva som skal stå i referatene. Så alle commits som omhandler obliger er et felles produkt, og ikke en enkelt persons arbeid. Gruppedynamikken og kommunikasjonen har fungert svært bra etter vi fikset de små problemene vi hadde helt i starten. Vi har hatt et godt arbeidsmiljø!
+- Vi har kanskje noe ujevne commits, men vi opplever selv at alle på gruppen bidrar like mye. Den ulike mengden kommer av ulike faktorer som at noen liker å gjøre seg helt ferdig med en feature før de psuher til git, mens andre liker å pushe underveis (noe som fører til flere commits). I tillegg har Beate fått ansvaret for å skrive møtereferater osv, men alle gruppemedlemmene er med på å utforme hva som skal stå i referatene. Så alle commits som omhandler obliger er et felles produkt, og ikke en enkelt persons arbeid. Gruppedynamikken og kommunikasjonen har fungert svært bra etter vi fikset de små kommunikasjonsproblemene vi hadde helt i starten (byttet fra discord til sms kommunikasjon). Vi har hatt et veldig godt arbeidsmiljø!
 
 **Bugs**
 
@@ -168,6 +168,8 @@ I README ligger:
 - Fiender tar skade og kan dø
 - Fiender blir sterkere og raskere over tid  
 - Fiender blir rendret oftere, slik at det blir vanskeligere å overleve
+- Fiender rendres på en tilfeldig plass, ute av synsfeltet til player 
+- Gjør mer skade på spiller over tid 
 
 *Projectile* 
 - Projectiles forsvinner når de kolliderer med noe 
@@ -180,6 +182,11 @@ I README ligger:
 - HP blir gradvis mindre under kontakt 
 - Spiller kan dø
 
+*Pickup* 
+- Objekter som kan plukkes opp
+- Dukker opp når enemies dør 
+- Spiller får 1+ HP for hver mynt som plukkes opp 
+
 *Spill logikk* 
 - Laget killcount, og viser den på skjermen 
 - Killcount styrer oppgraderingene til spiller, fiende og projectile
@@ -188,7 +195,6 @@ I README ligger:
 
 *Screens* 
 - laget instructions side
-
 
 *Fra tilbakemeldinger på oblig:*
 - Credits på grafikk og lyd
