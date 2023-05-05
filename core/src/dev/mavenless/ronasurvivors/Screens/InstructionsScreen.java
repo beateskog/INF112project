@@ -33,6 +33,24 @@ public class InstructionsScreen implements Screen{
         table.setBackground(skin.getDrawable("Group 1"));
         table.setFillParent(true);
 
+        //Instruction for up 
+        table.add(insButton("UP BUTTON:"));
+        table.add(insButton("W"));
+        table.row();
+
+        table.add(insButton("DOWN BUTTON:"));
+        table.add(insButton("S"));
+        table.row();
+
+        table.add(insButton("LEFT BUTTON:"));
+        table.add(insButton("A"));
+        table.row();
+
+        table.add(insButton("RIGHT BUTTON:"));
+        table.add(insButton("D"));
+        table.row();
+        table.row();
+
         table.add(backButton());
 
         stage.addActor(table);
@@ -53,6 +71,12 @@ public class InstructionsScreen implements Screen{
         return back;
     }
 
+    private TextButton insButton(String str){
+        TextButton ins = new TextButton(null, skin);
+        ins.setText(str);
+        return ins;
+    }
+
     @Override
     public void dispose() {
         stage.dispose();
@@ -61,8 +85,6 @@ public class InstructionsScreen implements Screen{
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hide'");
     }
 
     @Override
