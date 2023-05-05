@@ -95,6 +95,19 @@ public class GameOverScreen implements Screen {
         });
         table.row();
 
+        TextButton textButton3 = new TextButton(null, skin1);
+        textButton3.setText("MAIN MENU");
+        table.add(textButton3);
+        textButton3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.debug("UI", "textButton3: " + textButton3.isChecked());
+                game.setScreen(new MainMenuScreen(game));
+                dispose();
+            }
+        });
+        table.row();
+        
         TextButton textButton2 = new TextButton(null, skin1);
         textButton2.setText("EXIT");
         table.add(textButton2);
