@@ -1,10 +1,10 @@
 package mavenless.ronasurvivors.Game;
 
-import com.badlogic.gdx.math.Rectangle;
 
 import mavenless.ronasurvivors.Screens.GameScreen;
-import mavenless.ronasurvivors.Utils.LevelUtil;
-
+    /**
+     * Interface for projectile factory that creates a new `Projectile` object.
+     */
 public interface ProjectileFactory {
     Projectile createProjectile(String filename, GameScreen game);
 }

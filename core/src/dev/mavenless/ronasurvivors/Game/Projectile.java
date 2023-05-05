@@ -32,8 +32,6 @@ public class Projectile implements Poolable {
     private BodyDef bodyDef;
     private FixtureDef fixtureDef;
     private Sprite sprite;
-    private String filename;
-    private GameScreen game;
     
     /**
      * Creates a projectile. 
@@ -43,7 +41,6 @@ public class Projectile implements Poolable {
      * @param levelUtil the levelUtil 
      */
     public Projectile(String filename, GameScreen game) {
-        this.filename = filename;
         this.size = new Rectangle(game.getPlayerPos().x,game.getPlayerPos().y,10,10);
         this.speed = 200000f;
         this.levelUtil = game.getLevelUtil();

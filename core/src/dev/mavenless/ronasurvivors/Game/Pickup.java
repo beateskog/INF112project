@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
@@ -37,30 +36,28 @@ public class Pickup implements Poolable {
     private Body body;
 
 
-   
+    
     public Pickup(String filename, LevelUtil levelUtil){
         this.filename = filename;
         text = new Texture(Gdx.files.internal("icons/"+filename));
         sprite = new Sprite(text);
         alive = false;
         this.levelUtil = levelUtil;
-
-        
     }
 
     private void definePickup() {
-        // Defining the body of the enemy:
+        // Defining the body of the pickup:
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.StaticBody;
         bodyDef.position.set(position.x, position.y);
         body = levelUtil.world.createBody(bodyDef);
 
-        // Defining the box of the enemy body:  
+        // Defining the circle of the pickup body:  
         CircleShape circle  = new CircleShape();
         circle.setRadius(6f);
-        // Defining the fixture of our box (not colliding with objs)
+        // Defining the fixture of our circle, used for collisions
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;                     //Setting the shape of the fixture to our box
+        fixtureDef.shape = circle;                     //Setting the shape of the fixture to our circle
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PICKUP;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PICKUP; 
         fixtureDef.isSensor = true;
@@ -94,7 +91,6 @@ public class Pickup implements Poolable {
     
 
     // Getters and Setters
-
     public String getFilename() {
         return this.filename;
     }

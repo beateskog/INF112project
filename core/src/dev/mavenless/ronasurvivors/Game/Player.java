@@ -37,7 +37,6 @@ public class Player {
     private Boolean isRunningLeft;
     private Boolean isAudioPlaying;
     private InputUtil input;
-    private String playerName;
     private Sound sound;
     private long soundId;
     private Vector2 lastMovementDirection;
@@ -61,7 +60,6 @@ public class Player {
         this.input = input;
         this.speed = speed;
         this.levelUtil = levelUtil;
-        this.playerName = playerName;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("soundEffects/running-in-grass-6237.ogg"));
         this.soundId = this.sound.play();
         sound.stop();
@@ -75,7 +73,6 @@ public class Player {
         isRunningLeft = true;
         stateTimer = 0;
         lastMovementDirection = new Vector2(0,0);
-        
         definePlayer();
     }
 
@@ -103,7 +100,7 @@ public class Player {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
         fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
+        fixtureDef.friction = 0;
         fixtureDef.restitution = 0.0f; 
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_PLAYER;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_PLAYER; 
@@ -217,8 +214,8 @@ public class Player {
         } 
         else { 
             if (!isAudioPlaying){
-                sound.play();
                 isAudioPlaying = true;
+                sound.loop();
             }
             
         }

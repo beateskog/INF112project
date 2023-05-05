@@ -5,7 +5,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import mavenless.ronasurvivors.Screens.GameScreen;
 import mavenless.ronasurvivors.Screens.MainMenuScreen;
 import mavenless.ronasurvivors.Utils.InputUtil;
 

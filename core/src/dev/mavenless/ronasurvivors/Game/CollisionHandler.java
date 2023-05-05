@@ -1,6 +1,5 @@
 package mavenless.ronasurvivors.Game;
 
-import java.util.Random;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -43,7 +42,6 @@ public class CollisionHandler implements ContactListener{
             
             /* Update player health after encounter with enemy */
             HP_bar hp_bar = gameScreen.getHp_bar();
-            Random r = new Random();
             hp_bar.setHealth(hp_bar.getHealth()-gameScreen.getEnemyDamage());
 
         /* Collision between projectile and scenery */
@@ -102,21 +100,21 @@ public class CollisionHandler implements ContactListener{
                 }
 
             } 
-        } else if(
+        } else if( // Check for collision between Player and Pickup
             ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
              fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP) ||
             (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
               fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP))){
                 
-
+                // We want to give +1 hp for each coin picked up
                 HP_bar hp_bar = gameScreen.getHp_bar();
                 hp_bar.setHealth(hp_bar.getHealth()+1);
                 
+                // If pickup-item has collided with the player, pickup item must be removed from rendering. 
                 if(fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP){
                     for(Pickup pickup : gameScreen.getActivePickups()){
                         if(fixA.getUserData() == pickup.getFixture().getUserData()){
                             pickup.setAlive(false);
-                            
                         }
                     }
                 } else {
