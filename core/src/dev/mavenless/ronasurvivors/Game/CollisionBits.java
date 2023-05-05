@@ -9,12 +9,21 @@ public class CollisionBits {
     public static final short CATEGORY_ENEMY = 0x0002; 
     public static final short CATEGORY_PROJECTILE = 0x0003; 
     public static final short CATEGORY_SCENERY = 0x0004; 
+    public static final short CATEGORY_PICKUP = 0x0005;
+
+    
 
     /**
      * Group index for projectiles.
      * Makes it so that projectiles don't collide with each other.
      */
     public static final short GROUP_PROJECTILE = -2; 
+
+    /**
+     * Mask for pickups.
+     * Player collides with pickups and scenery.
+     */
+    public static final short MASK_PICKUP = CATEGORY_PLAYER;
 
     /**
      * Mask for player.

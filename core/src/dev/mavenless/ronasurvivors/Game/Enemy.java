@@ -28,6 +28,7 @@ public class Enemy implements Poolable {
     private Texture enemyText;
     private boolean alive;
     private float health;
+    Texture coin;
 
     /**
      * Creates an enemy. 
@@ -41,7 +42,9 @@ public class Enemy implements Poolable {
         this.speed = speed;
         this.levelUtil = levelUtil;
         this.enemyText = new Texture(Gdx.files.internal("sprites/Skeleton/SkeletonSingle.png"));
+        
         alive = false;
+        
     }
 
     /* Helper method for defining the body, box and fixture of the enemy */
@@ -67,14 +70,15 @@ public class Enemy implements Poolable {
         // Defining the fixture of our box (not colliding with objs)
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;                     //Setting the shape of the fixture to our box
-        fixtureDef.density = 0.1f; 
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.0f;
+        fixtureDef.density = 0.0f; 
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0.1f;
         fixtureDef.filter.categoryBits = CollisionBits.CATEGORY_ENEMY;  
         fixtureDef.filter.maskBits = CollisionBits.MASK_ENEMY; 
 
         enemyFix = getBody().createFixture(fixtureDef);
         enemyFix.setUserData("Enemy");
+        
         box.dispose();
 
         getBody().setFixedRotation(true);
@@ -194,6 +198,7 @@ public class Enemy implements Poolable {
         if (newHealth <= 0) {
             this.alive = false;
             this.health = 0;
+
         } else {
             this.health = newHealth;
         }

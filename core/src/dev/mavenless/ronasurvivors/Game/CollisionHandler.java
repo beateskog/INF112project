@@ -102,7 +102,28 @@ public class CollisionHandler implements ContactListener{
                 }
 
             } 
-        } 
+        } else if(
+            ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
+             fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP) ||
+            (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
+              fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP))){
+                
+                if(fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP){
+                    for(Pickup pickup : gameScreen.getActivePickups()){
+                        if(fixA.getUserData() == pickup.getFixture().getUserData()){
+                            pickup.setAlive(false);
+                            
+                        }
+                    }
+                } else {
+                    for(Pickup pickup : gameScreen.getActivePickups()){
+                        if(fixB.getUserData() == pickup.getFixture().getUserData()){
+                            pickup.setAlive(false);
+                        }
+                    }
+                }
+            }
+        
     }
     
 

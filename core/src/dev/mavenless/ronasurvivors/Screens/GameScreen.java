@@ -23,6 +23,7 @@ import mavenless.ronasurvivors.Game.CollisionHandler;
 import mavenless.ronasurvivors.Game.ConcreteProjectileFactory;
 import mavenless.ronasurvivors.Game.Enemy;
 import mavenless.ronasurvivors.Game.HP_bar;
+import mavenless.ronasurvivors.Game.Pickup;
 import mavenless.ronasurvivors.Game.Player;
 import mavenless.ronasurvivors.Game.Projectile;
 import mavenless.ronasurvivors.Game.ProjectileFactory;
@@ -54,10 +55,11 @@ public class GameScreen implements Screen {
     
     private Label killCountLabel = new Label("Kills: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     private Label timeSurvived = new Label("Timer: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+    private Label coinLabel = new Label("Coins: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
     
-    
+    private int coinCount = 0;
     public final long startTime = System.currentTimeMillis();
-
+    private Array<Pickup> activePickups = new Array<Pickup>();
     private final Array<Enemy> activeEnemies = new Array<Enemy>();
     private final Pool<Enemy> enemyPool = new Pool<Enemy>() {
         @Override
@@ -71,6 +73,12 @@ public class GameScreen implements Screen {
                 ),
                 enemySpeed,
                 levelUtil);
+        }
+    };
+    private final Pool<Pickup> pickupsPool = new Pool<Pickup>(){
+        @Override 
+        protected Pickup newObject(){
+            return new Pickup("coin.png", levelUtil);
         }
     };
     ProjectileFactory projectileFactory = new ConcreteProjectileFactory(); 
@@ -99,6 +107,7 @@ public class GameScreen implements Screen {
 
         killCountLabel.setFontScale(2f, 2f);
         timeSurvived.setFontScale(2f, 2f);
+        coinLabel.setFontScale(2f,2f);
         
         
 
@@ -255,7 +264,23 @@ public class GameScreen implements Screen {
                 int killCount = player.getKillcount();
                 killCountLabel.setText("Kills: " + killCount);
                 enemyPool.free(enemy);
+                
                 activeEnemies.removeValue(enemy, true);
+
+                Pickup droppedXP = pickupsPool.obtain(); 
+                droppedXP.init(enemy.getBody().getPosition());
+                activePickups.add(droppedXP);
+            }
+        }
+
+        //check if pickups are collected
+        for (Pickup pickupState : activePickups){
+            if(!pickupState.isAlive()){
+                coinCount += 1;
+                coinLabel.setText("Coins: " + coinCount);
+                pickupsPool.free(pickupState);
+                
+                activePickups.removeValue(pickupState, true);
             }
         }
 
@@ -294,12 +319,16 @@ public class GameScreen implements Screen {
             projectile.update();
             projectile.render(game.batch);
         }
+        for (Pickup pickup : activePickups){
+            pickup.render(game.batch);
+        }
         game.batch.end();
 
         // Stage render
         stage.getViewport().apply();
         stage.addActor(killCountLabel);
         stage.addActor(timeSurvived);
+        stage.addActor(coinLabel);
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -341,6 +370,10 @@ public class GameScreen implements Screen {
         return this.projectileDamage;
     }
 
+    public Array<Pickup> getActivePickups(){
+        return this.activePickups;
+    }
+
     public Player getPlayer(){
         return this.player;
     }
@@ -353,6 +386,8 @@ public class GameScreen implements Screen {
         stage.getActors().get(0).setPosition(stage.getWidth()/2-(this.hp_bar.getWidth()/2), stage.getHeight()-50);
         killCountLabel.setPosition(200, (stage.getViewport().getScreenHeight() - killCountLabel.getHeight())-10);
         timeSurvived.setPosition(5, (stage.getViewport().getScreenHeight() - timeSurvived.getHeight())-10);
+        coinLabel.setPosition(400, (stage.getViewport().getScreenHeight() - coinLabel.getHeight())-10);
+
     }
 
     @Override
