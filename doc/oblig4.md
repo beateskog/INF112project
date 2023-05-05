@@ -42,7 +42,7 @@ Prioriteringsliste:
 - Projetiles rendrer oftere over tid 
 - Enemies rendrer oftere over tid 
 
-Vi diskuterte også vår MVP, og mener selv at punkt 1-6 er de absolutt viktigste for et fungerende spill, og oppnådd MVP. De resterende punktene synes vi er viktige for å ha et spill som faktisk er gøy/givende å spille, men ikke nødvendig for MVP. 
+Vi diskuterte også vår MVP, og mener selv at punkt 1-6 er de absolutt viktigste for et fungerende spill, og oppnådd MVP. De resterende punktene synes vi er viktige for å ha et spill som faktisk er gøy/givende å spille! Dermed ikke nødvendig for MVP, men mer et stretch goal. 
 
 **Jobbet med i gruppetimen**
 - Askild: Pause knapp  
@@ -120,13 +120,44 @@ Askild: hjelpeside om hvordan spille spillet
 
 I README ligger:
 
-- development-style og rollefordeling 
-- linker til trello 
 - klassediagramm
+
+**Commits + Gruppedynamikk** 
+- Vi har kanskje noe ujevne commits, men vi opplever selv at alle på gruppen bidrar like mye. Den ulike mengden kommer av ulike faktorer som at noen liker å gjøre seg helt ferdig med en feature før de psuher til git, mens andre liker å pushe underveis (noe som fører til flere commits). I tillegg har Beate fått ansvaret for å skrive møtereferater osv, men alle gruppemedlemmene er med på å utfore hva som skal stå i referatene. Så alle commits som omhandler obliger er et felles produkt, og ikke en enkelt persons arbeid. Gruppedynamikken og kommunikasjonen har fungert svært bra etter vi fikset de små problemene vi hadde helt i starten. Vi har hatt et godt arbeidsmiljø!
 
 **Bugs**
 
 - Fiender rendrer inne i scenery (men de kommer seg ut/blir ikke fanget, dermed egentlig ikke et problem vi har brukt tid på å fikse) 
+
+**Linker til Trello**
+
+* [TRELLO ISSUES](https://trello.com/b/QHYMXsMK/issues)
+
+* [TRELLO TASKS](https://trello.com/b/0YPRkMZo/tasks)
+
+
+**Roller**
+
+## Development-style og Rollefordeling:
+* Development-style: *Scrum*
+1. *Scrum-master* @Kristian.Rognsvaag
+- En Scrum-master har i et større prosjekt mange funksjoner, men de vi velger å fokusere på i vårt mindre prosjekt er:
+
+    - Sikrer Scrum-metodikken blir brukt for å guide teamet
+    - Vi vil fokusere på å bruke "Daily Scrum", som vil være ca. 2 ganger ukentlig med vår arbeidsmengde.
+    - Vi ser på de obligatoriske innleveringene som våre "sprinter" 
+
+2. *Dev. Team-member* @Askild.Heiret
+    - UX/UI ansvarlig: ansvar for brukervenlighet, layout og visual design. 
+
+3. *Dev. Team-member* @Kristian.Skeie
+    - Test ansvarlig: ansvar for produktkvalitet
+
+4. *Dev. Team-member* @Tobias.Husebo
+    -   Software arkitekt: beslutningstaker når det gjelder ordning av programvaren
+    
+5. *Dev. Team-member* @Beate.Skogvik
+    - Kundekontakt: kontakt med gruppeleder for å vite hva som forventes til hver obligatoriske innlevering
 
 **Dette har vi fikset siden sist** 
 
@@ -154,10 +185,11 @@ I README ligger:
 - Tid viser på skjermen, hvor lenge vi har overlevd/spillt
 - Ryddet i koden 
 
+*Screens* 
+- laget instructions side
+
 
 *Fra tilbakemeldinger på oblig:*
 - Credits på grafikk og lyd
 - Dokumentasjon av tester
-
-
 
