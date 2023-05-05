@@ -65,7 +65,7 @@ public class MainMenuScreen implements Screen {
         stage.addActor(table);
     }
     
-    private TextButton startButton(){
+    private TextButton startButton() {
         TextButton textButton1 = new TextButton(null, skin);
         textButton1.setText("START GAME");
         textButton1.addListener(new ChangeListener() {
@@ -79,7 +79,7 @@ public class MainMenuScreen implements Screen {
         return textButton1;
     }
     
-    private TextButton instructionsButton(){
+    private TextButton instructionsButton() {
         TextButton textButton2 = new TextButton(null, skin);
         textButton2.setText("INSTRUCTIONS");
         textButton2.addListener(new ChangeListener() {
@@ -93,7 +93,7 @@ public class MainMenuScreen implements Screen {
         return textButton2;
     }
     
-    private TextButton exitButton(){
+    private TextButton exitButton() {
         TextButton textButton3 = new TextButton(null, skin);
         textButton3.setText("EXIT");
         textButton3.addListener(new ChangeListener() {

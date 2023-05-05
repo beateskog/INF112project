@@ -19,22 +19,21 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Utils.UiHandler;
 
-public class InstructionsScreen implements Screen{
+public class InstructionsScreen implements Screen {
 
     private Skin skin;
     private Stage stage;
     private RonaSurvivors game;
 
-    public InstructionsScreen(RonaSurvivors game){
+    public InstructionsScreen(RonaSurvivors game) {
         this.game = game;
         create();
     }
 
-    private void create(){
+    private void create() {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("ui/Menu/MainMenuScreen.json"));
         Gdx.input.setInputProcessor(stage);
-
 
         Table table = new Table();
         table.setBackground(skin.getDrawable("Group 1"));
@@ -56,10 +55,10 @@ public class InstructionsScreen implements Screen{
         stack.add(smallLabel1);
         stack.add(bigLabel1);
         table.add(stack);
-        
+
         table.row();
 
-        //Instruction buttons 
+        // Instruction buttons
         table.add(insButton("UP BUTTON:"));
         table.add(insButton("W"));
         table.row();
@@ -85,8 +84,7 @@ public class InstructionsScreen implements Screen{
         stage.addActor(table);
     }
 
-
-    private TextButton backButton(){
+    private TextButton backButton() {
         TextButton back = new TextButton(null, skin);
         back.setText("BACK");
         back.addListener(new ChangeListener() {
@@ -100,7 +98,7 @@ public class InstructionsScreen implements Screen{
         return back;
     }
 
-    private TextButton insButton(String str){
+    private TextButton insButton(String str) {
         TextButton ins = new TextButton(null, skin);
         ins.setText(str);
         return ins;
@@ -140,5 +138,5 @@ public class InstructionsScreen implements Screen{
     @Override
     public void show() {
     }
-    
+
 }

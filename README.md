@@ -36,14 +36,15 @@ Du er en lege som må kjempe deg gjennom alt en pandemi kan kaste mot deg.
 ```mermaid
 classDiagram
     DesktopLauncher <-- RonaSurvivors
-    RonaSurvivors <--> MainMenu
-    MainMenu <--> Shop
-    MainMenu <-- GameScreen
+    RonaSurvivors <--> MainMenuScreen
+    MainMenuScreen <-- GameScreen
+    MainMenuScreen <--> InstructionsScreen
     RonaSurvivors --> GameScreen
-    RonaSurvivors --> Shop
+    RonaSurvivors --> InstructionsScreen
     InputUtil --> RonaSurvivors
-    InputUtil --> MainMenu
-    UiHandler --> MainMenu
+    InputUtil --> MainMenuScreen
+    UiHandler --> MainMenuScreen
+    UiHandler --> InstructionsScreen
     LevelUtil --> GameScreen
     Save --> GameScreen
     Projectile --> GameScreen
@@ -51,6 +52,8 @@ classDiagram
     HP_bar --> GameScreen
     Enemy --> GameScreen
     CollisionHandler <--> GameScreen
+    GameScreen --> GameOverScreen
+    GameOverScreen <-- MainMenuScreen
 
     InputIndex --> InputUtil
     InputProfile --> InputUtil
@@ -89,38 +92,58 @@ classDiagram
     }
 
     %% Screens
-    class MainMenu {
-        #RonaSurvivors game
-        -ExtendViewport extendViewport
-        -InputUtil inputUtil
+    class MainMenuScreen {
+        -Skin skin
         -Stage stage
-        -Table table
-        -Texture backgroundTexture
+        -RonaSurvivors game
 
-        +MainMenu(final RonaSurvivors game)
-        +void show()
-        +void render(float delta)
+        +MainMenuScreen(RonaSurvivors game)
+        +void create()
+        -TextButton startButton()
+        -TextButton instructionsButton()
+        -TextButton exitButton()
+        +void render(float arg0)
         +void resize(int width, int height)
+        +void dispose()
+        +void hide()
         +void pause()
         +void resume()
-        +void hide()
-        +void dispose()
+        +void show()
     }
 
-    class Shop {
-        #RonaSurvivors game
-        -OrthographicCamera camera
+    class InstructionsScreen {
+        -Skin skin
         -Stage stage
-        -Table table
+        -RonaSurvivors game
 
-        +Shop(final RonaSurvivors game)
-        +void show()
-        +void render(float delta)
+        +InstructionsScreen(RonaSurvivors game)
+        -void create()
+        -TextButton backButton()
+        -TextButton insButton(String str)
+        +void dispose()
+        +void hide()
+        +void pause()
+        +void render(float arg0)
         +void resize(int width, int height)
+        +void resume()
+        +void show()
+    }
+
+    class GameOverScreen {
+        -Skin skin1
+        -Stage stage
+        -RonaSurvivors game
+        -Integer kills
+
+        +GameOverScreen(RonaSurvivors game, Integer kills)
+        +void create()
+        +void render(float arg0)
+        +void resize(int width, int height)
+        +void dispose()
+        +void hide()
         +void pause()
         +void resume()
-        +void hide()
-        +void dispose()
+        +void show()
     }
 
     class GameScreen {

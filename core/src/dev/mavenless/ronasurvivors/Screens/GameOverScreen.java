@@ -23,13 +23,13 @@ import mavenless.ronasurvivors.RonaSurvivors;
 import mavenless.ronasurvivors.Utils.UiHandler;
 
 public class GameOverScreen implements Screen {
-    
+
     private Skin skin1;
     private Stage stage;
     private RonaSurvivors game;
     private Integer kills;
 
-    public GameOverScreen(RonaSurvivors game, Integer kills){
+    public GameOverScreen(RonaSurvivors game, Integer kills) {
         this.game = game;
         this.kills = kills;
         create();
@@ -41,10 +41,11 @@ public class GameOverScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
-        Pixmap bgPixmap = new Pixmap(1,1, Pixmap.Format.RGB565);
+        Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
         bgPixmap.setColor(Color.RED);
         bgPixmap.fill();
-        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
+        TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(
+                new TextureRegion(new Texture(bgPixmap)));
         table.setBackground(textureRegionDrawableBg);
         table.setFillParent(true);
 
@@ -107,7 +108,7 @@ public class GameOverScreen implements Screen {
             }
         });
         table.row();
-        
+
         TextButton textButton2 = new TextButton(null, skin1);
         textButton2.setText("EXIT");
         table.add(textButton2);
@@ -139,16 +140,21 @@ public class GameOverScreen implements Screen {
         skin1.dispose();
     }
 
-
     // Unused methods:
     @Override
     public void hide() {
         Gdx.app.debug("App", "Hidden");
     }
+
     @Override
-    public void pause() {}
+    public void pause() {
+    }
+
     @Override
-    public void resume() {}
+    public void resume() {
+    }
+
     @Override
-    public void show() {}
+    public void show() {
+    }
 }
