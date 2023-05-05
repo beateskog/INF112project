@@ -1,5 +1,6 @@
 package mavenless.ronasurvivors.Game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -43,6 +44,7 @@ public class Player {
     private int killcount; 
     private int killsForNextLevel;
     private float shootInterval;
+    private GameScreen gameScreen;
     
     /**
      * Constructor for constructing a new player object
@@ -52,7 +54,8 @@ public class Player {
      * @param levelUtil - levelutil for defining body in world obj
      * @param input - inpututil for handling user input
      */
-    public Player(GameScreen screen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
+    public Player(GameScreen gameScreen, Rectangle size, float speed, LevelUtil levelUtil, InputUtil input) {
+        this.gameScreen = gameScreen;
         this.killcount = 0;
         this.killsForNextLevel = 10;
         this.shootInterval = 1.0f;
@@ -63,7 +66,7 @@ public class Player {
         this.sound = Gdx.audio.newSound(Gdx.files.internal("soundEffects/running-in-grass-6237.ogg"));
         this.soundId = this.sound.play();
         sound.stop();
-        atlas = screen.getAtlas();
+        atlas = gameScreen.getAtlas();
         runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));
         runUp = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-up"));
         runDown = new Animation<TextureRegion>(5, atlas.findRegions("doctor_white_walk-down"));
@@ -208,7 +211,7 @@ public class Player {
     }
 
     private void getAudio(State state){
-        if (state == State.STANDING){
+        if (state == State.STANDING || gameScreen.getHp_bar().getHealth() <= 0){
             sound.stop();
             isAudioPlaying = false;
         } 
@@ -318,5 +321,9 @@ public class Player {
 
     public int getKillsForNextLevel(){
         return this.killsForNextLevel;
+    }
+
+    public void setAudioPlaying(boolean isAudioPlaying){
+        this.isAudioPlaying = isAudioPlaying;
     }
 }
