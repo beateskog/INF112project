@@ -34,13 +34,10 @@ public class RonaSurvivors extends Game {
 
 	@Override
 	public void pause(){
-		//super.pause();
-		//this.setScreen(new PauseMenu());
 	}
 
 	@Override
 	public void resume(){
-		//super.resume();
 	}
 
 	@Override

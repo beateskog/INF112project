@@ -59,7 +59,7 @@ public class InstructionsScreen implements Screen{
         
         table.row();
 
-        //Instruction for up 
+        //Instruction buttons 
         table.add(insButton("UP BUTTON:"));
         table.add(insButton("W"));
         table.row();
