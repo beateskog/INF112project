@@ -76,6 +76,10 @@ public class InstructionsScreen implements Screen{
         table.add(insButton("D"));
         table.row();
 
+        table.add(insButton("QUIT GAME:"));
+        table.add(insButton("esc"));
+        table.row();
+
         table.add(backButton());
 
         stage.addActor(table);
