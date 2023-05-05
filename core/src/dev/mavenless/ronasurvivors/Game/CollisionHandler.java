@@ -44,7 +44,7 @@ public class CollisionHandler implements ContactListener{
             /* Update player health after encounter with enemy */
             HP_bar hp_bar = gameScreen.getHp_bar();
             Random r = new Random();
-            hp_bar.setHealth(hp_bar.getHealth()-r.nextInt(10));
+            hp_bar.setHealth(hp_bar.getHealth()-gameScreen.getEnemyDamage());
 
         /* Collision between projectile and scenery */
         } else if ((fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PROJECTILE &&
@@ -107,6 +107,10 @@ public class CollisionHandler implements ContactListener{
              fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP) ||
             (fixB.getFilterData().categoryBits == CollisionBits.CATEGORY_PLAYER && 
               fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP))){
+                
+
+                HP_bar hp_bar = gameScreen.getHp_bar();
+                hp_bar.setHealth(hp_bar.getHealth()+1);
                 
                 if(fixA.getFilterData().categoryBits == CollisionBits.CATEGORY_PICKUP){
                     for(Pickup pickup : gameScreen.getActivePickups()){
