@@ -9,19 +9,21 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import mavenless.ronasurvivors.RonaSurvivors;
+import mavenless.ronasurvivors.Utils.UiHandler;
 
 public class InstructionsScreen implements Screen{
 
     private Skin skin;
     private Stage stage;
     private RonaSurvivors game;
-    private Label header = new Label("Instructions", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
 
     public InstructionsScreen(RonaSurvivors game){
         this.game = game;
@@ -33,11 +35,29 @@ public class InstructionsScreen implements Screen{
         skin = new Skin(Gdx.files.internal("ui/Menu/MainMenuScreen.json"));
         Gdx.input.setInputProcessor(stage);
 
-        header.setFontScale(8f, 5f);
 
         Table table = new Table();
         table.setBackground(skin.getDrawable("Group 1"));
         table.setFillParent(true);
+
+        Stack stack = new Stack();
+        BitmapFont f1 = UiHandler.UiFont.Pixelated.getFont(10, Color.BLACK);
+        BitmapFont f2 = UiHandler.UiFont.Pixelated.getFont(10, Color.WHITE);
+        LabelStyle style1 = new LabelStyle(f1, Color.BLACK);
+        LabelStyle style2 = new LabelStyle(f2, Color.WHITE);
+
+        Label bigLabel1 = new Label("Instructions", skin);
+        bigLabel1.setStyle(style1);
+        bigLabel1.setFontScale(7f);
+        Label smallLabel1 = new Label("Instructions", skin);
+        smallLabel1.setStyle(style2);
+        smallLabel1.setFontScale(6.9f);
+
+        stack.add(smallLabel1);
+        stack.add(bigLabel1);
+        table.add(stack);
+        
+        table.row();
 
         //Instruction for up 
         table.add(insButton("UP BUTTON:"));
@@ -102,7 +122,6 @@ public class InstructionsScreen implements Screen{
     public void render(float arg0) {
         Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.addActor(header);
         stage.act();
         stage.draw();
     }
@@ -110,7 +129,6 @@ public class InstructionsScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-        header.setPosition(stage.getWidth() / 4 - header.getWidth() / 2, stage.getHeight() - header.getHeight() * 10);
     }
 
     @Override
