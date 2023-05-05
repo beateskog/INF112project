@@ -51,6 +51,7 @@ public class GameScreen implements Screen {
     private float enemySpawnInterval = 1.0f;
     private float enemySpeed = 3.0f;
     private int enemyHealth = 5; 
+    private int enemyDamage = 3;
     private int start = 0;
     
     private Label killCountLabel = new Label("Kills: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -183,6 +184,7 @@ public class GameScreen implements Screen {
             enemySpeed *= 1.05f;
             enemyHealth *= 1.6; 
             projectileDamage *= 1.3f;
+            enemyDamage *= 1.2f;
         }
 
         // Update physics
@@ -368,6 +370,10 @@ public class GameScreen implements Screen {
 
     public float getProjectileDamage(){
         return this.projectileDamage;
+    }
+
+    public int getEnemyDamage(){
+        return this.enemyDamage;
     }
 
     public Array<Pickup> getActivePickups(){
