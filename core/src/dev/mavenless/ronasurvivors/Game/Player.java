@@ -1,6 +1,5 @@
 package mavenless.ronasurvivors.Game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -39,7 +38,6 @@ public class Player {
     private Boolean isAudioPlaying;
     private InputUtil input;
     private Sound sound;
-    private long soundId;
     private Vector2 lastMovementDirection;
     private int killcount; 
     private int killsForNextLevel;
@@ -64,7 +62,7 @@ public class Player {
         this.speed = speed;
         this.levelUtil = levelUtil;
         this.sound = Gdx.audio.newSound(Gdx.files.internal("soundEffects/running-in-grass-6237.ogg"));
-        this.soundId = this.sound.play();
+        this.sound.play();
         sound.stop();
         atlas = gameScreen.getAtlas();
         runHorizontal = new Animation<TextureRegion>(5,atlas.findRegions("doctor_white_walk-left"));

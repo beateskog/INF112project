@@ -16,7 +16,7 @@ public class RonaSurvivors extends Game {
 	@Override
 	public void create() {
 		// Debvelopment config
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.setLogLevel(Application.LOG_NONE);
 
 		batch = new SpriteBatch();
 		input = new InputUtil();

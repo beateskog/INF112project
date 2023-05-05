@@ -42,7 +42,7 @@ public class Save {
     public void read() throws Exception {
         SaveData sd = (SaveData) SaveUtil.readObject(signature, version, saveLocationSaves + "6.sv");
 
-        System.out.println(signature + " | " + version + " | " + sd.name + " | " + sd.strength);
+        Gdx.app.debug("Save file read", signature + " | " + version + " | " + sd.name + " | " + sd.strength);
     }
 
     // Getters

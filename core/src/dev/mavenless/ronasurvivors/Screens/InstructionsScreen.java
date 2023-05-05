@@ -118,8 +118,6 @@ public class InstructionsScreen implements Screen{
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pause'");
     }
 
     @Override
@@ -137,8 +135,6 @@ public class InstructionsScreen implements Screen{
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resume'");
     }
 
     @Override

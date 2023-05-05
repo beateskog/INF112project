@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 public class BitUtilTest {
     
+    /**
+     * A function to test wether BitUtils
+     * constructor correctly stores bytes
+     */
     @Test
     public void testByteConstructor() {
         // Test data
@@ -17,6 +21,10 @@ public class BitUtilTest {
         Assertions.assertTrue(Arrays.equals(bytes, bitUtil.getBytes()));
     }
 
+    /**
+     * A function to test wether BitUils
+     * correctly handles strings
+     */
     @Test
     public void testStringConstructor() {
         // Test data
@@ -27,6 +35,10 @@ public class BitUtilTest {
         Assertions.assertEquals(data, bitUtil.toString());
     }
 
+    /**
+     * A function to test wether BitUtil
+     * correctly handles short numbers
+     */
     @Test
     public void testShortConstructor() {
         // Test data
@@ -37,6 +49,10 @@ public class BitUtilTest {
         Assertions.assertEquals(data, bitUtil.toShort());
     }
 
+    /**
+     * A function to test wether BitUtil
+     * correctly handles integers
+     */
     @Test
     public void testIntConstructor() {
         // Test data
@@ -47,6 +63,11 @@ public class BitUtilTest {
         Assertions.assertEquals(data, bitUtil.toInt());
     }
 
+    /**
+     * A function to test wether BitUtil
+     * correctly converts bytes to their
+     * hexadesimal string representation
+     */
     @Test
     public void testHexConvertor() {
         // Test data
@@ -56,6 +77,11 @@ public class BitUtilTest {
         Assertions.assertEquals(hex, new BitUtil(bytes).toHex());
     }
 
+    /**
+     * A function to test wether BitUtil
+     * returns the correct length of bytes
+     * in the format of a 4 byte array
+     */
     @Test
     public void testLengthBytes() {
         // Test data
@@ -66,19 +92,19 @@ public class BitUtilTest {
 
         Assertions.assertEquals(
             new BitUtil(new BitUtil(string).toLengthBytes()).toHex(),
-            "00 00 00 0a"
+            "00 00 00 0a" // 10
         );
         Assertions.assertEquals(
             new BitUtil(new BitUtil(integer).toLengthBytes()).toHex(),
-            "00 00 00 04"
+            "00 00 00 04" // 4
         );
         Assertions.assertEquals(
             new BitUtil(new BitUtil(number).toLengthBytes()).toHex(),
-            "00 00 00 02"
+            "00 00 00 02" // 2
         );
         Assertions.assertEquals(
             new BitUtil(new BitUtil(bytes).toLengthBytes()).toHex(),
-            "00 00 00 05"
+            "00 00 00 05" // 5
         );
     }
 

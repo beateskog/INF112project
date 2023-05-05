@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+// import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
     final RonaSurvivors game;
     private LevelUtil levelUtil;
     private ExtendViewport extendViewport;
-    private Box2DDebugRenderer box2dDebugRenderer;
+    // private Box2DDebugRenderer box2dDebugRenderer;
     private Stage stage;
     
     private Player player;
@@ -97,7 +97,7 @@ public class GameScreen implements Screen {
         stage = new Stage(new ScreenViewport());
 
         // World
-        box2dDebugRenderer = new Box2DDebugRenderer();
+        // box2dDebugRenderer = new Box2DDebugRenderer();
         levelUtil = new LevelUtil();
         levelUtil.loadTileMap("maps/debugLevel2/debugLevel2.tmx");
         levelUtil.world.setContactListener(new CollisionHandler(this));
@@ -308,7 +308,7 @@ public class GameScreen implements Screen {
         levelUtil.render((OrthographicCamera) extendViewport.getCamera());
 
         // Debug renderer for development!
-        box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
+        // box2dDebugRenderer.render(levelUtil.world, extendViewport.getCamera().combined);
 
         // Draw & render sprites, enemies, projectiles, etc..
         game.batch.begin();
@@ -413,7 +413,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        box2dDebugRenderer.dispose();
+        // box2dDebugRenderer.dispose();
         player.dispose();
     }    
 }

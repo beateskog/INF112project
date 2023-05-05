@@ -18,6 +18,12 @@ public abstract class HeadlessTest {
 
     private static Application application;
 
+    /**
+     * A setup function that sets up
+     * libGDX for test and creates a
+     * mock instance of the rendering
+     * context
+     */
     @BeforeAll
     public static void init() {
         application = new HeadlessApplication(new ApplicationAdapter() {});
@@ -28,6 +34,10 @@ public abstract class HeadlessTest {
         Gdx.gl = Gdx.gl20;
     }
 
+    /**
+     * A cleanup function that exits
+     * the libGDX instance
+     */
     @AfterAll
     public static void cleanUp() {
         application.exit();

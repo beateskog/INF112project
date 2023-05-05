@@ -19,7 +19,11 @@ public class SaveUtilTest extends HeadlessTest {
 
     private static String tmpDir = null;
 
-    // libGDX and temp dir setup
+    /**
+     * A setup function that handles libGDX
+     * and creates a temporary directory
+     * for the test
+     */
     @BeforeAll
     public static void start() {
         System.out.println("Starting SaveUtilTest");
@@ -36,7 +40,10 @@ public class SaveUtilTest extends HeadlessTest {
         Assertions.assertNotEquals(tmpDir, "");
     }
 
-    // libGDX and temp dir cleanup
+    /**
+     * A cleanup function that handles libGDX
+     * and removes the temporary directory
+     */
     @AfterAll
     public static void end() {
         System.out.println("Ending SaveUtilTest");
@@ -48,6 +55,10 @@ public class SaveUtilTest extends HeadlessTest {
         );
     }
 
+    /**
+     * A function that tests wether the SaveUtil
+     * can correctly write some data to a save file
+     */
     @Test
     public void testByteWrite() {
         // Test data
@@ -70,6 +81,10 @@ public class SaveUtilTest extends HeadlessTest {
         );
     }
 
+    /**
+     * A function that tests wether the SaveUtil
+     * can correctly read some data to a save file
+     */
     @Test
     public void testByteRead() {
         // Test data
@@ -92,6 +107,11 @@ public class SaveUtilTest extends HeadlessTest {
         );
     }
 
+    /**
+     * A function that tests wether the SaveUtil
+     * can correctly write and read an object
+     * to a save file
+     */
     @Test
     public void testObjectWriteRead() {
         // Test data
@@ -116,6 +136,11 @@ public class SaveUtilTest extends HeadlessTest {
         }
     }
 
+    /**
+     * A function that tests wether the SaveUtil
+     * will return a default save path by asserting
+     * that it does return something
+     */
     @Test
     public void testDefaultSavePath() {
         // Check that getDefaultSavePath() returns a value
@@ -126,16 +151,31 @@ public class SaveUtilTest extends HeadlessTest {
 }
 
 
+/**
+ * A test class of an object SaveUtil
+ * can write to a file
+ */
 class TestData implements Serializable {
 
     public String name;
     public float value;
 
+    /**
+     * The constructor
+     * 
+     * @param name the string test data name
+     * @param value the float test data value
+     */
     public TestData(String name, float value) {
         this.name = name;
         this.value = value;
     }
     
+    /**
+     * A custom equals function to correctly
+     * assert wether SaveUtil read the object
+     * correctly from file
+     */
     @Override
     public boolean equals(Object obj) {
         // Self check

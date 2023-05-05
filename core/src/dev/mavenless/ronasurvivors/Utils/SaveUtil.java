@@ -209,15 +209,12 @@ public class SaveUtil {
         String path = "";
 
         if (SystemUtils.IS_OS_MAC) {
-            // System.out.println("OS is Mac");
             path = SystemUtils.USER_HOME;
             path += "/Library/Application Support/Rona Survivors/";
         } else if (SystemUtils.IS_OS_LINUX) {
-            // System.out.println("OS is Linux");
             path = SystemUtils.USER_HOME;
             path += "/.rona-survivors/";
         } else if (SystemUtils.IS_OS_WINDOWS) {
-            // System.out.println("OS is Windows");
             path = System.getenv("APPDATA");
             path += "\\.rona-survivors\\";
         } else {
